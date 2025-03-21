@@ -1,0 +1,30 @@
+{
+  "call_sid": "5f3e0d5f-ba6f-4b18-8d80-REDACTED",
+  "direction": "inbound",
+  "from": "+447777777777",
+  "to": "+441234567890",
+  "call_id": "4ebb574f-2772-123d-6a91-REDACTED",
+  "sip_status": 200,
+  "sip_reason": "OK",
+  "call_status": "in-progress",
+  "account_sid": "66acafce-44c2-417a-a7c0-REDACTED",
+  "trace_id": "49d4e9a4754078d4682ad8a9faf7a9cf",
+  "application_sid": "db7ba948-2410-4845-949f-REDACTED",
+  "fs_sip_address": "172.31.1.74:5060",
+  "originating_sip_ip": "1.1.1.1",
+  "originating_sip_trunk_name": "_connect.callable.io",
+  "customerData": {
+    "service_url": "http://REDACTED",
+    "forwarded_ip": "1.1.1.1",
+    "trunk_id": "",
+    "ddi_id": "98960016-42b6-45bf-af09-REDACTED",
+    "paid": "+447777777777",
+    "region_id": "REDACTED",
+    "server_ip": "2.2.2.2",
+    "customer_id": "REDACTED",
+    "teams_id": "",
+    "client_id": "",
+    "global_ddi_name": "441234567890"
+  },
+  "fs_public_ip": "3.250.188.41"
+}

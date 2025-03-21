@@ -1,0 +1,17 @@
+{
+  "call_sid": "65697994-594b-44c7-af2f-REDACTED",
+  "direction": "outbound",
+  "from": "+441234567890",
+  "to": "sip:+447777777777@1.1.1.1:5060",
+  "call_id": "1dfb7a86-2772-123d-37bf-REDACTED",
+  "sip_status": 200,
+  "sip_reason": "OK",
+  "call_status": "in-progress",
+  "caller_id": "+441234567890",
+  "account_sid": "7a2cf321-f738-4b70-94d6-REDACTED",
+  "trace_id": "0ae5fab65c09f8689514bb876f62cf4c",
+  "application_sid": "62b475c3-c7ea-4c77-ae59-REDACTED",
+  "fs_sip_address": "172.31.1.74:5060",
+  "parent_call_sid": "7e070cc2-6e28-4a24-9364-REDACTED",
+  "fs_public_ip": "1.1.1.1"
+}

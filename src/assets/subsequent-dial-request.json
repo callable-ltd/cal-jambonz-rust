@@ -1,0 +1,33 @@
+{
+  "call_sid": "e35d4edf-efd2-424c-8667-REDACTED",
+  "direction": "inbound",
+  "from": "+447777777777",
+  "to": "+441234567890",
+  "call_id": "b770aa5a-2776-123d-a6a1-REDACTED",
+  "sip_status": 200,
+  "sip_reason": "OK",
+  "call_status": "in-progress",
+  "account_sid": "de190aaa-e84b-4bb2-86e3-REDACTED",
+  "trace_id": "6789ce9ca1076b36002cc78d5cc5c9fb",
+  "application_sid": "33b259c1-303d-486a-a8dd-REDACTED",
+  "fs_sip_address": "172.31.1.74:5060",
+  "originating_sip_ip": "1.1.1.1",
+  "originating_sip_trunk_name": "acme.io",
+  "customerData": {
+    "service_url": "http://REDACTED",
+    "forwarded_ip": "1.1.1.1",
+    "trunk_id": "",
+    "ddi_id": "ac1fb11d-f0bd-478e-837e-REDACTED",
+    "paid": "+447851185782",
+    "region_id": "6025510d595a477b62143463",
+    "server_ip": "2.2.2.2",
+    "customer_id": "5c5c21cc41fd960c797f9178",
+    "teams_id": "",
+    "client_id": "",
+    "global_ddi_name": "441234567890"
+  },
+  "fs_public_ip": "3.250.188.41",
+  "dial_call_status": "completed",
+  "dial_sip_status": 200,
+  "dial_call_sid": "56666f6c-5884-42a0-837d-REDACTED"
+}

@@ -1,0 +1,65 @@
+{
+  "sip": {
+    "headers": {
+      "via": "SIP/2.0/UDP 2.2.2.2;rport=5060;branch=z9hG4bK4K2DX22eNDUcm;received=172.31.1.12",
+      "max-forwards": "70",
+      "from": "<sip:+447777777777@2.2.2.2:5060>;tag=1tm903aBy5K8a",
+      "to": "<sip:+441234567890@2.2.2.2;user=phone>",
+      "call-id": "935f3b60-2775-123d-a6a1-REDACTED",
+      "cseq": "77732787 INVITE",
+      "contact": "<sip:172.31.1.12:5060>",
+      "user-agent": "SBC ABC",
+      "allow": "BYE, CANCEL, ACK, INVITE, INFO, OPTIONS",
+      "supported": "timer, replaces",
+      "min-se": "90",
+      "content-type": "application/sdp",
+      "content-length": "281",
+      "X-Account-Sid": "66acafce-44c2-417a-a7c0-REDACTED",
+      "X-CID": "be36d66-1fd50ef7-2670f4-7f1e2664d2e0-e03000a-13c4-7225",
+      "X-Forwarded-For": "1.1.1.1",
+      "X-Originating-Carrier": "_acme.io",
+      "X-Voip-Carrier-Sid": "b662ebcc-350c-4611-858c",
+      "X-Application-Sid": "db7ba948-2410-4845-949f-REDACTED",
+      "p-asserted-identity": "<sip:+447777777777@1.1.1.1;user=phone>"
+    },
+    "raw": "INVITE ...",
+    "body": "Body ...",
+    "method": "INVITE",
+    "version": "2.0",
+    "uri": "sip:+441234567890@172.31.1.11:5060",
+    "payload": [
+      {
+        "type": "application/sdp",
+        "content": "SDP ..."
+      }
+    ]
+  },
+  "direction": "inbound",
+  "trace_id": "151b12417e6460b82a97188348066439",
+  "caller_name": "",
+  "call_sid": "ac5c697a-bfae-4335-ad8a-REDACTED",
+  "account_sid": "66acafce-44c2-417a-a7c0-REDACTED",
+  "application_sid": "db7ba948-2410-4845-949f-REDACTED",
+  "from": "+447777777777",
+  "to": "+441234567890",
+  "call_id": "935f3b60-2775-123d-a6a1-REDACTED",
+  "sip_status": 100,
+  "sip_reason": "Trying",
+  "call_status": "trying",
+  "originating_sip_ip": "1.1.1.1",
+  "originating_sip_trunk_name": "_acme.io",
+  "local_sip_address": "172.31.1.11:5060",
+  "public_ip": "3.3.3.3",
+  "service_provider_sid": "9a71a5e5-7674-4744-aa5a-REDACTED",
+  "defaults": {
+    "synthesizer": {
+      "vendor": "google",
+      "language": "en-GB",
+      "voice": "en-GB-Standard-A"
+    },
+    "recognizer": {
+      "vendor": "google",
+      "language": "en-GB"
+    }
+  }
+}
