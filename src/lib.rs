@@ -939,56 +939,81 @@ pub struct Alternative {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SipPayload {
-    headers: SipPayloadHeaders,
-    payload: Vec<HashMap<String, String>>,
-    body: String,
-    method: String,
-    version: String,
-    uri: String,
-    raw: String,
+    pub headers: SipPayloadHeaders,
+    pub payload: Vec<HashMap<String, String>>,
+    pub body: String,
+    pub method: String,
+    pub version: String,
+    pub uri: String,
+    pub raw: String,
 }
 
 impl SipPayload {
     fn get_contact_ip(&self) -> String {
         self.headers.get_contact_ip()
     }
+
+    fn has_user(&self) -> bool {
+        self.headers.x_authenticated_user.is_some()
+    }
+
+    fn has_teams(&self) -> bool {
+        self.headers.x_ms_teams_tenant_fqdn.is_some()
+    }
+
+    fn has_proxy(&self, proxies: Vec<String>) -> bool {
+        let mut is_match = false;
+        for x in proxies {
+            if(x == self.headers.x_forwarded_for) {
+                is_match = true;
+            }
+        }
+       is_match
+    }
+
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SipPayloadHeaders {
-    via: String,
+    pub via: String,
     #[serde(rename = "max-forwards")]
-    max_forwards: String,
-    from: String,
-    to: String,
+    pub max_forwards: String,
+    pub from: String,
+    pub to: String,
     #[serde(rename = "call-id")]
-    call_id: String,
-    cseq: String,
-    contact: String,
+    pub call_id: String,
+    pub cseq: String,
+    pub contact: String,
     #[serde(rename = "user-agent")]
-    user_agent: String,
-    allow: String,
-    supported: String,
+    pub user_agent: String,
+    pub allow: String,
+    pub supported: String,
     #[serde(rename = "min-se")]
-    min_se: String,
+    pub min_se: String,
     #[serde(rename = "content-type")]
-    content_type: String,
+    pub content_type: String,
     #[serde(rename = "content-length")]
-    content_length: String,
+    pub content_length: String,
     #[serde(rename = "X-Account-Sid")]
-    x_account_sid: String,
+    pub x_account_sid: String,
     #[serde(rename = "X-CID")]
-    x_cid: String,
+    pub x_cid: String,
     #[serde(rename = "X-Forwarded-For")]
-    x_forwarded_for: String,
+    pub x_forwarded_for: String,
     #[serde(rename = "X-Originating-Carrier")]
-    x_originating_carrier: String,
+    pub x_originating_carrier: String,
     #[serde(rename = "X-Voip-Carrier-Sid")]
-    x_voip_carrier_sid: String,
+    pub x_voip_carrier_sid: String,
     #[serde(rename = "X-Application-Sid")]
-    x_application_sid: String,
+    pub x_application_sid: String,
     #[serde(rename = "p-asserted-identity")]
-    p_asserted_identity: String,
+    pub p_asserted_identity: String,
+    #[serde(rename = "X-Authenticated-User")]
+    pub x_authenticated_user: Option<String>,
+    #[serde(rename = "X-MS-Teams-Tenant-FQDN")]
+    pub x_ms_teams_tenant_fqdn: Option<String>,
+    #[serde(rename = "X-MS-Teams-FQDN")]
+    pub x_ms_teams_fqdn: Option<String>,
 }
 
 impl SipPayloadHeaders {
