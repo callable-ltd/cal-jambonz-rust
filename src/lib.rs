@@ -1,3 +1,4 @@
+use ip_in_subnet::iface_in_subnet;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -975,7 +976,8 @@ impl SipPayload {
     fn has_proxy(&self, proxies: Vec<String>) -> bool {
         let mut is_match = false;
         for x in proxies {
-            if x == self.headers.x_forwarded_for {
+            let res = iface_in_subnet(self.headers.x_forwarded_for.as_str(), x.as_str()).unwrap();
+            if res {
                 is_match = true;
             }
         }

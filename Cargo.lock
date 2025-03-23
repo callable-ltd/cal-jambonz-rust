@@ -13,12 +13,22 @@ dependencies = [
 
 [[package]]
 name = "cal-jambonz"
-version = "0.1.5"
+version = "0.1.6"
 dependencies = [
+ "ip-in-subnet",
  "regex",
  "serde",
  "serde_json",
  "serde_repr",
+]
+
+[[package]]
+name = "ip-in-subnet"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "da0800b3ffd5da204ef77cd93760a75812cf6a8fb20032e2011e691f46bd8630"
+dependencies = [
+ "netaddr2",
 ]
 
 [[package]]
@@ -32,6 +42,12 @@ name = "memchr"
 version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
+
+[[package]]
+name = "netaddr2"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c786be7ab83e700aaf56af5f1e4b16247182446a7679fe43a4c0eaae31242180"
 
 [[package]]
 name = "proc-macro2"
