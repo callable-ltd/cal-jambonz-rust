@@ -827,7 +827,7 @@ pub struct InitialRequest {
 }
 
 impl InitialRequest {
-    pub fn get_contact_ip(self) -> String {
+    pub fn get_contact_ip(&self) -> String {
         self.sip.get_contact_ip()
     }
 }
@@ -949,7 +949,7 @@ pub struct SipPayload {
 }
 
 impl SipPayload {
-    fn get_contact_ip(self) -> String {
+    fn get_contact_ip(&self) -> String {
         self.headers.get_contact_ip()
     }
 }
@@ -992,7 +992,7 @@ pub struct SipPayloadHeaders {
 }
 
 impl SipPayloadHeaders {
-    fn get_contact_ip(self) -> String {
+    fn get_contact_ip(&self) -> String {
         let re = Regex::new(r"<sip:(.*?):.*").unwrap();
         if let Some(mat) = re.find(&self.contact) {
             mat.as_str()
