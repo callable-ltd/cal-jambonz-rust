@@ -5,6 +5,14 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::collections::HashMap;
 use std::fs::File;
 
+pub enum TenantType {
+    PROXY,
+    TRUNK,
+    USER,
+    TEAMS,
+    APPLICATION,
+}
+
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "verb")]
@@ -831,16 +839,17 @@ impl InitialRequest {
     pub fn get_contact_ip(&self) -> String {
         self.sip.get_contact_ip()
     }
-    pub fn get_tenant_type(&self, proxies: Vec<&str>) -> String {
+    pub fn get_tenant_type(&self, proxies: Vec<&str>) -> TenantType {
         if self.sip.has_proxy(proxies) {
-            "proxy".to_string()
+            TenantType::PROXY
         } else if self.sip.has_teams() {
-            "teams".to_string()
+            TenantType::TEAMS
         } else if self.sip.has_user() {
-            "user".to_string()
+            TenantType::USER
         } else {
-            "trunk".to_string()
+            TenantType::TRUNK
         }
+        //todo impl APPLICATION
     }
 }
 
