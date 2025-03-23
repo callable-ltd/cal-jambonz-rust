@@ -830,6 +830,17 @@ impl InitialRequest {
     pub fn get_contact_ip(&self) -> String {
         self.sip.get_contact_ip()
     }
+    pub fn get_tenant_type(&self, proxies: Vec<String>) -> String {
+        if self.sip.has_proxy(proxies) {
+            "proxy".to_string()
+        } else if self.sip.has_teams() {
+            "teams".to_string()
+        } else if self.sip.has_user() {
+            "user".to_string()
+        } else {
+            "trunk".to_string()
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -964,13 +975,12 @@ impl SipPayload {
     fn has_proxy(&self, proxies: Vec<String>) -> bool {
         let mut is_match = false;
         for x in proxies {
-            if(x == self.headers.x_forwarded_for) {
+            if x == self.headers.x_forwarded_for {
                 is_match = true;
             }
         }
-       is_match
+        is_match
     }
-
 }
 
 #[derive(Serialize, Deserialize, Debug)]
