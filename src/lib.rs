@@ -995,7 +995,13 @@ impl SipPayloadHeaders {
     fn get_contact_ip(self) -> String {
         let re = Regex::new(r"<sip:(.*?):.*").unwrap();
         if let Some(mat) = re.find(&self.contact) {
-            String::from(mat.as_str())
+            mat.as_str()
+                .replace("<sip:", "")
+                .replace(">", "")
+                .split(":")
+                .next()
+                .unwrap_or("1.1.1.1")
+                .into()
         } else {
             String::from("1.1.1.1")
         }
