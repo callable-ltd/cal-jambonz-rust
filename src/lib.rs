@@ -469,8 +469,6 @@ impl SipDecline {
             headers: Some(map),
         }
     }
-
-
 }
 
 #[derive(Serialize, Deserialize)]
@@ -907,7 +905,22 @@ pub struct SubsequentRequest {
     #[serde(alias = "customerData")]
     #[serde(alias = "customerdata")]
     #[serde(alias = "customer_data")]
-    customer_data: HashMap<String, String>,
+    customer_data: CustomerData,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CustomerData {
+    x_cid: String,
+    paid: Option<String>,
+    service_url: Option<String>,
+    forwarded_ip: Option<String>,
+    trunk_id: Option<String>,
+    ddi_id: Option<String>,
+    region_id: Option<String>,
+    server_ip: Option<String>,
+    customer_id: Option<String>,
+    teams_id: Option<String>,
+    client_id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

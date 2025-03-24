@@ -14,6 +14,7 @@
   "originating_sip_ip": "1.1.1.1",
   "originating_sip_trunk_name": "acme.io",
   "customerData": {
+    "x_cid" : "be36d66-1fd50ef7-2670f4-7f1e2664d2e0-e03000a-13c4-7225",
     "service_url": "http://REDACTED",
     "forwarded_ip": "1.1.1.1",
     "trunk_id": "",
