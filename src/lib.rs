@@ -159,9 +159,12 @@ pub struct Teams {
 #[serde(rename_all = "camelCase")]
 pub struct Say {
     pub text: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub synthesizer: Option<Synthesizer>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "loop")]
     pub say_loop: Option<u8>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub early_media: Option<bool>,
 }
 
