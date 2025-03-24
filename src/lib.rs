@@ -3,6 +3,7 @@ use regex::Regex;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::collections::HashMap;
+use std::fmt::Display;
 use std::fs::File;
 
 pub enum TenantType {
@@ -13,7 +14,7 @@ pub enum TenantType {
     APPLICATION,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "verb")]
 pub enum Verb {
@@ -40,7 +41,7 @@ pub enum Verb {
     Transcribe(Transcribe),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Conference {
     name: String,
@@ -56,7 +57,7 @@ pub struct Conference {
     wait_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
     amd: Option<bool>,
@@ -71,7 +72,7 @@ pub struct Config {
     synthesizer: Synthesizer,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Dequeue {
     name: String,
@@ -80,7 +81,7 @@ pub struct Dequeue {
     timeout: Option<u8>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Dial {
     action_hook: Option<String>,
@@ -100,7 +101,7 @@ pub struct Dial {
     transcribe: Option<Transcribe>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "type")]
 pub enum Target {
@@ -110,7 +111,7 @@ pub enum Target {
     Teams(Teams),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Pstn {
     #[serde(rename = "type")]
@@ -121,7 +122,7 @@ pub struct Pstn {
     headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Sip {
     #[serde(rename = "type")]
@@ -132,7 +133,7 @@ pub struct Sip {
     headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct User {
     #[serde(rename = "type")]
@@ -142,7 +143,7 @@ pub struct User {
     headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Teams {
     #[serde(rename = "type")]
@@ -154,7 +155,7 @@ pub struct Teams {
     headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Say {
     text: String,
@@ -164,7 +165,7 @@ pub struct Say {
     early_media: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DialogFlow {
     project: String,
@@ -182,14 +183,14 @@ pub struct DialogFlow {
     baregin: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DTMF {
     dtmf: String,
     duration: Option<u8>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Enqueue {
     name: String,
@@ -198,7 +199,7 @@ pub struct Enqueue {
     wait_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Gather {
     action_hook: Option<String>,
@@ -218,7 +219,7 @@ pub struct Gather {
     recognizer: Option<Recognizer>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Hangup {
     headers: Option<HashMap<String, String>>,
@@ -232,11 +233,11 @@ impl Hangup {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Leave {}
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Lex {
     bot_id: String,
@@ -252,13 +253,13 @@ pub struct Lex {
     metadata: Option<LexMeta>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 pub struct LexMeta {
     slots: Option<HashMap<String, String>>,
     context: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 pub enum LexLocale {
     #[serde(rename = "en_AU")]
     EnglishAU,
@@ -278,14 +279,14 @@ pub enum LexLocale {
     ItalianIT,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AWSCredentials {
     access_key: String,
     secret_access_key: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Play {
     url: String,
@@ -315,7 +316,7 @@ impl Play {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Synthesizer {
     //change to enum
@@ -328,7 +329,7 @@ pub struct Synthesizer {
     voice: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SipRec {
     action: SipRecAction,
@@ -336,7 +337,7 @@ pub struct SipRec {
     recording_id: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum SipRecAction {
     StartCallRecording,
@@ -345,7 +346,7 @@ pub enum SipRecAction {
     ResumeCallRecording,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BargeIn {
     enable: Option<bool>,
@@ -359,7 +360,7 @@ pub struct BargeIn {
     inter_digit_timeout: Option<u8>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Listen {
     verb: String,
@@ -377,7 +378,7 @@ pub struct Listen {
     ws_auth: Option<WSAuth>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Message {
     from: String,
@@ -387,13 +388,13 @@ pub struct Message {
     action_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Pause {
     length: u8,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Rasa {
     url: String,
@@ -404,13 +405,13 @@ pub struct Rasa {
     recognizer: Option<Recognizer>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Redirect {
     action_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SipDecline {
     status: Option<SIPStatus>,
@@ -419,8 +420,18 @@ pub struct SipDecline {
 }
 
 impl SipDecline {
+    pub fn custom(status: SIPStatus, reason: String, x_reason: String) -> SipDecline {
+        let mut map = HashMap::new();
+        map.insert("X-Reason".to_string(), x_reason);
+        SipDecline {
+            status: Some(status),
+            reason: Some(reason),
+            headers: Some(map),
+        }
+    }
+
     pub fn server_error(reason: String, x_reason: String) -> SipDecline {
-        let mut map = ::std::collections::HashMap::new();
+        let mut map = HashMap::new();
         map.insert("X-Reason".to_string(), x_reason);
         SipDecline {
             status: Some(SIPStatus::InternalServerError),
@@ -429,8 +440,18 @@ impl SipDecline {
         }
     }
 
+    pub fn unauthorised(reason: String, x_reason: String) -> SipDecline {
+        let mut map = HashMap::new();
+        map.insert("X-Reason".to_string(), x_reason);
+        SipDecline {
+            status: Some(SIPStatus::Unauthorized),
+            reason: Some(reason),
+            headers: Some(map),
+        }
+    }
+
     pub fn not_found(reason: String, x_reason: String) -> SipDecline {
-        let mut map = ::std::collections::HashMap::new();
+        let mut map = HashMap::new();
         map.insert("X-Reason".to_string(), x_reason);
         SipDecline {
             status: Some(SIPStatus::Decline),
@@ -438,29 +459,41 @@ impl SipDecline {
             headers: Some(map),
         }
     }
+
+    pub fn not_implemented(reason: String) -> SipDecline {
+        let mut map = HashMap::new();
+        map.insert("X-Reason".to_string(), "Not Implemented".to_string());
+        SipDecline {
+            status: Some(SIPStatus::NotImplemented),
+            reason: Some(reason),
+            headers: Some(map),
+        }
+    }
+
+
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SipRefer {
     refer_to: String,
     action_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Tag {
     data: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WSAuth {
     username: String,
     password: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Transcribe {
     verb: String,
@@ -468,7 +501,7 @@ pub struct Transcribe {
     recognizer: Recognizer,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Recognizer {
     vendor: Option<String>,
@@ -510,13 +543,13 @@ pub struct Recognizer {
     soniox_options: Option<SonioxOptions>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AzureOptions {
     speech_segmentation_silence_timeout_ms: Option<u16>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceOptions {
     client_id: Option<String>,
@@ -545,7 +578,7 @@ pub struct NuanceOptions {
     resource: Vec<NuanceResource>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceResource {
     inline_wordset: Option<String>,
@@ -558,7 +591,7 @@ pub struct NuanceResource {
     external_reference: Option<NuanceExternalReference>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceExternalReference {
     #[serde(rename = "type")]
@@ -569,14 +602,14 @@ pub struct NuanceExternalReference {
     headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceFormatting {
     scheme: Option<String>,
     options: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceReferenceType {
     UndefinedResourceType,
@@ -588,7 +621,7 @@ pub enum NuanceReferenceType {
     Settings,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceReusePolicy {
     UndefinedReuse,
@@ -596,7 +629,7 @@ pub enum NuanceReusePolicy {
     HighReuse,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceWeightName {
     DefaultWeight,
@@ -607,7 +640,7 @@ pub enum NuanceWeightName {
     Highest,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceResultType {
     Final,
@@ -615,7 +648,7 @@ pub enum NuanceResultType {
     ImmutablePartial,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceUtteranceDetectionMode {
     Single,
@@ -623,11 +656,11 @@ pub enum NuanceUtteranceDetectionMode {
     Disabled,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DeepgramOptions {}
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IBMOptions {
     stt_api_key: String,
@@ -641,7 +674,7 @@ pub struct IBMOptions {
     watson_learning_opt_out: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NvidiaOptions {
     riva_uri: String,
@@ -653,7 +686,7 @@ pub struct NvidiaOptions {
     custom_configuration: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SonioxOptions {
     api_key: Option<String>,
@@ -662,7 +695,7 @@ pub struct SonioxOptions {
     storage: Option<SonioxStorage>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SonioxStorage {
     id: String,
@@ -672,13 +705,13 @@ pub struct SonioxStorage {
     disable_search: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum SonioxModel {
     PrecisionIvr,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Vad {
     enable: Option<bool>,
@@ -686,14 +719,14 @@ pub struct Vad {
     mode: Option<VadMode>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum MSOutputFormat {
     Simple,
     Detailed,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum MSProfanityOption {
     Masked,
@@ -701,7 +734,7 @@ pub enum MSProfanityOption {
     Raw,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum AWSFilterMethod {
     Remove,
@@ -709,7 +742,7 @@ pub enum AWSFilterMethod {
     Tag,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GoogleSpeechModel {
     PhoneCall,
@@ -724,7 +757,7 @@ pub enum GoogleSpeechModel {
     Video,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GoogleInteractionType {
     Discussion,
@@ -737,7 +770,7 @@ pub enum GoogleInteractionType {
     Dictation,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 pub enum VadMode {
     M0 = 0,
     M1 = 1,
@@ -745,7 +778,7 @@ pub enum VadMode {
     M3 = 3,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 pub enum SampleRate {
     SR8000 = 8000,
     SR16000 = 16000,
@@ -754,7 +787,7 @@ pub enum SampleRate {
     SR64000 = 64000,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum MixType {
     Mono,
