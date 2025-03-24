@@ -810,7 +810,7 @@ pub enum Request {
     Queue(SubsequentQueueRequest),
     Subsequent(SubsequentRequest),
     BEvent(ChildEvent),
-    AEvent(ChildEvent),
+    AEvent(ParentEvent),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -820,14 +820,18 @@ pub struct ParentEvent {
     pub from: String,
     pub to: String,
     pub call_id: String,
+    pub sbc_callid: String,
     pub sip_status: SIPStatus,
     pub sip_reason: String,
     pub call_status: String,
-    pub caller_id: String,
     pub account_sid: String,
     pub trace_id: String,
     pub application_sid: String,
     pub fs_sip_address: String,
+    pub fs_public_ip: String,
+    pub api_base_url: String,
+    pub originating_sip_ip: String,
+    pub originating_sip_trunk_name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -837,15 +841,17 @@ pub struct ChildEvent {
     pub from: String,
     pub to: String,
     pub call_id: String,
+    pub sbc_callid: String,
     pub sip_status: SIPStatus,
     pub sip_reason: String,
     pub call_status: String,
-    pub caller_id: String,
     pub account_sid: String,
     pub trace_id: String,
     pub application_sid: String,
     pub fs_sip_address: String,
+    pub fs_public_ip: String,
     pub parent_call_sid: String,
+    pub api_base_url: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
