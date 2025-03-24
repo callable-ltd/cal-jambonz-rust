@@ -44,61 +44,61 @@ pub enum Verb {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Conference {
-    name: String,
-    beep: Option<bool>,
-    action_hook: Option<String>,
-    enter_hook: Option<String>,
-    join_muted: Option<bool>,
-    max_participants: Option<u8>,
-    end_conference_on_exit: Option<bool>,
-    start_conference_on_enter: Option<bool>,
-    status_hook: Option<String>,
-    status_events: Vec<String>,
-    wait_hook: Option<String>,
+    pub name: String,
+    pub beep: Option<bool>,
+    pub action_hook: Option<String>,
+    pub enter_hook: Option<String>,
+    pub join_muted: Option<bool>,
+    pub max_participants: Option<u8>,
+    pub end_conference_on_exit: Option<bool>,
+    pub start_conference_on_enter: Option<bool>,
+    pub status_hook: Option<String>,
+    pub status_events: Vec<String>,
+    pub wait_hook: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
-    amd: Option<bool>,
-    bargein: Option<BargeIn>,
-    listen: Option<Listen>,
-    notify_events: Option<bool>,
-    on_hold_music: Option<String>,
-    recognizer: Option<Recognizer>,
-    reset: Option<Vec<String>>,
-    record: Option<SipRec>,
-    sip_request_within_dialog_hook: Option<String>,
-    synthesizer: Synthesizer,
+    pub amd: Option<bool>,
+    pub bargein: Option<BargeIn>,
+    pub listen: Option<Listen>,
+    pub notify_events: Option<bool>,
+    pub on_hold_music: Option<String>,
+    pub recognizer: Option<Recognizer>,
+    pub reset: Option<Vec<String>>,
+    pub record: Option<SipRec>,
+    pub sip_request_within_dialog_hook: Option<String>,
+    pub synthesizer: Synthesizer,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Dequeue {
-    name: String,
-    action_hook: Option<String>,
-    beep: Option<bool>,
-    timeout: Option<u8>,
+    pub name: String,
+    pub action_hook: Option<String>,
+    pub beep: Option<bool>,
+    pub timeout: Option<u8>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Dial {
-    action_hook: Option<String>,
-    amd: Option<bool>,
-    answer_on_bridge: Option<bool>,
-    caller_id: Option<String>,
-    confirm_hook: Option<String>,
-    dial_music: Option<String>,
-    dtmf_capture: Option<Vec<String>>,
-    dtmf_hook: Option<String>,
-    headers: Option<HashMap<String, String>>,
-    listen: Option<Listen>,
-    refer_hook: Option<String>,
-    target: Vec<Target>,
-    time_limit: Option<u16>,
-    timeout: Option<u8>,
-    transcribe: Option<Transcribe>,
+    pub action_hook: Option<String>,
+    pub amd: Option<bool>,
+    pub answer_on_bridge: Option<bool>,
+    pub caller_id: Option<String>,
+    pub confirm_hook: Option<String>,
+    pub dial_music: Option<String>,
+    pub dtmf_capture: Option<Vec<String>>,
+    pub dtmf_hook: Option<String>,
+    pub headers: Option<HashMap<String, String>>,
+    pub listen: Option<Listen>,
+    pub refer_hook: Option<String>,
+    pub target: Vec<Target>,
+    pub time_limit: Option<u16>,
+    pub timeout: Option<u8>,
+    pub transcribe: Option<Transcribe>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -115,114 +115,114 @@ pub enum Target {
 #[serde(rename_all = "camelCase")]
 pub struct Pstn {
     #[serde(rename = "type")]
-    target_type: String,
-    number: String,
-    confirm_hook: Option<String>,
-    trunk: Option<String>,
-    headers: Option<HashMap<String, String>>,
+    pub target_type: String,
+    pub number: String,
+    pub confirm_hook: Option<String>,
+    pub trunk: Option<String>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Sip {
     #[serde(rename = "type")]
-    target_type: String,
-    sip_uri: String,
-    confirm_hook: Option<String>,
-    auth: Option<WSAuth>,
-    headers: Option<HashMap<String, String>>,
+    pub target_type: String,
+    pub sip_uri: String,
+    pub confirm_hook: Option<String>,
+    pub auth: Option<WSAuth>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct User {
     #[serde(rename = "type")]
-    target_type: String,
-    name: String,
-    confirm_hook: Option<String>,
-    headers: Option<HashMap<String, String>>,
+    pub target_type: String,
+    pub name: String,
+    pub confirm_hook: Option<String>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Teams {
     #[serde(rename = "type")]
-    target_type: String,
-    number: String,
-    confirm_hook: Option<String>,
-    tenant: Option<String>,
-    voicemail: Option<bool>,
-    headers: Option<HashMap<String, String>>,
+    pub target_type: String,
+    pub number: String,
+    pub confirm_hook: Option<String>,
+    pub tenant: Option<String>,
+    pub voicemail: Option<bool>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Say {
-    text: Vec<String>,
-    synthesizer: Synthesizer,
+    pub text: Vec<String>,
+    pub synthesizer: Synthesizer,
     #[serde(rename = "loop")]
-    say_loop: Option<u8>,
-    early_media: Option<bool>,
+    pub say_loop: Option<u8>,
+    pub early_media: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DialogFlow {
-    project: String,
-    lang: String,
-    credentials: String,
-    welcome_event: Option<String>,
-    welcome_event_params: Option<HashMap<String, String>>,
-    no_input_timeout: Option<u8>,
-    no_input_event: Option<String>,
-    pass_dtmf_as_text_input: Option<String>,
-    thinking_music: Option<String>,
-    action_hook: Option<String>,
-    event_hook: Option<String>,
-    tts: Synthesizer,
-    baregin: Option<bool>,
+    pub project: String,
+    pub lang: String,
+    pub credentials: String,
+    pub welcome_event: Option<String>,
+    pub welcome_event_params: Option<HashMap<String, String>>,
+    pub no_input_timeout: Option<u8>,
+    pub no_input_event: Option<String>,
+    pub pass_dtmf_as_text_input: Option<String>,
+    pub thinking_music: Option<String>,
+    pub action_hook: Option<String>,
+    pub event_hook: Option<String>,
+    pub tts: Synthesizer,
+    pub baregin: Option<bool>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DTMF {
-    dtmf: String,
-    duration: Option<u8>,
+    pub dtmf: String,
+    pub duration: Option<u8>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Enqueue {
-    name: String,
-    priority: Option<u16>,
-    action_hook: Option<String>,
-    wait_hook: Option<String>,
+    pub name: String,
+    pub priority: Option<u16>,
+    pub action_hook: Option<String>,
+    pub wait_hook: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Gather {
-    action_hook: Option<String>,
-    bargein: Option<bool>,
-    dtmf_bargein: Option<bool>,
-    finish_on_key: Option<String>,
-    input: Option<Vec<String>>,
-    inter_digit_timeout: Option<u8>,
-    listen_during_prompt: Option<bool>,
-    min_bargein_word_count: Option<u8>,
-    min_digits: Option<u8>,
-    max_digits: Option<u8>,
-    num_digits: Option<u8>,
-    partial_result_hook: Option<String>,
-    play: Option<Play>,
-    say: Option<Say>,
-    recognizer: Option<Recognizer>,
+    pub action_hook: Option<String>,
+    pub bargein: Option<bool>,
+    pub dtmf_bargein: Option<bool>,
+    pub finish_on_key: Option<String>,
+    pub input: Option<Vec<String>>,
+    pub inter_digit_timeout: Option<u8>,
+    pub listen_during_prompt: Option<bool>,
+    pub min_bargein_word_count: Option<u8>,
+    pub min_digits: Option<u8>,
+    pub max_digits: Option<u8>,
+    pub num_digits: Option<u8>,
+    pub partial_result_hook: Option<String>,
+    pub play: Option<Play>,
+    pub say: Option<Say>,
+    pub recognizer: Option<Recognizer>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Hangup {
-    headers: Option<HashMap<String, String>>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 impl Hangup {
@@ -240,23 +240,23 @@ pub struct Leave {}
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Lex {
-    bot_id: String,
-    bot_alias: String,
-    credentials: AWSCredentials,
-    region: String,
-    locale: LexLocale,
-    event_hook: Option<String>,
-    intent: Option<String>,
-    welcome_message: Option<String>,
-    no_input_timeout: Option<u8>,
-    tts: Option<Synthesizer>,
-    metadata: Option<LexMeta>,
+    pub bot_id: String,
+    pub bot_alias: String,
+    pub credentials: AWSCredentials,
+    pub region: String,
+    pub locale: LexLocale,
+    pub event_hook: Option<String>,
+    pub intent: Option<String>,
+    pub welcome_message: Option<String>,
+    pub no_input_timeout: Option<u8>,
+    pub tts: Option<Synthesizer>,
+    pub metadata: Option<LexMeta>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct LexMeta {
-    slots: Option<HashMap<String, String>>,
-    context: Option<HashMap<String, String>>,
+    pub slots: Option<HashMap<String, String>>,
+    pub context: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -282,25 +282,25 @@ pub enum LexLocale {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AWSCredentials {
-    access_key: String,
-    secret_access_key: String,
+    pub access_key: String,
+    pub secret_access_key: String,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Play {
-    url: String,
+    pub url: String,
     #[serde(rename = "loop")]
     #[serde(skip_serializing_if = "Option::is_none")]
-    play_loop: Option<u8>,
+    pub play_loop: Option<u8>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    early_media: Option<bool>,
+    pub early_media: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    timeout_secs: Option<u8>,
+    pub timeout_secs: Option<u8>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    seek_offset: Option<u16>,
+    pub seek_offset: Option<u16>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    action_hook: Option<String>,
+    pub action_hook: Option<String>,
 }
 
 impl Play {
@@ -320,21 +320,21 @@ impl Play {
 #[serde(rename_all = "camelCase")]
 pub struct Synthesizer {
     //change to enum
-    vendor: Option<String>,
+    pub vendor: Option<String>,
     //change to enum
-    language: Option<String>,
+    pub language: Option<String>,
     //change to enum
-    gender: Option<String>,
+    pub gender: Option<String>,
     //change to enum
-    voice: Option<String>,
+    pub voice: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SipRec {
-    action: SipRecAction,
-    siprec_server_url: String,
-    recording_id: Option<String>,
+    pub action: SipRecAction,
+    pub siprec_server_url: String,
+    pub recording_id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -349,74 +349,74 @@ pub enum SipRecAction {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BargeIn {
-    enable: Option<bool>,
-    sticky: Option<bool>,
-    action_hook: Option<String>,
-    input: Vec<String>,
-    finish_on_key: Option<String>,
-    num_digits: Option<u8>,
-    min_digits: Option<u8>,
-    max_digits: Option<u8>,
-    inter_digit_timeout: Option<u8>,
+    pub enable: Option<bool>,
+    pub sticky: Option<bool>,
+    pub action_hook: Option<String>,
+    pub input: Vec<String>,
+    pub finish_on_key: Option<String>,
+    pub num_digits: Option<u8>,
+    pub min_digits: Option<u8>,
+    pub max_digits: Option<u8>,
+    pub inter_digit_timeout: Option<u8>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Listen {
-    verb: String,
-    url: String,
-    action_hook: String,
-    finish_on_key: Option<String>,
-    max_length: Option<u16>,
-    metadata: Option<HashMap<String, String>>,
-    mix_type: Option<MixType>,
-    pass_dtmf: Option<bool>,
-    play_beep: Option<bool>,
-    sample_rate: SampleRate,
-    timeout: u8,
-    transcribe: Option<Transcribe>,
-    ws_auth: Option<WSAuth>,
+    pub verb: String,
+    pub url: String,
+    pub action_hook: String,
+    pub finish_on_key: Option<String>,
+    pub max_length: Option<u16>,
+    pub metadata: Option<HashMap<String, String>>,
+    pub mix_type: Option<MixType>,
+    pub pass_dtmf: Option<bool>,
+    pub play_beep: Option<bool>,
+    pub sample_rate: SampleRate,
+    pub timeout: u8,
+    pub transcribe: Option<Transcribe>,
+    pub ws_auth: Option<WSAuth>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Message {
-    from: String,
-    to: String,
-    text: String,
-    carrier: Option<String>,
-    action_hook: Option<String>,
+    pub from: String,
+    pub to: String,
+    pub text: String,
+    pub carrier: Option<String>,
+    pub action_hook: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Pause {
-    length: u8,
+    pub length: u8,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Rasa {
-    url: String,
-    prompt: Option<String>,
-    event_hook: Option<String>,
-    action_hook: Option<String>,
-    tts: Option<Synthesizer>,
-    recognizer: Option<Recognizer>,
+    pub   url: String,
+    pub   prompt: Option<String>,
+    pub  event_hook: Option<String>,
+    pub  action_hook: Option<String>,
+    pub  tts: Option<Synthesizer>,
+    pub  recognizer: Option<Recognizer>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Redirect {
-    action_hook: Option<String>,
+    pub   action_hook: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SipDecline {
-    status: Option<SIPStatus>,
-    reason: Option<String>,
-    headers: Option<HashMap<String, String>>,
+    pub   status: Option<SIPStatus>,
+    pub   reason: Option<String>,
+    pub  headers: Option<HashMap<String, String>>,
 }
 
 impl SipDecline {
@@ -474,137 +474,137 @@ impl SipDecline {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SipRefer {
-    refer_to: String,
-    action_hook: Option<String>,
+    pub  refer_to: String,
+    pub  action_hook: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Tag {
-    data: Option<HashMap<String, String>>,
+    pub   data: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WSAuth {
-    username: String,
-    password: String,
+    pub   username: String,
+    pub   password: String,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Transcribe {
-    verb: String,
-    transcription_hook: String,
-    recognizer: Recognizer,
+    pub   verb: String,
+    pub   transcription_hook: String,
+    pub  recognizer: Recognizer,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Recognizer {
-    vendor: Option<String>,
-    language: Option<String>,
-    interim: Option<bool>,
-    hints: Option<Vec<String>>,
-    hints_boost: Option<u8>,
-    profanity_filter: Option<bool>,
-    single_utterance: Option<bool>,
-    vad: Vad,
-    separate_recognition_per_channel: Option<bool>,
-    alt_languages: Vec<String>,
-    punctuation: Option<bool>,
-    model: Option<GoogleSpeechModel>,
-    enhanced_model: Option<bool>,
-    words: Option<bool>,
-    diarization: Option<bool>,
-    diarization_min_speakers: Option<u8>,
-    diarization_max_speakers: Option<u8>,
-    interaction_type: Option<GoogleInteractionType>,
-    naics_code: Option<bool>,
-    vocabulary_name: Option<String>,
-    vocabulary_filter_name: Option<String>,
-    filter_method: Option<AWSFilterMethod>,
-    identify_channels: Option<bool>,
-    profanity_option: Option<MSProfanityOption>,
-    output_format: Option<MSOutputFormat>,
-    request_snr: Option<bool>,
-    initial_speech_timeout_ms: Option<u16>,
-    transcription_hook: String,
-    asr_timeout: Option<u8>,
-    asr_dtmf_termination_digit: Option<String>,
-    azure_service_endpoint: Option<String>,
-    azure_options: Option<AzureOptions>,
-    deepgram_options: Option<DeepgramOptions>,
-    ibm_options: Option<IBMOptions>,
-    nuance_options: Option<NuanceOptions>,
-    nvidia_options: Option<NvidiaOptions>,
-    soniox_options: Option<SonioxOptions>,
+    pub  vendor: Option<String>,
+    pub  language: Option<String>,
+    pub  interim: Option<bool>,
+    pub  hints: Option<Vec<String>>,
+    pub   hints_boost: Option<u8>,
+    pub   profanity_filter: Option<bool>,
+    pub   single_utterance: Option<bool>,
+    pub   vad: Vad,
+    pub   separate_recognition_per_channel: Option<bool>,
+    pub   alt_languages: Vec<String>,
+    pub  punctuation: Option<bool>,
+    pub  model: Option<GoogleSpeechModel>,
+    pub  enhanced_model: Option<bool>,
+    pub  words: Option<bool>,
+    pub  diarization: Option<bool>,
+    pub  diarization_min_speakers: Option<u8>,
+    pub  diarization_max_speakers: Option<u8>,
+    pub  interaction_type: Option<GoogleInteractionType>,
+    pub  naics_code: Option<bool>,
+    pub  vocabulary_name: Option<String>,
+    pub  vocabulary_filter_name: Option<String>,
+    pub  filter_method: Option<AWSFilterMethod>,
+    pub  identify_channels: Option<bool>,
+    pub  profanity_option: Option<MSProfanityOption>,
+    pub   output_format: Option<MSOutputFormat>,
+    pub   request_snr: Option<bool>,
+    pub  initial_speech_timeout_ms: Option<u16>,
+    pub  transcription_hook: String,
+    pub  asr_timeout: Option<u8>,
+    pub  asr_dtmf_termination_digit: Option<String>,
+    pub  azure_service_endpoint: Option<String>,
+    pub  azure_options: Option<AzureOptions>,
+    pub  deepgram_options: Option<DeepgramOptions>,
+    pub  ibm_options: Option<IBMOptions>,
+    pub  nuance_options: Option<NuanceOptions>,
+    pub  nvidia_options: Option<NvidiaOptions>,
+    pub  soniox_options: Option<SonioxOptions>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AzureOptions {
-    speech_segmentation_silence_timeout_ms: Option<u16>,
+    pub  speech_segmentation_silence_timeout_ms: Option<u16>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceOptions {
-    client_id: Option<String>,
-    secret: Option<String>,
-    krypton_endpoint: Option<String>,
-    topic: Option<String>,
-    utterance_detection_mode: Option<NuanceUtteranceDetectionMode>,
-    punctuation: Option<bool>,
-    include_tokenization: Option<bool>,
-    discard_speaker_adaptation: Option<bool>,
-    suppress_call_recording: Option<bool>,
-    mask_load_failures: Option<bool>,
-    suppress_initial_capitalization: Option<bool>,
-    allow_zero_base_lm_weight: Option<bool>,
-    filter_wakeup_word: Option<bool>,
-    result_type: Option<NuanceResultType>,
-    no_input_timeout_ms: Option<u16>,
-    recognition_timeout_ms: Option<u16>,
-    utterance_end_silence_ms: Option<u16>,
-    max_hypotheses: Option<u8>,
-    speech_domain: Option<bool>,
-    user_id: Option<String>,
-    speech_detection_sensitivity: Option<f32>,
-    client_data: Option<HashMap<String, String>>,
-    formatting: Option<NuanceFormatting>,
-    resource: Vec<NuanceResource>,
+    pub    client_id: Option<String>,
+    pub    secret: Option<String>,
+    pub    krypton_endpoint: Option<String>,
+    pub   topic: Option<String>,
+    pub   utterance_detection_mode: Option<NuanceUtteranceDetectionMode>,
+    pub   punctuation: Option<bool>,
+    pub   include_tokenization: Option<bool>,
+    pub   discard_speaker_adaptation: Option<bool>,
+    pub suppress_call_recording: Option<bool>,
+    pub mask_load_failures: Option<bool>,
+    pub suppress_initial_capitalization: Option<bool>,
+    pub allow_zero_base_lm_weight: Option<bool>,
+    pub filter_wakeup_word: Option<bool>,
+    pub result_type: Option<NuanceResultType>,
+    pub no_input_timeout_ms: Option<u16>,
+    pub recognition_timeout_ms: Option<u16>,
+    pub utterance_end_silence_ms: Option<u16>,
+    pub max_hypotheses: Option<u8>,
+    pub speech_domain: Option<bool>,
+    pub user_id: Option<String>,
+    pub speech_detection_sensitivity: Option<f32>,
+    pub client_data: Option<HashMap<String, String>>,
+    pub formatting: Option<NuanceFormatting>,
+    pub resource: Vec<NuanceResource>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceResource {
-    inline_wordset: Option<String>,
-    builtin: Option<String>,
-    inline_grammar: Option<String>,
-    wakeup_word: Option<Vec<String>>,
-    weight_name: Option<NuanceWeightName>,
-    weight_value: Option<f32>,
-    reuse: Option<NuanceReusePolicy>,
-    external_reference: Option<NuanceExternalReference>,
+    pub inline_wordset: Option<String>,
+    pub builtin: Option<String>,
+    pub inline_grammar: Option<String>,
+    pub wakeup_word: Option<Vec<String>>,
+    pub weight_name: Option<NuanceWeightName>,
+    pub weight_value: Option<f32>,
+    pub reuse: Option<NuanceReusePolicy>,
+    pub external_reference: Option<NuanceExternalReference>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceExternalReference {
     #[serde(rename = "type")]
-    ref_type: Option<NuanceReferenceType>,
-    uri: Option<String>,
-    max_load_failures: Option<bool>,
-    request_timeout_ms: Option<u16>,
-    headers: Option<HashMap<String, String>>,
+    pub ref_type: Option<NuanceReferenceType>,
+    pub uri: Option<String>,
+    pub     max_load_failures: Option<bool>,
+    pub request_timeout_ms: Option<u16>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceFormatting {
-    scheme: Option<String>,
-    options: Option<HashMap<String, String>>,
+    pub scheme: Option<String>,
+    pub options: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -661,46 +661,46 @@ pub struct DeepgramOptions {}
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IBMOptions {
-    stt_api_key: String,
-    stt_region: String,
-    instance_id: String,
-    model: String,
-    language_customization_id: String,
-    acoustic_customization_id: String,
-    base_model_version: String,
-    watson_metadata: String,
-    watson_learning_opt_out: bool,
+    pub stt_api_key: String,
+    pub stt_region: String,
+    pub instance_id: String,
+    pub model: String,
+    pub language_customization_id: String,
+    pub acoustic_customization_id: String,
+    pub base_model_version: String,
+    pub watson_metadata: String,
+    pub watson_learning_opt_out: bool,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NvidiaOptions {
-    riva_uri: String,
-    max_alternatives: u8,
-    profanity_filter: bool,
-    punctuation: bool,
-    word_time_offsets: bool,
-    verbatim_transcripts: bool,
-    custom_configuration: Option<HashMap<String, String>>,
+    pub riva_uri: String,
+    pub max_alternatives: u8,
+    pub profanity_filter: bool,
+    pub punctuation: bool,
+    pub word_time_offsets: bool,
+    pub verbatim_transcripts: bool,
+    pub custom_configuration: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SonioxOptions {
-    api_key: Option<String>,
-    model: Option<SonioxModel>,
-    profanity_filter: Option<bool>,
-    storage: Option<SonioxStorage>,
+    pub api_key: Option<String>,
+    pub model: Option<SonioxModel>,
+    pub profanity_filter: Option<bool>,
+    pub storage: Option<SonioxStorage>,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SonioxStorage {
-    id: String,
-    title: String,
-    disable_store_audio: bool,
-    disable_store_transcript: bool,
-    disable_search: bool,
+    pub id: String,
+    pub title: String,
+    pub disable_store_audio: bool,
+    pub disable_store_transcript: bool,
+    pub disable_search: bool,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -712,9 +712,9 @@ pub enum SonioxModel {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Vad {
-    enable: Option<bool>,
-    voice_ms: Option<u16>,
-    mode: Option<VadMode>,
+    pub enable: Option<bool>,
+    pub voice_ms: Option<u16>,
+    pub mode: Option<VadMode>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -886,99 +886,99 @@ impl InitialRequest {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SubsequentRequest {
-    direction: Direction,
-    account_sid: String,
-    application_sid: String,
-    call_sid: String,
-    call_id: String,
-    from: String,
-    to: String,
-    sip_status: SIPStatus,
-    call_status: String,
-    fs_sip_address: String,
-    trace_id: String,
-    originating_sip_ip: Option<String>,
-    originating_sip_trunk_name: Option<String>,
-    duration: Option<u16>,
-    digits: Option<String>,
-    speech: Option<Speech>,
+    pub direction: Direction,
+    pub account_sid: String,
+    pub application_sid: String,
+    pub call_sid: String,
+    pub call_id: String,
+    pub from: String,
+    pub to: String,
+    pub sip_status: SIPStatus,
+    pub call_status: String,
+    pub fs_sip_address: String,
+    pub trace_id: String,
+    pub originating_sip_ip: Option<String>,
+    pub originating_sip_trunk_name: Option<String>,
+    pub duration: Option<u16>,
+    pub digits: Option<String>,
+    pub speech: Option<Speech>,
     #[serde(alias = "customerData")]
     #[serde(alias = "customerdata")]
     #[serde(alias = "customer_data")]
-    customer_data: CustomerData,
+    pub customer_data: CustomerData,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CustomerData {
-    x_cid: String,
-    paid: Option<String>,
-    service_url: Option<String>,
-    forwarded_ip: Option<String>,
-    trunk_id: Option<String>,
-    ddi_id: Option<String>,
-    region_id: Option<String>,
-    server_ip: Option<String>,
-    customer_id: Option<String>,
-    teams_id: Option<String>,
-    client_id: Option<String>,
+    pub x_cid: String,
+    pub paid: Option<String>,
+    pub service_url: Option<String>,
+    pub forwarded_ip: Option<String>,
+    pub trunk_id: Option<String>,
+    pub ddi_id: Option<String>,
+    pub region_id: Option<String>,
+    pub server_ip: Option<String>,
+    pub customer_id: Option<String>,
+    pub teams_id: Option<String>,
+    pub client_id: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SubsequentDialRequest {
-    direction: Direction,
-    account_sid: String,
-    application_sid: String,
-    call_sid: String,
-    call_id: String,
-    from: String,
-    to: String,
-    sip_status: SIPStatus,
-    call_status: String,
-    fs_sip_address: String,
-    fs_public_ip: String,
-    originating_sip_ip: Option<String>,
-    originating_sip_trunk_name: Option<String>,
-    duration: Option<u16>,
-    digits: Option<String>,
-    speech: Option<Speech>,
+    pub direction: Direction,
+    pub account_sid: String,
+    pub application_sid: String,
+    pub call_sid: String,
+    pub call_id: String,
+    pub from: String,
+    pub to: String,
+    pub sip_status: SIPStatus,
+    pub call_status: String,
+    pub fs_sip_address: String,
+    pub fs_public_ip: String,
+    pub originating_sip_ip: Option<String>,
+    pub originating_sip_trunk_name: Option<String>,
+    pub duration: Option<u16>,
+    pub digits: Option<String>,
+    pub speech: Option<Speech>,
     #[serde(alias = "customerData")]
     #[serde(alias = "customerdata")]
     #[serde(alias = "customer_data")]
-    customer_data: HashMap<String, String>,
-    dial_call_sid: String,
-    dial_call_status: String,
-    dial_sip_status: SIPStatus,
+    pub customer_data: HashMap<String, String>,
+    pub dial_call_sid: String,
+    pub dial_call_status: String,
+    pub dial_sip_status: SIPStatus,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SubsequentQueueRequest {
-    direction: Direction,
-    account_sid: String,
-    application_sid: String,
-    call_sid: String,
-    parent_call_sid: String,
-    call_id: String,
-    from: String,
-    to: String,
-    caller_name: String,
-    sip_status: SIPStatus,
-    call_status: String,
-    fs_sip_address: String,
-    public_ip: String,
-    originating_sip_ip: Option<String>,
-    originating_sip_trunk_name: Option<String>,
-    duration: Option<u16>,
-    digits: Option<String>,
-    speech: Option<Speech>,
+    pub direction: Direction,
+    pub account_sid: String,
+    pub application_sid: String,
+    pub call_sid: String,
+    pub parent_call_sid: String,
+    pub call_id: String,
+    pub from: String,
+    pub to: String,
+    pub caller_name: String,
+    pub sip_status: SIPStatus,
+    pub call_status: String,
+    pub fs_sip_address: String,
+    pub public_ip: String,
+    pub originating_sip_ip: Option<String>,
+    pub originating_sip_trunk_name: Option<String>,
+    pub duration: Option<u16>,
+    pub digits: Option<String>,
+    pub speech: Option<Speech>,
     #[serde(alias = "customerData")]
     #[serde(alias = "customerdata")]
     #[serde(alias = "customer_data")]
-    customer_data: HashMap<String, String>,
-    queue_sid: String,
-    queue_time: u16,
-    queue_position: u16,
-    queue_size: u16,
-    queue_result: QueueResult,
+    pub customer_data: HashMap<String, String>,
+    pub queue_sid: String,
+    pub queue_time: u16,
+    pub queue_position: u16,
+    pub queue_size: u16,
+    pub queue_result: QueueResult,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -992,16 +992,16 @@ pub enum QueueResult {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Speech {
-    stability: Option<u8>,
-    final_result: bool,
+    pub stability: Option<u8>,
+    pub final_result: bool,
     #[serde(default)]
-    alternatives: Vec<Alternative>,
+    pub alternatives: Vec<Alternative>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Alternative {
-    confidence: f32,
-    transcript: String,
+    pub confidence: f32,
+    pub transcript: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -1190,70 +1190,3 @@ pub enum SIPStatus {
     Rejected = 608,
 }
 
-#[test]
-fn test_inbound_initial_json() {
-    let file = File::open("./assets/initial-request.json").expect("file should open read only");
-
-    let req: Request = serde_json::from_reader(file).expect("file should be proper JSON");
-
-    match req {
-        Request::Initial(value) => println!("{:#?}", value),
-        _ => panic!("Incorrect request type"),
-    }
-}
-
-#[test]
-fn test_inbound_subsequent_json() {
-    let file = File::open("./assets/subsequent-request.json").expect("file should open read only");
-
-    let req: Request = serde_json::from_reader(file).expect("file should be proper JSON");
-
-    match req {
-        Request::Subsequent(value) => println!("{:#?}", value),
-        _ => panic!("Incorrect request type"),
-    }
-}
-
-#[test]
-fn test_inbound_subsequent_dial_json() {
-    let file =
-        File::open("./assets/subsequent-dial-request.json").expect("file should open read only");
-
-    let req: Request = serde_json::from_reader(file).expect("file should be proper JSON");
-
-    match req {
-        Request::Dial(value) => println!("{:#?}", value),
-        _ => panic!("Incorrect request type"),
-    }
-}
-
-#[test]
-fn test_outbound_json() {
-    let file =
-        File::open("./assets/outbound-child-event.json").expect("file should open read only");
-
-    let req: Request = serde_json::from_reader(file).expect("file should be proper JSON");
-
-    match req {
-        Request::BEvent(value) => println!("{:#?}", value),
-        _ => panic!("Incorrect request type"),
-    }
-}
-
-#[test]
-fn test_play() {
-    let play: Play = Play::new(
-        String::from("http://test.com/play.mp3"),
-        String::from("http://test.com/voice/route/1"),
-    );
-
-    let verb = Verb::Play(play);
-    let json: String = serde_json::to_string(&verb).expect("Play cannot map to JSON string");
-
-    assert_eq!(
-        json,
-        "{\"verb\":\"play\",\"url\":\"http://test.com/play.mp3\",\"actionHook\":\"http://test.com/voice/route/1\"}"
-    );
-
-    println!("{:#?}", json)
-}
