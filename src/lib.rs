@@ -159,7 +159,7 @@ pub struct Teams {
 #[serde(rename_all = "camelCase")]
 pub struct Say {
     pub text: String,
-    pub synthesizer: Synthesizer,
+    pub synthesizer: Option<Synthesizer>,
     #[serde(rename = "loop")]
     pub say_loop: Option<u8>,
     pub early_media: Option<bool>,
