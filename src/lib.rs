@@ -158,7 +158,7 @@ pub struct Teams {
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Say {
-    pub text: Vec<String>,
+    pub text: String,
     pub synthesizer: Synthesizer,
     #[serde(rename = "loop")]
     pub say_loop: Option<u8>,
