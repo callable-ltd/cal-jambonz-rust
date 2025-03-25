@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-
+use log::error;
 use crate::{InitialRequest, Play, Request, Say, Verb};
 
 
@@ -127,7 +127,7 @@ impl WebsocketReply {
     pub fn json(&self) -> String {
         serde_json::to_string(self)
             .unwrap_or_else(|e| {
-                println!("{}", e);
+                error!("{}", e);
                 "Error serializing WebsocketReply".to_string()
             })
     }

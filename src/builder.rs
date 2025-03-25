@@ -1,7 +1,5 @@
 use crate::websocket::Redirect;
-use crate::{
-    Ack, Command, CommandValue, Hangup, Play, Say, Verb, Verbs, WebsocketReply,
-};
+use crate::{Ack, Command, CommandValue, Hangup, Play, Say, Verb, Verbs, WebsocketReply};
 
 trait VerbTrait {
     fn new() -> Verbs;
@@ -128,6 +126,11 @@ impl Redirect {
 
     pub fn push(&mut self, verb: Verb) -> Redirect {
         self.verbs.push(verb);
+        self.clone()
+    }
+
+    pub fn verbs(&mut self, verbs: Vec<Verb>) -> Redirect {
+        self.verbs = Verbs { data: verbs };
         self.clone()
     }
 
