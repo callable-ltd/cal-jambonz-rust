@@ -1,4 +1,4 @@
-use crate::{Ack, Play, Say, Verb};
+use crate::{Ack, Play, Say, Verb, WebsocketReply};
 
 impl Ack {
     pub fn new(msg_id: &str) -> Ack {
@@ -39,5 +39,9 @@ impl Ack {
             msgid: self.msgid.to_string(),
             data: self.data.clone(),
         }
+    }
+    
+    pub fn ack(self) -> WebsocketReply {
+        WebsocketReply::Ack(self)
     }
 }
