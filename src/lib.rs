@@ -1,3 +1,4 @@
+mod builder;
 mod websocket;
 
 use ip_in_subnet::iface_in_subnet;
@@ -16,9 +17,7 @@ pub enum TenantType {
     APPLICATION,
 }
 
-
-
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "verb")]
 pub enum Verb {
@@ -45,7 +44,7 @@ pub enum Verb {
     Transcribe(Transcribe),
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Conference {
     pub name: String,
@@ -61,7 +60,7 @@ pub struct Conference {
     pub wait_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
     pub amd: Option<bool>,
@@ -76,7 +75,7 @@ pub struct Config {
     pub synthesizer: Synthesizer,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Dequeue {
     pub name: String,
@@ -85,7 +84,7 @@ pub struct Dequeue {
     pub timeout: Option<u8>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Dial {
     pub action_hook: Option<String>,
@@ -105,7 +104,7 @@ pub struct Dial {
     pub transcribe: Option<Transcribe>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "type")]
 pub enum Target {
@@ -115,7 +114,7 @@ pub enum Target {
     Teams(Teams),
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Pstn {
     #[serde(rename = "type")]
@@ -126,7 +125,7 @@ pub struct Pstn {
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Sip {
     #[serde(rename = "type")]
@@ -137,7 +136,7 @@ pub struct Sip {
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct User {
     #[serde(rename = "type")]
@@ -147,7 +146,7 @@ pub struct User {
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Teams {
     #[serde(rename = "type")]
@@ -159,7 +158,7 @@ pub struct Teams {
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Say {
     pub text: String,
@@ -172,7 +171,7 @@ pub struct Say {
     pub early_media: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DialogFlow {
     pub project: String,
@@ -190,14 +189,14 @@ pub struct DialogFlow {
     pub baregin: Option<bool>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DTMF {
     pub dtmf: String,
     pub duration: Option<u8>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Enqueue {
     pub name: String,
@@ -206,7 +205,7 @@ pub struct Enqueue {
     pub wait_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Gather {
     pub action_hook: Option<String>,
@@ -226,7 +225,7 @@ pub struct Gather {
     pub recognizer: Option<Recognizer>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Hangup {
     pub headers: Option<HashMap<String, String>>,
@@ -240,11 +239,11 @@ impl Hangup {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Leave {}
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Lex {
     pub bot_id: String,
@@ -260,13 +259,13 @@ pub struct Lex {
     pub metadata: Option<LexMeta>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct LexMeta {
     pub slots: Option<HashMap<String, String>>,
     pub context: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum LexLocale {
     #[serde(rename = "en_AU")]
     EnglishAU,
@@ -286,14 +285,14 @@ pub enum LexLocale {
     ItalianIT,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct AWSCredentials {
     pub access_key: String,
     pub secret_access_key: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Play {
     pub url: String,
@@ -323,7 +322,7 @@ impl Play {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Synthesizer {
     //change to enum
@@ -336,7 +335,7 @@ pub struct Synthesizer {
     pub voice: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SipRec {
     pub action: SipRecAction,
@@ -344,7 +343,7 @@ pub struct SipRec {
     pub recording_id: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum SipRecAction {
     StartCallRecording,
@@ -353,7 +352,7 @@ pub enum SipRecAction {
     ResumeCallRecording,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct BargeIn {
     pub enable: Option<bool>,
@@ -367,7 +366,7 @@ pub struct BargeIn {
     pub inter_digit_timeout: Option<u8>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Listen {
     pub verb: String,
@@ -385,7 +384,7 @@ pub struct Listen {
     pub ws_auth: Option<WSAuth>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Message {
     pub from: String,
@@ -395,35 +394,35 @@ pub struct Message {
     pub action_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Pause {
     pub length: u8,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Rasa {
-    pub   url: String,
-    pub   prompt: Option<String>,
-    pub  event_hook: Option<String>,
-    pub  action_hook: Option<String>,
-    pub  tts: Option<Synthesizer>,
-    pub  recognizer: Option<Recognizer>,
+    pub url: String,
+    pub prompt: Option<String>,
+    pub event_hook: Option<String>,
+    pub action_hook: Option<String>,
+    pub tts: Option<Synthesizer>,
+    pub recognizer: Option<Recognizer>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Redirect {
-    pub   action_hook: Option<String>,
+    pub action_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SipDecline {
-    pub   status: Option<SIPStatus>,
-    pub   reason: Option<String>,
-    pub  headers: Option<HashMap<String, String>>,
+    pub status: Option<SIPStatus>,
+    pub reason: Option<String>,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 impl SipDecline {
@@ -478,93 +477,93 @@ impl SipDecline {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SipRefer {
-    pub  refer_to: String,
-    pub  action_hook: Option<String>,
+    pub refer_to: String,
+    pub action_hook: Option<String>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Tag {
-    pub   data: Option<HashMap<String, String>>,
+    pub data: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct WSAuth {
-    pub   username: String,
-    pub   password: String,
+    pub username: String,
+    pub password: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Transcribe {
-    pub   verb: String,
-    pub   transcription_hook: String,
-    pub  recognizer: Recognizer,
+    pub verb: String,
+    pub transcription_hook: String,
+    pub recognizer: Recognizer,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Recognizer {
-    pub  vendor: Option<String>,
-    pub  language: Option<String>,
-    pub  interim: Option<bool>,
-    pub  hints: Option<Vec<String>>,
-    pub   hints_boost: Option<u8>,
-    pub   profanity_filter: Option<bool>,
-    pub   single_utterance: Option<bool>,
-    pub   vad: Vad,
-    pub   separate_recognition_per_channel: Option<bool>,
-    pub   alt_languages: Vec<String>,
-    pub  punctuation: Option<bool>,
-    pub  model: Option<GoogleSpeechModel>,
-    pub  enhanced_model: Option<bool>,
-    pub  words: Option<bool>,
-    pub  diarization: Option<bool>,
-    pub  diarization_min_speakers: Option<u8>,
-    pub  diarization_max_speakers: Option<u8>,
-    pub  interaction_type: Option<GoogleInteractionType>,
-    pub  naics_code: Option<bool>,
-    pub  vocabulary_name: Option<String>,
-    pub  vocabulary_filter_name: Option<String>,
-    pub  filter_method: Option<AWSFilterMethod>,
-    pub  identify_channels: Option<bool>,
-    pub  profanity_option: Option<MSProfanityOption>,
-    pub   output_format: Option<MSOutputFormat>,
-    pub   request_snr: Option<bool>,
-    pub  initial_speech_timeout_ms: Option<u16>,
-    pub  transcription_hook: String,
-    pub  asr_timeout: Option<u8>,
-    pub  asr_dtmf_termination_digit: Option<String>,
-    pub  azure_service_endpoint: Option<String>,
-    pub  azure_options: Option<AzureOptions>,
-    pub  deepgram_options: Option<DeepgramOptions>,
-    pub  ibm_options: Option<IBMOptions>,
-    pub  nuance_options: Option<NuanceOptions>,
-    pub  nvidia_options: Option<NvidiaOptions>,
-    pub  soniox_options: Option<SonioxOptions>,
+    pub vendor: Option<String>,
+    pub language: Option<String>,
+    pub interim: Option<bool>,
+    pub hints: Option<Vec<String>>,
+    pub hints_boost: Option<u8>,
+    pub profanity_filter: Option<bool>,
+    pub single_utterance: Option<bool>,
+    pub vad: Vad,
+    pub separate_recognition_per_channel: Option<bool>,
+    pub alt_languages: Vec<String>,
+    pub punctuation: Option<bool>,
+    pub model: Option<GoogleSpeechModel>,
+    pub enhanced_model: Option<bool>,
+    pub words: Option<bool>,
+    pub diarization: Option<bool>,
+    pub diarization_min_speakers: Option<u8>,
+    pub diarization_max_speakers: Option<u8>,
+    pub interaction_type: Option<GoogleInteractionType>,
+    pub naics_code: Option<bool>,
+    pub vocabulary_name: Option<String>,
+    pub vocabulary_filter_name: Option<String>,
+    pub filter_method: Option<AWSFilterMethod>,
+    pub identify_channels: Option<bool>,
+    pub profanity_option: Option<MSProfanityOption>,
+    pub output_format: Option<MSOutputFormat>,
+    pub request_snr: Option<bool>,
+    pub initial_speech_timeout_ms: Option<u16>,
+    pub transcription_hook: String,
+    pub asr_timeout: Option<u8>,
+    pub asr_dtmf_termination_digit: Option<String>,
+    pub azure_service_endpoint: Option<String>,
+    pub azure_options: Option<AzureOptions>,
+    pub deepgram_options: Option<DeepgramOptions>,
+    pub ibm_options: Option<IBMOptions>,
+    pub nuance_options: Option<NuanceOptions>,
+    pub nvidia_options: Option<NvidiaOptions>,
+    pub soniox_options: Option<SonioxOptions>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct AzureOptions {
-    pub  speech_segmentation_silence_timeout_ms: Option<u16>,
+    pub speech_segmentation_silence_timeout_ms: Option<u16>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceOptions {
-    pub    client_id: Option<String>,
-    pub    secret: Option<String>,
-    pub    krypton_endpoint: Option<String>,
-    pub   topic: Option<String>,
-    pub   utterance_detection_mode: Option<NuanceUtteranceDetectionMode>,
-    pub   punctuation: Option<bool>,
-    pub   include_tokenization: Option<bool>,
-    pub   discard_speaker_adaptation: Option<bool>,
+    pub client_id: Option<String>,
+    pub secret: Option<String>,
+    pub krypton_endpoint: Option<String>,
+    pub topic: Option<String>,
+    pub utterance_detection_mode: Option<NuanceUtteranceDetectionMode>,
+    pub punctuation: Option<bool>,
+    pub include_tokenization: Option<bool>,
+    pub discard_speaker_adaptation: Option<bool>,
     pub suppress_call_recording: Option<bool>,
     pub mask_load_failures: Option<bool>,
     pub suppress_initial_capitalization: Option<bool>,
@@ -583,7 +582,7 @@ pub struct NuanceOptions {
     pub resource: Vec<NuanceResource>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceResource {
     pub inline_wordset: Option<String>,
@@ -596,25 +595,25 @@ pub struct NuanceResource {
     pub external_reference: Option<NuanceExternalReference>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceExternalReference {
     #[serde(rename = "type")]
     pub ref_type: Option<NuanceReferenceType>,
     pub uri: Option<String>,
-    pub     max_load_failures: Option<bool>,
+    pub max_load_failures: Option<bool>,
     pub request_timeout_ms: Option<u16>,
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NuanceFormatting {
     pub scheme: Option<String>,
     pub options: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceReferenceType {
     UndefinedResourceType,
@@ -626,7 +625,7 @@ pub enum NuanceReferenceType {
     Settings,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceReusePolicy {
     UndefinedReuse,
@@ -634,7 +633,7 @@ pub enum NuanceReusePolicy {
     HighReuse,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceWeightName {
     DefaultWeight,
@@ -645,7 +644,7 @@ pub enum NuanceWeightName {
     Highest,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceResultType {
     Final,
@@ -653,7 +652,7 @@ pub enum NuanceResultType {
     ImmutablePartial,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum NuanceUtteranceDetectionMode {
     Single,
@@ -661,11 +660,11 @@ pub enum NuanceUtteranceDetectionMode {
     Disabled,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DeepgramOptions {}
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct IBMOptions {
     pub stt_api_key: String,
@@ -679,7 +678,7 @@ pub struct IBMOptions {
     pub watson_learning_opt_out: bool,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct NvidiaOptions {
     pub riva_uri: String,
@@ -691,7 +690,7 @@ pub struct NvidiaOptions {
     pub custom_configuration: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SonioxOptions {
     pub api_key: Option<String>,
@@ -700,7 +699,7 @@ pub struct SonioxOptions {
     pub storage: Option<SonioxStorage>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SonioxStorage {
     pub id: String,
@@ -710,13 +709,13 @@ pub struct SonioxStorage {
     pub disable_search: bool,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum SonioxModel {
     PrecisionIvr,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Vad {
     pub enable: Option<bool>,
@@ -724,14 +723,14 @@ pub struct Vad {
     pub mode: Option<VadMode>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum MSOutputFormat {
     Simple,
     Detailed,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum MSProfanityOption {
     Masked,
@@ -739,7 +738,7 @@ pub enum MSProfanityOption {
     Raw,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum AWSFilterMethod {
     Remove,
@@ -747,7 +746,7 @@ pub enum AWSFilterMethod {
     Tag,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum GoogleSpeechModel {
     PhoneCall,
@@ -762,7 +761,7 @@ pub enum GoogleSpeechModel {
     Video,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum GoogleInteractionType {
     Discussion,
@@ -775,7 +774,7 @@ pub enum GoogleInteractionType {
     Dictation,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum VadMode {
     M0 = 0,
     M1 = 1,
@@ -783,7 +782,7 @@ pub enum VadMode {
     M3 = 3,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum SampleRate {
     SR8000 = 8000,
     SR16000 = 16000,
@@ -792,7 +791,7 @@ pub enum SampleRate {
     SR64000 = 64000,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum MixType {
     Mono,
@@ -1121,7 +1120,7 @@ pub enum Direction {
     Outbound,
 }
 
-#[derive(Serialize_repr, Deserialize_repr, Debug)]
+#[derive(Serialize_repr, Deserialize_repr, Clone, Debug)]
 #[repr(u16)]
 pub enum SIPStatus {
     Trying = 100,
@@ -1202,5 +1201,3 @@ pub enum SIPStatus {
     Unwanted = 607,
     Rejected = 608,
 }
-
-
