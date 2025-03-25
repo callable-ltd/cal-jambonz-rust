@@ -171,6 +171,12 @@ pub struct Say {
     pub early_media: Option<bool>,
 }
 
+impl Into<Verb> for Say {
+    fn into(self) -> Verb {
+        Verb::Say(self)
+    }
+}
+
 impl Say {
     pub fn new(text: &str) -> Say {
         Say {
@@ -242,10 +248,22 @@ pub struct Hangup {
     pub headers: Option<HashMap<String, String>>,
 }
 
+impl Into<Verb> for Hangup {
+    fn into(self) -> Verb {
+        Verb::Hangup(self)
+    }
+}
+
 impl Hangup {
-    pub fn hangup(x_reason: String) -> Hangup {
+    pub fn hangup() -> Hangup {
+        Hangup {
+            headers: Some(HashMap::new()),
+        }
+    }
+
+    pub fn hangup_with_reason(x_reason: &str) -> Hangup {
         let mut map = HashMap::new();
-        map.insert("X-Reason".to_string(), x_reason);
+        map.insert("X-Reason".to_string(), x_reason.to_string());
         Hangup { headers: Some(map) }
     }
 }
@@ -318,6 +336,12 @@ pub struct Play {
     pub seek_offset: Option<u16>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub action_hook: Option<String>,
+}
+
+impl Into<Verb> for Play {
+    fn into(self) -> Verb {
+        Verb::Play(self)
+    }
 }
 
 impl Play {

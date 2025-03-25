@@ -1,8 +1,12 @@
 use crate::websocket::Redirect;
-use crate::{Ack, Command, CommandValue, Play, Say, Synthesizer, Verb, Verbs, WebsocketReply};
+use crate::{
+    Ack, Command, CommandValue, Hangup, Play, Say, Verb, Verbs, WebsocketReply,
+};
 
 trait VerbTrait {
     fn new() -> Verbs;
+    fn hangup(&mut self) -> Self;
+    fn hangup_with_reason(&mut self, reason: &str) -> Self;
     fn say_text(&mut self, text: &str) -> Self;
     fn say(&mut self, say: Say) -> Self;
     fn play_url(&mut self, url: &str) -> Self;
@@ -15,6 +19,17 @@ impl VerbTrait for Verbs {
     fn new() -> Verbs {
         Verbs { data: Vec::new() }
     }
+
+    fn hangup(&mut self) -> Self {
+        let hangup: Verb = Hangup::hangup().into();
+        self.push(hangup)
+    }
+
+    fn hangup_with_reason(&mut self, reason: &str) -> Self {
+        let hangup: Verb = Hangup::hangup_with_reason(reason).into();
+        self.push(hangup)
+    }
+
     fn say_text(&mut self, text: &str) -> Self {
         let say = Say {
             text: text.to_string(),
@@ -67,9 +82,9 @@ impl Command {
         }
     }
 
-    pub fn redirect(&mut self) -> Redirect {
+    pub fn redirect(&mut self, queue_command: bool) -> Redirect {
         Redirect {
-            queue_command: false,
+            queue_command,
             verbs: Verbs::new(),
         }
     }
@@ -98,6 +113,16 @@ impl Redirect {
 
     pub fn say_text(&mut self, text: &str) -> Redirect {
         self.verbs.say_text(text);
+        self.clone()
+    }
+
+    pub fn hangup(&mut self) -> Redirect {
+        self.verbs.hangup();
+        self.clone()
+    }
+
+    pub fn hangup_with_reason(&mut self, reason: &str) -> Redirect {
+        self.verbs.hangup_with_reason(reason);
         self.clone()
     }
 
@@ -147,6 +172,16 @@ impl Ack {
         self.clone()
     }
 
+    pub fn hangup(&mut self) -> Ack {
+        self.verbs.hangup();
+        self.clone()
+    }
+
+    pub fn hangup_with_reason(&mut self, reason: &str) -> Ack {
+        self.verbs.hangup_with_reason(reason);
+        self.clone()
+    }
+
     pub fn push(&mut self, verb: Verb) -> Ack {
         self.verbs.push(verb);
         self.clone()
@@ -159,11 +194,11 @@ fn json() {
         .say_text("Welcome to Callable")
         .build()
         .json();
+
     println!("{:#?}", ack);
 
     let cmd = Command::new()
-        .redirect()
-        .queue(true)
+        .redirect(true)
         .say_text("Here is another message.")
         .say_text("And Another one")
         .build()
