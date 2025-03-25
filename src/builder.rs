@@ -1,13 +1,11 @@
-use crate::{Play, Say, Verb};
+use crate::{Ack, Play, Say, Verb, WebsocketReply};
 
-#[derive(Clone)]
-pub struct Builder {
-    verbs: Vec<Verb>,
-}
-
-impl Builder {
-    pub fn new() -> Builder {
-        Builder { verbs: Vec::new() }
+impl Ack {
+    pub fn new(msg_id: &str) -> Ack {
+        Ack {
+            msgid: msg_id.to_string(),
+            data: Some(Vec::new()),
+        }
     }
 
     pub fn say(&mut self, text: &str) -> &mut Self {
@@ -17,7 +15,7 @@ impl Builder {
             synthesizer: None,
             early_media: Some(false),
         };
-        self.verbs.push(Verb::Say(say));
+        self.data.get_or_insert_default().push(Verb::Say(say));
         self
     }
 
@@ -30,11 +28,7 @@ impl Builder {
             timeout_secs: None,
             action_hook: None,
         };
-        self.verbs.push(Verb::Play(play));
+        self.data.get_or_insert_default().push(Verb::Play(play));
         self
-    }
-
-    pub fn build(&mut self) -> Vec<Verb> {
-        self.verbs.clone()
     }
 }

@@ -13,7 +13,7 @@ pub enum WebsocketReply {
 
 #[derive(Serialize, Deserialize)]
 pub struct Ack {
-   pub msgid: String,
+    pub msgid: String,
     pub data: Option<Vec<Verb>>,
 }
 
