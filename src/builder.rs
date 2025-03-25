@@ -76,7 +76,7 @@ impl Command {
 }
 
 impl Redirect {
-    fn queue(&mut self, queue_command: bool) -> &mut Redirect {
+    pub fn queue(&mut self, queue_command: bool) -> &mut Redirect {
         self.queue_command = queue_command;
         self
     }
