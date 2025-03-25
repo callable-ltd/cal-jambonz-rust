@@ -44,4 +44,9 @@ impl Ack {
     pub fn ack(self) -> WebsocketReply {
         WebsocketReply::Ack(self)
     }
+
+    pub fn json(&self) -> String {
+        serde_json::to_string(self)
+            .unwrap_or_else(|e| "Error serializing Ack".to_string())
+    }
 }
