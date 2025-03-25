@@ -12,14 +12,14 @@ pub enum WebsocketReply {
 
 #[derive(Serialize, Deserialize)]
 pub struct Ack {
-    msgid: String,
-    data: Option<Vec<Verb>>,
+   pub msgid: String,
+    pub data: Option<Vec<Verb>>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct Command {
     #[serde(flatten)]
-    command_type: CommandValue,
+    pub command_type: CommandValue,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -49,18 +49,18 @@ pub enum CommandValue {
 #[derive(Serialize, Deserialize)]
 pub struct Redirect {
     #[serde(rename = "queueCommand")]
-    queue_command: bool,
-    data: Option<Vec<Verb>>,
+    pub queue_command: bool,
+    pub data: Option<Vec<Verb>>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct CallStatus {
-    data: CallStatusData,
+    pub data: CallStatusData,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct CallStatusData {
-    call_status: CallStatusValue,
+    pub call_status: CallStatusValue,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -73,11 +73,11 @@ pub enum CallStatusValue {
 
 #[derive(Serialize, Deserialize)]
 pub struct MuteStatus {
-    data: MuteStatusData,
+    pub data: MuteStatusData,
 }
 #[derive(Serialize, Deserialize)]
 pub struct MuteStatusData {
-    mute_status: MuteStatusValue,
+    pub mute_status: MuteStatusValue,
 }
 #[derive(Serialize, Deserialize)]
 pub enum MuteStatusValue {
@@ -88,11 +88,11 @@ pub enum MuteStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct ConferenceMuteStatus {
-    data: ConferenceMuteStatusData,
+    pub data: ConferenceMuteStatusData,
 }
 #[derive(Serialize, Deserialize)]
 pub struct ConferenceMuteStatusData {
-    conf_mute_status: ConferenceMuteStatusValue,
+    pub conf_mute_status: ConferenceMuteStatusValue,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -104,11 +104,11 @@ pub enum ConferenceMuteStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct ConferenceHoldStatus {
-    data: ConferenceHoldStatusData,
+    pub data: ConferenceHoldStatusData,
 }
 #[derive(Serialize, Deserialize)]
 pub struct ConferenceHoldStatusData {
-    conf_hold_status: ConferenceHoldStatusValue,
+    pub conf_hold_status: ConferenceHoldStatusValue,
 }
 #[derive(Serialize, Deserialize)]
 pub enum ConferenceHoldStatusValue {
@@ -119,11 +119,11 @@ pub enum ConferenceHoldStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct ListenStatus {
-    data: ListenStatusData,
+    pub data: ListenStatusData,
 }
 #[derive(Serialize, Deserialize)]
 pub struct ListenStatusData {
-    listen_status: ListenStatusValue,
+    pub listen_status: ListenStatusValue,
 }
 #[derive(Serialize, Deserialize)]
 pub enum ListenStatusValue {
@@ -134,7 +134,7 @@ pub enum ListenStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct Record {
-    data: RecordData,
+    pub data: RecordData,
 }
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "action")]
@@ -148,10 +148,10 @@ pub enum RecordData {
 #[derive(Serialize, Deserialize)]
 pub struct StartCallRecording {
     #[serde(rename = "recordingID")]
-    recording_id: String,
+    pub recording_id: String,
     #[serde(rename = "siprecServerURL")]
-    sip_rec_server_url: String,
-    headers: Option<HashMap<String, String>>,
+    pub sip_rec_server_url: String,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -163,19 +163,19 @@ pub struct ResumeCallRecording {}
 
 #[derive(Serialize, Deserialize)]
 pub struct Whisper {
-    data: Vec<PlaySay>,
+    pub data: Vec<PlaySay>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct SipRequest {
-    data: SipRequestData,
+    pub data: SipRequestData,
 }
 #[derive(Serialize, Deserialize)]
 pub struct SipRequestData {
-    method: SipMethod,
-    content_type: Option<String>,
-    content: String,
-    headers: Option<HashMap<String, String>>,
+    pub method: SipMethod,
+    pub content_type: Option<String>,
+    pub content: String,
+    pub headers: Option<HashMap<String, String>>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -188,18 +188,18 @@ pub enum SipMethod {
 #[derive(Serialize, Deserialize)]
 pub struct Dub {
     #[serde(flatten)]
-    data: Vec<DubData>,
+    pub data: Vec<DubData>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct DubData {
-    verb: String,
-    action: DubTrack,
-    track: String,
-    play: Option<String>,
-    say: Option<String>,
-    loop_count: Option<u8>,
-    gain: Option<String>,
+    pub verb: String,
+    pub action: DubTrack,
+    pub track: String,
+    pub play: Option<String>,
+    pub say: Option<String>,
+    pub loop_count: Option<u8>,
+    pub gain: Option<String>,
 }
 
 #[derive(Serialize, Deserialize)]
