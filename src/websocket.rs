@@ -11,6 +11,12 @@ pub enum WebsocketReply {
     Command(Command),
 }
 
+impl WebsocketReply {
+    pub fn json(&self) -> String {
+        serde_json::to_string(self)
+            .unwrap_or_else(|e| "Error serializing WebsocketReply".to_string())
+    }
+}
 #[derive(Serialize, Deserialize)]
 pub struct Ack {
     pub msgid: String,
