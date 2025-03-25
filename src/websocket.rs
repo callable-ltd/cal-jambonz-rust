@@ -1,7 +1,112 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-use crate::{Play, Say, Verb};
+use crate::{InitialRequest, Play, Request, Say, Verb};
+
+#[derive(Serialize, Deserialize)]
+#[serde(tag = "type")]
+pub enum WebsocketRequest {
+    #[serde(rename = "session:new")]
+    SessionNew(SessionNew),
+    #[serde(rename = "session:redirect")]
+    SessionRedirect(SessionRedirect),
+    #[serde(rename = "session:reconnect")]
+    SessionReconnect(SessionRedirect),
+    #[serde(rename = "call:status")]
+    CallStatus(SessionCallStatus),
+    #[serde(rename = "verb:hook")]
+    VerbHook(SessionVerbHook),
+}
+
+
+
+#[derive(Serialize, Deserialize)]
+pub struct SessionNew {
+    pub msgid: String,
+    pub call_sid: String,
+    pub b3: Option<String>,
+    pub data: InitialRequest,
+}
+
+impl SessionNew {
+    pub fn builder(&self) -> Ack {
+        Ack::new(&self.msgid)
+    }
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SessionRedirect {
+    pub msgid: String,
+    pub call_sid: String,
+    pub b3: Option<String>,
+    pub hook: String,
+    pub data: Request,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SessionReconnect {
+    pub msgid: String,
+    pub call_sid: String,
+    pub b3: Option<String>,
+    pub hook: String,
+    pub data: Request,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SessionCallStatus {
+    pub msgid: String,
+    pub call_sid: String,
+    pub b3: Option<String>,
+    pub data: Request,
+    #[serde(rename = "data.call_status")]
+    pub call_status: SessionCallStatusEnum,
+}
+#[derive(Serialize, Deserialize)]
+pub struct SessionVerbHook {
+    pub msgid: String,
+    pub call_sid: String,
+    pub b3: Option<String>,
+    pub hook: String,
+    pub data: Request,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct SessionVerbStatus {
+    pub msgid: String,
+    pub call_sid: String,
+    pub b3: Option<String>,
+    pub hook: String,
+    pub data: HashMap<String, String>,
+    #[serde(rename = "data.id")]
+    pub data_id: String,
+    #[serde(rename = "data.verb")]
+    pub data_verb: String,
+    #[serde(rename = "data.status")]
+    pub data_status: DataStatus
+}
+
+#[derive(Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum DataStatus {
+    Begin,
+    End
+}
+
+#[derive(Serialize, Deserialize)]
+pub enum SessionCallStatusEnum {
+    Trying,
+    Ringing,
+    #[serde(rename = "early-media")]
+    EarlyMedia,
+    #[serde(rename = "in-progress")]
+    InProgress,
+    Completed,
+    Failed,
+    #[serde(rename = "no-answer")]
+    NoAnswer,
+    Busy,
+    Queued,
+}
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]

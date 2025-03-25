@@ -171,6 +171,17 @@ pub struct Say {
     pub early_media: Option<bool>,
 }
 
+impl Say {
+    pub fn new(text: &str) -> Say {
+        Say {
+            text: text.to_string(),
+            say_loop: Some(1),
+            synthesizer: None,
+            early_media: Some(false),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct DialogFlow {
@@ -310,10 +321,10 @@ pub struct Play {
 }
 
 impl Play {
-    pub fn new(url: String, action_hook: String) -> Self {
+    pub fn new(url: &str, action_hook: Option<String>) -> Self {
         Play {
-            url: url,
-            action_hook: Some(action_hook),
+            url: url.to_string(),
+            action_hook: action_hook,
             play_loop: None,
             early_media: None,
             timeout_secs: None,
