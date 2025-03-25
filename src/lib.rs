@@ -6,7 +6,8 @@ use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::collections::HashMap;
 use std::fmt::Display;
-use std::fs::File;
+
+pub use websocket::*;
 
 pub enum TenantType {
     PROXY,

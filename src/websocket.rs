@@ -1,8 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::iter::Map;
 
-use crate::{Conference, Play, Say, Verb};
+use crate::{Play, Say, Verb};
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
