@@ -5,6 +5,7 @@ use crate::{Play, Say, Verb};
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
+#[serde(rename_all = "camelCase")]
 pub enum WebsocketReply {
     Ack(Ack),
     Command(Command),
