@@ -8,7 +8,7 @@ impl Ack {
         }
     }
 
-    pub fn say(&mut self, text: &str) -> &Self {
+    pub fn say(&mut self, text: &str) -> &mut Ack {
         let say = Say {
             text: text.to_string(),
             say_loop: Some(1),
@@ -19,7 +19,7 @@ impl Ack {
         self
     }
 
-    pub fn play(&mut self, text: &str) -> &Self {
+    pub fn play(&mut self, text: &str) -> &mut Ack {
         let play = Play {
             url: text.to_string(),
             early_media: Some(false),
@@ -32,10 +32,20 @@ impl Ack {
         self
     }
 
-    pub fn ack(self) -> WebsocketReply {
+    pub fn ack(&mut self) -> WebsocketReply {
         WebsocketReply::Ack(Ack {
             msgid: self.msgid.to_string(),
             data: self.data.clone(),
         })
     }
+}
+
+#[test]
+fn json() {
+    let response = Ack::new("1234")
+        .say("Welcome to Callable")
+        .ack()
+        .json();
+    
+    println!("{:#?}", response);
 }
