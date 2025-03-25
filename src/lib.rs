@@ -44,6 +44,12 @@ pub enum Verb {
     Transcribe(Transcribe),
 }
 
+impl Into<Vec<Verb>> for Verb {
+    fn into(self) -> Vec<Verb> {
+        vec![self]
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Conference {
@@ -917,7 +923,7 @@ impl InitialRequest {
     pub fn get_contact_ip(&self) -> String {
         self.sip.get_contact_ip()
     }
-    pub fn get_tenant_type(&self, proxies: Vec<&str>) -> TenantType {
+    pub fn get_tenant_type(&self, proxies: Vec<String>) -> TenantType {
         if self.sip.has_proxy(proxies) {
             TenantType::PROXY
         } else if self.sip.has_teams() {
@@ -1075,10 +1081,10 @@ impl SipPayload {
         self.headers.x_ms_teams_tenant_fqdn.is_some()
     }
 
-    fn has_proxy(&self, proxies: Vec<&str>) -> bool {
+    fn has_proxy(&self, proxies: Vec<String>) -> bool {
         let mut is_match = false;
         for x in proxies {
-            let res = iface_in_subnet(self.headers.x_forwarded_for.as_str(), x).unwrap();
+            let res = iface_in_subnet(self.headers.x_forwarded_for.as_str(), &x).unwrap();
             if res {
                 is_match = true;
             }
