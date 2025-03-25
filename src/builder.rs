@@ -8,7 +8,7 @@ impl Ack {
         }
     }
 
-    pub fn say(&mut self, text: &str) -> Self {
+    pub fn say(&mut self, text: &str) -> &Self {
         let say = Say {
             text: text.to_string(),
             say_loop: Some(1),
@@ -16,14 +16,10 @@ impl Ack {
             early_media: Some(false),
         };
         self.data.get_or_insert_default().push(Verb::Say(say));
-      
-        Ack {
-            msgid: self.msgid.to_string(),
-            data: self.data.clone(),
-        }
+        self
     }
 
-    pub fn play(&mut self, text: &str) -> Self {
+    pub fn play(&mut self, text: &str) -> &Self {
         let play = Play {
             url: text.to_string(),
             early_media: Some(false),
@@ -32,16 +28,14 @@ impl Ack {
             timeout_secs: None,
             action_hook: None,
         };
-        
         self.data.get_or_insert_default().push(Verb::Play(play));
-        
-        Ack {
+        self
+    }
+
+    pub fn ack(self) -> WebsocketReply {
+        WebsocketReply::Ack(Ack {
             msgid: self.msgid.to_string(),
             data: self.data.clone(),
-        }
-    }
-    
-    pub fn ack(self) -> WebsocketReply {
-        WebsocketReply::Ack(self)
+        })
     }
 }
