@@ -3,6 +3,13 @@ use std::collections::HashMap;
 
 use crate::{InitialRequest, Play, Request, Say, Verb};
 
+
+#[derive(Clone)]
+#[derive(Serialize, Deserialize)]
+pub struct Verbs {
+    pub data: Vec<Verb>,
+}
+
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum WebsocketRequest {
@@ -119,13 +126,17 @@ pub enum WebsocketReply {
 impl WebsocketReply {
     pub fn json(&self) -> String {
         serde_json::to_string(self)
-            .unwrap_or_else(|e| "Error serializing WebsocketReply".to_string())
+            .unwrap_or_else(|e| {
+                println!("{}", e);
+                "Error serializing WebsocketReply".to_string()
+            })
     }
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Ack {
     pub msgid: String,
-    pub data: Option<Vec<Verb>>,
+    #[serde(flatten)]
+    pub verbs: Verbs,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -171,11 +182,12 @@ pub enum CommandValue {
     Dub(Dub),
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Redirect {
     #[serde(rename = "queueCommand")]
     pub queue_command: bool,
-    pub data: Option<Vec<Verb>>,
+    #[serde(flatten)]
+    pub verbs: Verbs,
 }
 
 #[derive(Serialize, Deserialize)]
