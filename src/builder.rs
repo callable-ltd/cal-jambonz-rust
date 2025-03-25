@@ -1,4 +1,82 @@
-use crate::{Ack, Play, Say, Synthesizer, Verb, WebsocketReply};
+use crate::websocket::Redirect;
+use crate::{
+    Ack, CallStatus, CallStatusData, CallStatusValue, Command, CommandType, CommandValue,
+    ConferenceHoldStatus, ConferenceHoldStatusData, ConferenceHoldStatusValue,
+    ConferenceMuteStatus, ConferenceMuteStatusData, ConferenceMuteStatusValue, Dub,
+    ListenStatus, ListenStatusData, ListenStatusValue, MuteStatus, MuteStatusData, MuteStatusValue,
+    Play, Record, RecordData, ResumeCallRecording, Say, Synthesizer, Verb, WebsocketReply, Whisper,
+};
+
+impl Command {
+    pub fn new(command_type: CommandType, queue_command: bool) -> Command {
+        match command_type {
+            CommandType::Redirect => Command {
+                command_type: CommandValue::Redirect(Redirect {
+                    queue_command,
+                    data: None,
+                }),
+            },
+            CommandType::CallStatus => Command {
+                command_type: CommandValue::CallStatus(CallStatus {
+                    queue_command,
+                    data: CallStatusData {
+                        call_status: CallStatusValue::Completed,
+                    },
+                }),
+            },
+            CommandType::ListenStatus => Command {
+                command_type: CommandValue::ListenStatus(ListenStatus {
+                    queue_command,
+                    data: ListenStatusData {
+                        listen_status: ListenStatusValue::Resume,
+                    },
+                }),
+            },
+            CommandType::MuteStatus => Command {
+                command_type: CommandValue::MuteStatus(MuteStatus {
+                    queue_command,
+                    data: MuteStatusData {
+                        mute_status: MuteStatusValue::UnMute,
+                    },
+                }),
+            },
+            CommandType::ConferenceMuteStatus => Command {
+                command_type: CommandValue::ConferenceMuteStatus(ConferenceMuteStatus {
+                    queue_command,
+                    data: ConferenceMuteStatusData {
+                        conf_mute_status: ConferenceMuteStatusValue::UnMute,
+                    },
+                }),
+            },
+            CommandType::ConferenceHoldStatus => Command {
+                command_type: CommandValue::ConferenceHoldStatus(ConferenceHoldStatus {
+                    queue_command,
+                    data: ConferenceHoldStatusData {
+                        conf_hold_status: ConferenceHoldStatusValue::UnHold,
+                    },
+                }),
+            },
+            CommandType::Record => Command {
+                command_type: CommandValue::Record(Record {
+                    queue_command,
+                    data: RecordData::ResumeCallRecording(ResumeCallRecording {}),
+                }),
+            },
+            CommandType::Whisper => Command {
+                command_type: CommandValue::Whisper(Whisper {
+                    queue_command,
+                    data: Vec::new(),
+                }),
+            },
+            CommandType::Dub => Command {
+                command_type: CommandValue::Dub(Dub {
+                    queue_command,
+                    data: Vec::new(),
+                }),
+            },
+        }
+    }
+}
 
 impl Ack {
     pub fn new(msg_id: &str) -> Ack {

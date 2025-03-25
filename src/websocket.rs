@@ -135,6 +135,19 @@ pub struct Command {
 }
 
 #[derive(Serialize, Deserialize)]
+pub enum CommandType {
+    Redirect,
+    CallStatus,
+    MuteStatus,
+    ConferenceMuteStatus,
+    ConferenceHoldStatus,
+    ListenStatus,
+    Record,
+    Whisper,
+    Dub,
+}
+
+#[derive(Serialize, Deserialize)]
 #[serde(tag = "command")]
 #[serde(rename_all = "camelCase")]
 pub enum CommandValue {
@@ -155,7 +168,7 @@ pub enum CommandValue {
     #[serde(rename = "whisper")]
     Whisper(Whisper),
     #[serde(rename = "dub")]
-    Dub(Whisper),
+    Dub(Dub),
 }
 
 #[derive(Serialize, Deserialize)]
@@ -167,6 +180,7 @@ pub struct Redirect {
 
 #[derive(Serialize, Deserialize)]
 pub struct CallStatus {
+    pub queue_command: bool,
     pub data: CallStatusData,
 }
 
@@ -185,6 +199,7 @@ pub enum CallStatusValue {
 
 #[derive(Serialize, Deserialize)]
 pub struct MuteStatus {
+    pub queue_command: bool,
     pub data: MuteStatusData,
 }
 #[derive(Serialize, Deserialize)]
@@ -200,6 +215,7 @@ pub enum MuteStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct ConferenceMuteStatus {
+    pub queue_command: bool,
     pub data: ConferenceMuteStatusData,
 }
 #[derive(Serialize, Deserialize)]
@@ -216,6 +232,7 @@ pub enum ConferenceMuteStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct ConferenceHoldStatus {
+    pub queue_command: bool,
     pub data: ConferenceHoldStatusData,
 }
 #[derive(Serialize, Deserialize)]
@@ -231,6 +248,7 @@ pub enum ConferenceHoldStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct ListenStatus {
+    pub queue_command: bool,
     pub data: ListenStatusData,
 }
 #[derive(Serialize, Deserialize)]
@@ -246,6 +264,7 @@ pub enum ListenStatusValue {
 }
 #[derive(Serialize, Deserialize)]
 pub struct Record {
+    pub queue_command: bool,
     pub data: RecordData,
 }
 #[derive(Serialize, Deserialize)]
@@ -275,11 +294,13 @@ pub struct ResumeCallRecording {}
 
 #[derive(Serialize, Deserialize)]
 pub struct Whisper {
+    pub queue_command: bool,
     pub data: Vec<PlaySay>,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct SipRequest {
+    pub queue_command: bool,
     pub data: SipRequestData,
 }
 #[derive(Serialize, Deserialize)]
@@ -299,6 +320,7 @@ pub enum SipMethod {
 
 #[derive(Serialize, Deserialize)]
 pub struct Dub {
+    pub queue_command: bool,
     #[serde(flatten)]
     pub data: Vec<DubData>,
 }
