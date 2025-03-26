@@ -9,7 +9,7 @@ use std::collections::HashMap;
 pub use websocket::*;
 
 //noinspection ALL
-#[derive(Serialize, Deserialize, strum::IntoStaticStr)]
+#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
 pub enum TenantType {
     PROXY,
     TRUNK,
