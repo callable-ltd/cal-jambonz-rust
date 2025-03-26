@@ -5,7 +5,7 @@ use ip_in_subnet::iface_in_subnet;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-
+use serde_repr::{Deserialize_repr, Serialize_repr};
 pub use websocket::*;
 
 //noinspection ALL
@@ -1164,7 +1164,7 @@ pub enum Direction {
     Outbound,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize_repr, Deserialize_repr, Clone, strum::IntoStaticStr)]
 #[repr(u16)]
 pub enum SIPStatus {
     Trying = 100,
