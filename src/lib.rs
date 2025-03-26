@@ -1129,7 +1129,7 @@ pub struct SipPayloadHeaders {
     #[serde(rename = "X-Application-Sid")]
     pub x_application_sid: String,
     #[serde(rename = "p-asserted-identity")]
-    pub p_asserted_identity: String,
+    pub p_asserted_identity: Option<String>,
     #[serde(rename = "X-Authenticated-User")]
     pub x_authenticated_user: Option<String>,
     #[serde(rename = "X-MS-Teams-Tenant-FQDN")]
