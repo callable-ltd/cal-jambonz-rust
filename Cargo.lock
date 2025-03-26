@@ -13,14 +13,14 @@ dependencies = [
 
 [[package]]
 name = "cal-jambonz"
-version = "0.1.39"
+version = "0.1.40"
 dependencies = [
  "ip-in-subnet",
  "log",
  "regex",
  "serde",
  "serde_json",
- "serde_repr",
+ "strum",
 ]
 
 [[package]]
@@ -142,15 +142,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "serde_repr"
-version = "0.1.20"
+name = "strum"
+version = "0.26.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "175ee3e80ae9982737ca543e96133087cbd9a485eecc3bc4de9c1a37b47ea59c"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
+checksum = "8fec0f0aef304996cf250b31b5a10dee7980c85da9d759361292b8bca5a18f06"
 
 [[package]]
 name = "syn"

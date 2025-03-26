@@ -4,12 +4,12 @@ mod websocket;
 use ip_in_subnet::iface_in_subnet;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
-use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::collections::HashMap;
 
 pub use websocket::*;
 
-#[derive(Serialize, Deserialize, Clone)]
+//noinspection ALL
+#[derive(Serialize, Deserialize, strum::IntoStaticStr)]
 pub enum TenantType {
     PROXY,
     TRUNK,
@@ -18,7 +18,7 @@ pub enum TenantType {
     APPLICATION,
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "verb")]
 pub enum Verb {
@@ -1155,7 +1155,8 @@ impl SipPayloadHeaders {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
+#[repr(u16)]
 pub enum Direction {
     #[serde(rename = "inbound")]
     Inbound,
@@ -1163,7 +1164,7 @@ pub enum Direction {
     Outbound,
 }
 
-#[derive(Serialize_repr, Deserialize_repr, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
 #[repr(u16)]
 pub enum SIPStatus {
     Trying = 100,

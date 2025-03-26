@@ -1,11 +1,9 @@
+use crate::{InitialRequest, Play, Request, Say, Verb};
+use log::error;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use log::error;
-use crate::{InitialRequest, Play, Request, Say, Verb};
 
-
-#[derive(Clone)]
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Verbs {
     pub data: Vec<Verb>,
 }
@@ -24,8 +22,6 @@ pub enum WebsocketRequest {
     #[serde(rename = "verb:hook")]
     VerbHook(SessionVerbHook),
 }
-
-
 
 #[derive(Serialize, Deserialize)]
 pub struct SessionNew {
@@ -89,14 +85,14 @@ pub struct SessionVerbStatus {
     #[serde(rename = "data.verb")]
     pub data_verb: String,
     #[serde(rename = "data.status")]
-    pub data_status: DataStatus
+    pub data_status: DataStatus,
 }
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum DataStatus {
     Begin,
-    End
+    End,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -125,11 +121,10 @@ pub enum WebsocketReply {
 
 impl WebsocketReply {
     pub fn json(&self) -> String {
-        serde_json::to_string(self)
-            .unwrap_or_else(|e| {
-                error!("{}", e);
-                "Error serializing WebsocketReply".to_string()
-            })
+        serde_json::to_string(self).unwrap_or_else(|e| {
+            error!("{}", e);
+            "Error serializing WebsocketReply".to_string()
+        })
     }
 }
 #[derive(Serialize, Deserialize, Clone)]
