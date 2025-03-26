@@ -355,7 +355,7 @@ impl Play {
     pub fn new(url: &str, action_hook: Option<String>) -> Self {
         Play {
             url: url.to_string(),
-            action_hook: action_hook,
+            action_hook,
             play_loop: None,
             early_media: None,
             timeout_secs: None,
@@ -845,7 +845,7 @@ pub enum MixType {
 Requests
 */
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 //todo add DialogFlow
 //todo add rasaResult
@@ -858,7 +858,7 @@ pub enum Request {
     AEvent(ParentEvent),
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ParentEvent {
     pub call_sid: String,
     pub direction: Direction,
@@ -879,7 +879,7 @@ pub struct ParentEvent {
     pub originating_sip_trunk_name: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ChildEvent {
     pub call_sid: String,
     pub direction: Direction,
@@ -899,7 +899,7 @@ pub struct ChildEvent {
     pub api_base_url: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct InitialRequest {
     pub sip: SipPayload,
     pub direction: Direction,
@@ -939,7 +939,7 @@ impl InitialRequest {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SubsequentRequest {
     pub direction: Direction,
     pub account_sid: String,
@@ -963,7 +963,7 @@ pub struct SubsequentRequest {
     pub customer_data: CustomerData,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerData {
     pub x_cid: String,
     pub paid: Option<String>,
@@ -978,7 +978,7 @@ pub struct CustomerData {
     pub client_id: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SubsequentDialRequest {
     pub direction: Direction,
     pub account_sid: String,
@@ -1005,7 +1005,7 @@ pub struct SubsequentDialRequest {
     pub dial_sip_status: SIPStatus,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SubsequentQueueRequest {
     pub direction: Direction,
     pub account_sid: String,
@@ -1036,7 +1036,7 @@ pub struct SubsequentQueueRequest {
     pub queue_result: QueueResult,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum QueueResult {
     Hangup,
@@ -1045,7 +1045,7 @@ pub enum QueueResult {
     Error,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Speech {
     pub stability: Option<u8>,
     pub final_result: bool,
@@ -1053,13 +1053,13 @@ pub struct Speech {
     pub alternatives: Vec<Alternative>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Alternative {
     pub confidence: f32,
     pub transcript: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SipPayload {
     pub headers: SipPayloadHeaders,
     pub payload: Vec<HashMap<String, String>>,
@@ -1095,7 +1095,7 @@ impl SipPayload {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SipPayloadHeaders {
     pub via: String,
     #[serde(rename = "max-forwards")]
@@ -1155,7 +1155,7 @@ impl SipPayloadHeaders {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum Direction {
     #[serde(rename = "inbound")]
     Inbound,
