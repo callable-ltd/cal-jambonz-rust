@@ -9,6 +9,7 @@ use std::collections::HashMap;
 
 pub use websocket::*;
 
+#[derive(Serialize, Deserialize, Clone)]
 pub enum TenantType {
     PROXY,
     TRUNK,
@@ -923,6 +924,7 @@ impl InitialRequest {
     pub fn get_contact_ip(&self) -> String {
         self.sip.get_contact_ip()
     }
+
     pub fn get_tenant_type(&self, proxies: Vec<&str>) -> TenantType {
         if self.sip.has_proxy(proxies) {
             TenantType::PROXY
