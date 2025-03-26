@@ -9,7 +9,7 @@ use std::collections::HashMap;
 pub use websocket::*;
 
 //noinspection ALL
-#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum TenantType {
     PROXY,
     TRUNK,
@@ -18,7 +18,7 @@ pub enum TenantType {
     APPLICATION,
 }
 
-#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "verb")]
 pub enum Verb {
@@ -1155,7 +1155,7 @@ impl SipPayloadHeaders {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
+#[derive(Serialize, Deserialize, Clone)]
 #[repr(u16)]
 pub enum Direction {
     #[serde(rename = "inbound")]
@@ -1164,7 +1164,7 @@ pub enum Direction {
     Outbound,
 }
 
-#[derive(Serialize, Deserialize, Clone, strum::IntoStaticStr)]
+#[derive(Serialize, Deserialize, Clone)]
 #[repr(u16)]
 pub enum SIPStatus {
     Trying = 100,
@@ -1245,3 +1245,4 @@ pub enum SIPStatus {
     Unwanted = 607,
     Rejected = 608,
 }
+
