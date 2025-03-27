@@ -1,5 +1,7 @@
-use crate::{InitialRequest, Play, Request, Say, Verb};
-use log::error;
+use crate::dub::Dub;
+use crate::play_say::PlaySay;
+use crate::rest::{InitialRequest, Request};
+use crate::verb::Verb;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -31,11 +33,7 @@ pub struct SessionNew {
     pub data: InitialRequest,
 }
 
-impl SessionNew {
-    pub fn builder(&self) -> Ack {
-        Ack::new(&self.msgid)
-    }
-}
+
 
 #[derive(Serialize, Deserialize)]
 pub struct SessionRedirect {
@@ -119,14 +117,7 @@ pub enum WebsocketReply {
     Command(Command),
 }
 
-impl WebsocketReply {
-    pub fn json(&self) -> String {
-        serde_json::to_string(self).unwrap_or_else(|e| {
-            error!("{}", e);
-            "Error serializing WebsocketReply".to_string()
-        })
-    }
-}
+
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Ack {
     pub msgid: String,
@@ -158,7 +149,7 @@ pub enum CommandType {
 #[serde(rename_all = "camelCase")]
 pub enum CommandValue {
     #[serde(rename = "redirect")]
-    Redirect(Redirect),
+    Redirect(WSRedirect),
     #[serde(rename = "call:status")]
     CallStatus(CallStatus),
     #[serde(rename = "mute:status")]
@@ -178,7 +169,7 @@ pub enum CommandValue {
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct Redirect {
+pub struct WSRedirect {
     #[serde(rename = "queueCommand")]
     pub queue_command: bool,
     #[serde(flatten)]
@@ -325,38 +316,3 @@ pub enum SipMethod {
     MESSAGE,
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct Dub {
-    pub queue_command: bool,
-    #[serde(flatten)]
-    pub data: Vec<DubData>,
-}
-
-#[derive(Serialize, Deserialize)]
-pub struct DubData {
-    pub verb: String,
-    pub action: DubTrack,
-    pub track: String,
-    pub play: Option<String>,
-    pub say: Option<String>,
-    pub loop_count: Option<u8>,
-    pub gain: Option<String>,
-}
-
-#[derive(Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub enum DubTrack {
-    AddTrack,
-    RemoveTrack,
-    SilenceTrack,
-    PlayOnTrack,
-    SayOnTrack,
-}
-
-#[derive(Serialize, Deserialize)]
-#[serde(tag = "verb")]
-#[serde(rename_all = "camelCase")]
-pub enum PlaySay {
-    Play(Play),
-    Say(Say),
-}

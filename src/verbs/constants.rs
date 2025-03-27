@@ -1,0 +1,15 @@
+    pub const HANG_UP_CONNECT: &'static str = "HANGUP";
+    pub const DEFAULT_TTS_VOICE: &'static str = "en-GB-Standard-B";
+    pub const DEFAULT_TTS_LANGUAGE: &'static str = "en-GB";
+    pub const DEFAULT_TTS_VENDOR: &'static str = "google";
+    pub const DEFAULT_ASR_LANGUAGE: &'static str = "en-GB";
+    pub const DEFAULT_ASR_VENDOR: &'static str = "google";
+    pub const DEFAULT_RECORDING_RETENTION: &'static str = "P30D";
+    pub const DEFAULT_DIGITS_FINISH_KEY: &'static str = "#";
+    pub const DEFAULT_RING_TIME: u8 = 180;
+    pub const DEFAULT_DIGIT_TIMEOUT: u8 = 10;
+    pub const DEFAULT_MAX_DIGITS: u8 = 1;
+    pub const DEFAULT_VM_TIMEOUT: u8 = 30;
+    pub const DEFAULT_VM_MAX_LENGTH: u8 = 30;
+    pub const DEFAULT_CALL_TIME: u16 = 14400;
+    pub const RING_TONE: &'static str = "https://vibe-public.s3-eu-west-1.amazonaws.com/en-gb.wav";

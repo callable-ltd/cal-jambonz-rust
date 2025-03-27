@@ -1,5 +1,11 @@
-use crate::websocket::Redirect;
-use crate::{Ack, Command, CommandValue, Hangup, Play, Say, Verb, Verbs, WebsocketReply};
+use crate::dial::Dial;
+use crate::gather::Gather;
+use crate::hangup::Hangup;
+use crate::play::Play;
+use crate::say::Say;
+use crate::verb::Verb;
+use crate::ws::{Ack, Command, CommandValue, SessionNew, Verbs, WSRedirect, WebsocketReply};
+use log::error;
 
 trait VerbTrait {
     fn new() -> Verbs;
@@ -9,10 +15,28 @@ trait VerbTrait {
     fn say(&mut self, say: Say) -> Self;
     fn play_url(&mut self, url: &str) -> Self;
     fn play(&mut self, play: Play) -> Self;
+    fn dial(&mut self, dial: Dial) -> Self;
+    fn gather(&mut self, dial: Gather) -> Self;
     fn push(&mut self, verb: Verb) -> Self;
     fn to_ack(&mut self, msgid: &str) -> Ack;
-    fn to_redirect(&mut self, queue_command: bool) -> Redirect;
+    fn to_redirect(&mut self, queue_command: bool) -> WSRedirect;
 }
+
+impl WebsocketReply {
+    pub fn json(&self) -> String {
+        serde_json::to_string(self).unwrap_or_else(|e| {
+            error!("{}", e);
+            "Error serializing WebsocketReply".to_string()
+        })
+    }
+}
+
+impl SessionNew {
+    pub fn builder(&self) -> Ack {
+        Ack::new(&self.msgid)
+    }
+}
+
 impl VerbTrait for Verbs {
     fn new() -> Verbs {
         Verbs { data: Vec::new() }
@@ -51,6 +75,14 @@ impl VerbTrait for Verbs {
         self.push(Verb::Play(play))
     }
 
+    fn dial(&mut self, dial: Dial) -> Self {
+        self.push(Verb::Dial(dial))
+    }
+
+    fn gather(&mut self, gather: Gather) -> Self {
+        self.push(Verb::Gather(gather))
+    }
+
     fn push(&mut self, verb: Verb) -> Self {
         self.data.push(verb);
         self.clone()
@@ -62,8 +94,8 @@ impl VerbTrait for Verbs {
             verbs: self.clone(),
         }
     }
-    fn to_redirect(&mut self, queue_command: bool) -> Redirect {
-        Redirect {
+    fn to_redirect(&mut self, queue_command: bool) -> WSRedirect {
+        WSRedirect {
             queue_command,
             verbs: self.clone(),
         }
@@ -73,63 +105,63 @@ impl VerbTrait for Verbs {
 impl Command {
     pub fn new() -> Command {
         Command {
-            command_type: CommandValue::Redirect(Redirect {
+            command_type: CommandValue::Redirect(WSRedirect {
                 queue_command: false,
                 verbs: Verbs::new(),
             }),
         }
     }
 
-    pub fn redirect(&mut self, queue_command: bool) -> Redirect {
-        Redirect {
+    pub fn redirect(&mut self, queue_command: bool) -> WSRedirect {
+        WSRedirect {
             queue_command,
             verbs: Verbs::new(),
         }
     }
 }
 
-impl Redirect {
-    pub fn queue(&mut self, queue_command: bool) -> &mut Redirect {
+impl WSRedirect {
+    pub fn queue(&mut self, queue_command: bool) -> &mut WSRedirect {
         self.queue_command = queue_command;
         self
     }
 
-    pub fn play(&mut self, play: Play) -> Redirect {
+    pub fn play(&mut self, play: Play) -> WSRedirect {
         self.verbs.play(play);
         self.clone()
     }
 
-    pub fn play_url(&mut self, url: &str) -> Redirect {
+    pub fn play_url(&mut self, url: &str) -> WSRedirect {
         self.verbs.play_url(url);
         self.clone()
     }
 
-    pub fn say(&mut self, say: Say) -> Redirect {
+    pub fn say(&mut self, say: Say) -> WSRedirect {
         self.verbs.say(say);
         self.clone()
     }
 
-    pub fn say_text(&mut self, text: &str) -> Redirect {
+    pub fn say_text(&mut self, text: &str) -> WSRedirect {
         self.verbs.say_text(text);
         self.clone()
     }
 
-    pub fn hangup(&mut self) -> Redirect {
+    pub fn hangup(&mut self) -> WSRedirect {
         self.verbs.hangup();
         self.clone()
     }
 
-    pub fn hangup_with_reason(&mut self, reason: &str) -> Redirect {
+    pub fn hangup_with_reason(&mut self, reason: &str) -> WSRedirect {
         self.verbs.hangup_with_reason(reason);
         self.clone()
     }
 
-    pub fn push(&mut self, verb: Verb) -> Redirect {
+    pub fn push(&mut self, verb: Verb) -> WSRedirect {
         self.verbs.push(verb);
         self.clone()
     }
 
-    pub fn verbs(&mut self, verbs: Vec<Verb>) -> Redirect {
+    pub fn verbs(&mut self, verbs: Vec<Verb>) -> WSRedirect {
         self.verbs = Verbs { data: verbs };
         self.clone()
     }
