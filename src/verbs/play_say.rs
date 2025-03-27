@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
-use crate::play::Play;
-use crate::say::Say;
+use crate::verbs::play::Play;
+use crate::verbs::say::Say;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(tag = "verb")]

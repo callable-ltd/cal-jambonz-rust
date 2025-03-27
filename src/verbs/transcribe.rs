@@ -1,5 +1,5 @@
-use crate::recognizer::Recognizer;
-use crate::verb::Verb;
+use crate::verbs::recognizer::Recognizer;
+use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone)]

@@ -1,5 +1,5 @@
-use crate::verb::Verb;
 use serde::{Deserialize, Serialize};
+use crate::verbs::verb::Verb;
 
 #[derive(Serialize, Deserialize)]
 pub struct Dub {

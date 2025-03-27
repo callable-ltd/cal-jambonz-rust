@@ -1,10 +1,10 @@
-use crate::recoginzers::deepgram::DeepgramRecognizer;
-use crate::recoginzers::google::GoogleRecognizer;
-use crate::recoginzers::ibm::IbmRecognizer;
-use crate::recoginzers::microsoft::MSRecognizer;
-use crate::recoginzers::nuance::NuanceRecognizer;
-use crate::recoginzers::nvidia::NvidiaRecognizer;
-use crate::recoginzers::soniox::SonioxRecognizer;
+use crate::verbs::recoginzers::deepgram::DeepgramRecognizer;
+use crate::verbs::recoginzers::google::GoogleRecognizer;
+use crate::verbs::recoginzers::ibm::IbmRecognizer;
+use crate::verbs::recoginzers::microsoft::MSRecognizer;
+use crate::verbs::recoginzers::nuance::NuanceRecognizer;
+use crate::verbs::recoginzers::nvidia::NvidiaRecognizer;
+use crate::verbs::recoginzers::soniox::SonioxRecognizer;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone)]

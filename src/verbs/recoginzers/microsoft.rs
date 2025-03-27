@@ -1,4 +1,4 @@
-use crate::recoginzers::vad::Vad;
+use crate::verbs::recoginzers::vad::Vad;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone)]

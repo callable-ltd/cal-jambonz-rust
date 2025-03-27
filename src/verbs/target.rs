@@ -1,4 +1,4 @@
-use crate::auth::WSAuth;
+use crate::verbs::auth::WSAuth;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

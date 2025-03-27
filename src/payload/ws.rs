@@ -1,13 +1,12 @@
-use crate::dub::{Dub, DubData};
-use crate::play_say::PlaySay;
-use crate::rest::{InitialRequest, Request};
-use crate::verb::Verb;
+use crate::payload::rest::{InitialRequest, Request};
+use crate::verbs::dub::DubData;
+use crate::verbs::play_say::PlaySay;
+use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Verbs {
-
     #[serde(skip)]
     pub msg_id: String,
 
@@ -36,8 +35,6 @@ pub struct SessionNew {
     pub b3: Option<String>,
     pub data: InitialRequest,
 }
-
-
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct SessionRedirect {
@@ -121,7 +118,6 @@ pub enum WebsocketReply {
     Command(Command),
 }
 
-
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Ack {
     pub msgid: String,
@@ -179,7 +175,6 @@ pub struct WSRedirect {
     #[serde(flatten)]
     pub verbs: Verbs,
 }
-
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CallStatus {
@@ -320,4 +315,3 @@ pub enum SipMethod {
     NOTIFY,
     MESSAGE,
 }
-

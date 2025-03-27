@@ -1,4 +1,4 @@
-use crate::verb::Verb;
+use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
