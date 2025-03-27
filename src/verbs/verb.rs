@@ -2,7 +2,7 @@ use crate::config::Config;
 use crate::dequeue::Dequeue;
 use crate::dial::Dial;
 use crate::dialogflow::DialogFlow;
-use crate::dtmf::DTMF;
+use crate::dtmf::Dtmf;
 use crate::enqueue::Enqueue;
 use crate::gather::Gather;
 use crate::hangup::Hangup;
@@ -21,6 +21,8 @@ use crate::tag::Tag;
 use crate::transcribe::Transcribe;
 use crate::verbs::conference::Conference;
 use serde::{Deserialize, Serialize};
+use crate::dub::DubData;
+use crate::siprec::SipRec;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -31,7 +33,8 @@ pub enum Verb {
     Dequeue(Dequeue),
     Dial(Dial),
     DialogFlow(DialogFlow),
-    Dtmf(DTMF),
+    Dub(DubData),
+    Dtmf(Dtmf),
     Enqueue(Enqueue),
     Gather(Gather),
     Hangup(Hangup),
@@ -41,6 +44,7 @@ pub enum Verb {
     Message(Message),
     #[serde(rename = "sip:decline")]
     SipDecline(SipDecline),
+    SipRec(SipRec),
     Pause(Pause),
     Play(Play),
     Redirect(Redirect),

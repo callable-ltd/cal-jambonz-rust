@@ -1,21 +1,26 @@
-    use serde::{Deserialize, Serialize};
-    use crate::verb::Verb;
+use crate::verb::Verb;
+use serde::{Deserialize, Serialize};
 
-    #[derive(Serialize, Deserialize, Clone)]
-    #[serde(rename_all = "camelCase")]
-    pub struct Redirect {
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub action_hook: Option<String>,
-    }
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct Redirect {
+    pub action_hook: String,
+}
 
-    impl Into<Verb> for Redirect {
-        fn into(self) -> Verb {
-            Verb::Redirect(self)
-        }
+impl Redirect {
+    pub fn new(action_hook: String) -> Redirect {
+        Redirect { action_hook }
     }
+}
 
-    impl Into<Vec<Verb>> for Redirect {
-        fn into(self) -> Vec<Verb> {
-            vec![self.into()]
-        }
+impl Into<Verb> for Redirect {
+    fn into(self) -> Verb {
+        Verb::Redirect(self)
     }
+}
+
+impl Into<Vec<Verb>> for Redirect {
+    fn into(self) -> Vec<Verb> {
+        vec![self.into()]
+    }
+}

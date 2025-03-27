@@ -70,9 +70,7 @@ use std::collections::HashMap;
         }
 
         pub fn add_headers(&mut self, headers: HashMap<String, String>) -> &mut Phone {
-            headers.into_iter().for_each(|(key, value)| {
-                self.headers.insert(key, value);
-            });
+            self.headers.extend(headers);
             self
         }
     }
@@ -144,9 +142,7 @@ use std::collections::HashMap;
         }
 
         pub fn add_headers(&mut self, headers: HashMap<String, String>) -> &mut Sip {
-            headers.into_iter().for_each(|(key, value)| {
-                self.headers.insert(key, value);
-            });
+            self.headers.extend(headers);
             self
         }
     }
@@ -208,9 +204,7 @@ use std::collections::HashMap;
         }
 
         pub fn add_headers(&mut self, headers: HashMap<String, String>) -> &mut User {
-            headers.into_iter().for_each(|(key, value)| {
-                self.headers.insert(key, value);
-            });
+            self.headers.extend(headers);
             self
         }
     }
@@ -291,9 +285,7 @@ use std::collections::HashMap;
         }
 
         pub fn add_headers(&mut self, headers: HashMap<String, String>) -> &mut Teams {
-            headers.into_iter().for_each(|(key, value)| {
-                self.headers.insert(key, value);
-            });
+            self.headers.extend(headers);
             self
         }
     }

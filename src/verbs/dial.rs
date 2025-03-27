@@ -192,9 +192,7 @@
         }
 
         pub fn add_headers(&mut self, headers: HashMap<String, String>) -> &mut Dial {
-            headers.into_iter().for_each(|(key, value)| {
-                self.headers.insert(key, value);
-            });
+            self.headers.extend(headers);
             self
         }
 
@@ -231,8 +229,10 @@
 
     #[derive(Serialize, Deserialize, Clone)]
     pub struct TranscribeDial {
+      
         #[serde(rename = "transcriptionHook")]
         pub transcription_hook: String,
+       
         pub recognizer: Recognizer,
     }
 

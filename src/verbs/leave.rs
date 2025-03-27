@@ -4,6 +4,12 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Leave {}
 
+impl Leave {
+    pub fn new() -> Leave {
+        Leave {}
+    }
+}
+
 impl Into<Verb> for Leave {
     fn into(self) -> Verb {
         Verb::Leave(self)

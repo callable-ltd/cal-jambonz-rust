@@ -5,11 +5,15 @@
     #[derive(Serialize, Deserialize, Clone)]
     #[serde(rename_all = "camelCase")]
     pub struct Dequeue {
+      
         pub name: String,
+     
         #[serde(skip_serializing_if = "Option::is_none")]
         pub action_hook: Option<String>,
+      
         #[serde(skip_serializing_if = "Option::is_none")]
         pub beep: Option<bool>,
+      
         #[serde(skip_serializing_if = "Option::is_none")]
         pub timeout: Option<u8>,
     }

@@ -155,9 +155,12 @@ impl Into<Vec<Verb>> for Config {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct TranscribeConfig {
+ 
     pub enable: bool,
+  
     #[serde(rename = "transcriptionHook")]
     pub transcription_hook: String,
+  
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recognizer: Option<Recognizer>,
 }
@@ -179,8 +182,11 @@ impl TranscribeConfig {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FillerNoise {
+  
     pub enabled: bool,
+  
     pub url: String,
+  
     #[serde(rename = "startDelaySecs")]
     pub start_delay_secs: Option<u8>,
 }

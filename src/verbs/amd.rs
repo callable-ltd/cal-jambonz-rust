@@ -4,16 +4,21 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Amd {
+ 
     #[serde(rename = "actionHook")]
     pub action_hook: String,
+  
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recognizer: Option<Recognizer>,
+   
     #[serde(rename = "thresholdWordCount")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub threshold_word_count: Option<u8>,
+    
     #[serde(rename = "digitCount")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub digit_count: Option<u8>,
+  
     #[serde(skip_serializing_if = "Option::is_none")]
     pub timers: Option<Timers>,
 }
@@ -52,15 +57,19 @@ impl Amd {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Timers {
+   
     #[serde(rename = "decisionTimeoutMs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     decision_timeout_ms: Option<u16>,
+   
     #[serde(rename = "greetingCompletionTimeoutMs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     greeting_completion_timeout_ms: Option<u16>,
+   
     #[serde(rename = "noSpeechTimeoutMs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     no_speech_timeout_ms: Option<u16>,
+   
     #[serde(rename = "toneTimeoutMs")]
     #[serde(skip_serializing_if = "Option::is_none")]
     tone_timeout_ms: Option<u16>,
