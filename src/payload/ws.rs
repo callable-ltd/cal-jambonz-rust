@@ -1,4 +1,4 @@
-use crate::dub::Dub;
+use crate::dub::{Dub, DubData};
 use crate::play_say::PlaySay;
 use crate::rest::{InitialRequest, Request};
 use crate::verb::Verb;
@@ -7,10 +7,14 @@ use std::collections::HashMap;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Verbs {
+
+    #[serde(skip)]
+    pub msg_id: String,
+
     pub data: Vec<Verb>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(tag = "type")]
 pub enum WebsocketRequest {
     #[serde(rename = "session:new")]
@@ -25,7 +29,7 @@ pub enum WebsocketRequest {
     VerbHook(SessionVerbHook),
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SessionNew {
     pub msgid: String,
     pub call_sid: String,
@@ -35,7 +39,7 @@ pub struct SessionNew {
 
 
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SessionRedirect {
     pub msgid: String,
     pub call_sid: String,
@@ -44,7 +48,7 @@ pub struct SessionRedirect {
     pub data: Request,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SessionReconnect {
     pub msgid: String,
     pub call_sid: String,
@@ -53,7 +57,7 @@ pub struct SessionReconnect {
     pub data: Request,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SessionCallStatus {
     pub msgid: String,
     pub call_sid: String,
@@ -62,7 +66,7 @@ pub struct SessionCallStatus {
     #[serde(rename = "data.call_status")]
     pub call_status: SessionCallStatusEnum,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SessionVerbHook {
     pub msgid: String,
     pub call_sid: String,
@@ -71,7 +75,7 @@ pub struct SessionVerbHook {
     pub data: Request,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SessionVerbStatus {
     pub msgid: String,
     pub call_sid: String,
@@ -86,14 +90,14 @@ pub struct SessionVerbStatus {
     pub data_status: DataStatus,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum DataStatus {
     Begin,
     End,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum SessionCallStatusEnum {
     Trying,
     Ringing,
@@ -109,7 +113,7 @@ pub enum SessionCallStatusEnum {
     Queued,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(tag = "type")]
 #[serde(rename_all = "camelCase")]
 pub enum WebsocketReply {
@@ -125,13 +129,13 @@ pub struct Ack {
     pub verbs: Verbs,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Command {
     #[serde(flatten)]
     pub command_type: CommandValue,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum CommandType {
     Redirect,
     CallStatus,
@@ -144,7 +148,7 @@ pub enum CommandType {
     Dub,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(tag = "command")]
 #[serde(rename_all = "camelCase")]
 pub enum CommandValue {
@@ -165,7 +169,7 @@ pub enum CommandValue {
     #[serde(rename = "whisper")]
     Whisper(Whisper),
     #[serde(rename = "dub")]
-    Dub(Dub),
+    Dub(DubData),
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -176,18 +180,19 @@ pub struct WSRedirect {
     pub verbs: Verbs,
 }
 
-#[derive(Serialize, Deserialize)]
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct CallStatus {
     pub queue_command: bool,
     pub data: CallStatusData,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct CallStatusData {
     pub call_status: CallStatusValue,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum CallStatusValue {
     #[serde(rename = "completed")]
     Completed,
@@ -195,77 +200,77 @@ pub enum CallStatusValue {
     NoAnswer,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct MuteStatus {
     pub queue_command: bool,
     pub data: MuteStatusData,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct MuteStatusData {
     pub mute_status: MuteStatusValue,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum MuteStatusValue {
     #[serde(rename = "mute")]
     Mute,
     #[serde(rename = "unmute")]
     UnMute,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ConferenceMuteStatus {
     pub queue_command: bool,
     pub data: ConferenceMuteStatusData,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ConferenceMuteStatusData {
     pub conf_mute_status: ConferenceMuteStatusValue,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum ConferenceMuteStatusValue {
     #[serde(rename = "mute")]
     Mute,
     #[serde(rename = "unmute")]
     UnMute,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ConferenceHoldStatus {
     pub queue_command: bool,
     pub data: ConferenceHoldStatusData,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ConferenceHoldStatusData {
     pub conf_hold_status: ConferenceHoldStatusValue,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum ConferenceHoldStatusValue {
     #[serde(rename = "hold")]
     Hold,
     #[serde(rename = "unhold")]
     UnHold,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ListenStatus {
     pub queue_command: bool,
     pub data: ListenStatusData,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ListenStatusData {
     pub listen_status: ListenStatusValue,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum ListenStatusValue {
     #[serde(rename = "pause")]
     Pause,
     #[serde(rename = "resume")]
     Resume,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Record {
     pub queue_command: bool,
     pub data: RecordData,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(tag = "action")]
 #[serde(rename_all = "camelCase")]
 pub enum RecordData {
@@ -274,7 +279,7 @@ pub enum RecordData {
     PauseCallRecording(PauseCallRecording),
     ResumeCallRecording(ResumeCallRecording),
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct StartCallRecording {
     #[serde(rename = "recordingID")]
     pub recording_id: String,
@@ -283,25 +288,25 @@ pub struct StartCallRecording {
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct StopCallRecording {}
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct PauseCallRecording {}
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ResumeCallRecording {}
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Whisper {
     pub queue_command: bool,
     pub data: Vec<PlaySay>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SipRequest {
     pub queue_command: bool,
     pub data: SipRequestData,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct SipRequestData {
     pub method: SipMethod,
     pub content_type: Option<String>,
@@ -309,7 +314,7 @@ pub struct SipRequestData {
     pub headers: Option<HashMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub enum SipMethod {
     INFO,
     NOTIFY,

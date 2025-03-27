@@ -22,7 +22,7 @@ pub struct Gather {
     pub finish_on_key: Option<String>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub input: Option<Vec<String>>,
+    pub input: Option<Vec<Input>>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub inter_digit_timeout: Option<u8>,
@@ -56,9 +56,9 @@ pub struct Gather {
 }
 
 impl Gather {
-    pub fn new(action_hook: String) -> Self {
+    pub fn new(action_hook: &str) -> Self {
         Gather {
-            action_hook,
+            action_hook: action_hook.to_string(),
             action_hook_delay_action: None,
             bargein: None,
             dtmf_bargein: None,
@@ -105,8 +105,23 @@ impl Gather {
         self
     }
     
-    pub fn input(&mut self, input: Vec<String>) -> &mut Gather {
+    pub fn input(&mut self, input: Vec<Input>) -> &mut Gather {
         self.input = Some(input);
+        self
+    }
+
+    pub fn speech(&mut self) -> &mut Gather {
+        self.input = Some(vec![Input::Speech]);
+        self
+    }
+
+    pub fn digits(&mut self) -> &mut Gather {
+        self.input = Some(vec![Input::Digits]);
+        self
+    }
+
+    pub fn speech_digits(&mut self) -> &mut Gather {
+        self.input = Some(vec![Input::Digits, Input::Speech]);
         self
     }
     
@@ -154,6 +169,10 @@ impl Gather {
         self.say = Some(say);
         self
     }
+    
+    pub fn build(&mut self) -> Gather {
+        self.clone().into()
+    }
 }
 
 impl Into<Verb> for Gather {
@@ -176,4 +195,11 @@ pub struct ActionHookDelayAction {
     no_response_give_up_timeout: Option<u8>,
     no_response_timeout: Option<u8>,
     retries: Option<u8>,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub enum Input {
+    Digits,
+    Speech
 }

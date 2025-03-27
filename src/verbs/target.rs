@@ -40,9 +40,9 @@ use std::collections::HashMap;
     }
 
     impl Phone {
-        pub fn new(number: String) -> Phone {
+        pub fn new(number: &str) -> Phone {
             Phone {
-                number,
+                number: number.to_string(),
                 confirm_hook: None,
                 trunk: None,
                 headers: HashMap::new(),

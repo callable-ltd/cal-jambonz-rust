@@ -1,6 +1,5 @@
-use serde::{Deserialize, Serialize};
-use crate::redirect::Redirect;
 use crate::verb::Verb;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Dub {

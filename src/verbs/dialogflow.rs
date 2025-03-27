@@ -56,11 +56,12 @@ impl Into<Vec<Verb>> for DialogFlow {
 }
 
 impl DialogFlow {
-    pub fn new(project: &str, lang: &str, credentials: &str, tts: Synthesizer) -> DialogFlow {
+    pub fn new(project: &str, lang: &str, credentials: &str, tts: DialogFlowSynthesizer) -> DialogFlow {
         DialogFlow {
             credentials: credentials.to_string(),
             lang: lang.to_string(),
             project: project.to_string(),
+            tts: Some(tts),
             action_hook: None,
             baregin: None,
             event_hook: None,
@@ -68,7 +69,6 @@ impl DialogFlow {
             no_input_timeout: None,
             pass_dtmf_as_text_input: None,
             thinking_music: None,
-            tts: None,
             welcome_event: None,
             welcome_event_params: None,
         }

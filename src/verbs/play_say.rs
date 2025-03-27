@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use crate::play::Play;
 use crate::say::Say;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 #[serde(tag = "verb")]
 #[serde(rename_all = "camelCase")]
 pub enum PlaySay {
