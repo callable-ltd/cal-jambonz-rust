@@ -30,7 +30,7 @@ use crate::payload::ws::{
 };
 use log::error;
 
-trait VerbTrait {
+pub trait VerbTrait {
     fn new(msg_id: &str) -> Self;
     fn conference(&mut self, conference: Conference) -> &mut Self;
     fn config(&mut self, config: Config) -> &mut Self;
@@ -84,47 +84,6 @@ impl VerbTrait for Verbs {
         }
     }
 
-    fn hangup(&mut self) -> &mut Self {
-        let hangup: Verb = Hangup::hangup().into();
-        self.push(hangup)
-    }
-
-    fn hangup_with_reason(&mut self, reason: &str) -> &mut Self {
-        let hangup: Verb = Hangup::hangup_with_reason(reason).into();
-        self.push(hangup)
-    }
-
-    fn say_text(&mut self, text: &str) -> &mut Self {
-        let say = Say {
-            text: text.to_string(),
-            say_loop: Some(1),
-            synthesizer: None,
-            early_media: Some(false),
-        };
-        self.push(Verb::Say(say))
-    }
-
-    fn say(&mut self, say: Say) -> &mut Self {
-        self.push(Verb::Say(say))
-    }
-
-    fn play_url(&mut self, url: &str) -> &mut Self {
-        let play = Play::new(url);
-        self.push(Verb::Play(play))
-    }
-
-    fn play(&mut self, play: Play) -> &mut Self {
-        self.push(Verb::Play(play))
-    }
-
-    fn dial(&mut self, dial: Dial) -> &mut Self {
-        self.push(Verb::Dial(dial))
-    }
-
-    fn gather(&mut self, gather: Gather) -> &mut Self {
-        self.push(Verb::Gather(gather))
-    }
-
     fn conference(&mut self, conference: Conference) -> &mut Self {
         self.push(Verb::Conference(conference))
     }
@@ -135,6 +94,10 @@ impl VerbTrait for Verbs {
 
     fn dequeue(&mut self, config: Dequeue) -> &mut Self {
         self.push(Verb::Dequeue(config))
+    }
+
+    fn dial(&mut self, dial: Dial) -> &mut Self {
+        self.push(Verb::Dial(dial))
     }
 
     fn dialog_flow(&mut self, dialog_flow: DialogFlow) -> &mut Self {
@@ -151,6 +114,20 @@ impl VerbTrait for Verbs {
 
     fn enqueue(&mut self, enqueue: Enqueue) -> &mut Self {
         self.push(Verb::Enqueue(enqueue))
+    }
+
+    fn gather(&mut self, gather: Gather) -> &mut Self {
+        self.push(Verb::Gather(gather))
+    }
+
+    fn hangup(&mut self) -> &mut Self {
+        let hangup: Verb = Hangup::hangup().into();
+        self.push(hangup)
+    }
+
+    fn hangup_with_reason(&mut self, reason: &str) -> &mut Self {
+        let hangup: Verb = Hangup::hangup_with_reason(reason).into();
+        self.push(hangup)
     }
 
     fn leave(&mut self, leave: Leave) -> &mut Self {
@@ -173,8 +150,21 @@ impl VerbTrait for Verbs {
         self.push(Verb::Pause(pause))
     }
 
+    fn play_url(&mut self, url: &str) -> &mut Self {
+        let play = Play::new(url);
+        self.push(Verb::Play(play))
+    }
+
+    fn play(&mut self, play: Play) -> &mut Self {
+        self.push(Verb::Play(play))
+    }
+
     fn rasa(&mut self, rasa: Rasa) -> &mut Self {
         self.push(Verb::Rasa(rasa))
+    }
+
+    fn redirect(&mut self, redirect: Redirect) -> &mut Self {
+        self.push(Verb::Redirect(redirect))
     }
 
     fn redirect_url(&mut self, url: &str) -> &mut Self {
@@ -182,9 +172,19 @@ impl VerbTrait for Verbs {
             action_hook: url.to_string(),
         }))
     }
-    
-    fn redirect(&mut self, redirect: Redirect) -> &mut Self {
-        self.push(Verb::Redirect(redirect))
+
+    fn say_text(&mut self, text: &str) -> &mut Self {
+        let say = Say {
+            text: text.to_string(),
+            say_loop: Some(1),
+            synthesizer: None,
+            early_media: Some(false),
+        };
+        self.push(Verb::Say(say))
+    }
+
+    fn say(&mut self, say: Say) -> &mut Self {
+        self.push(Verb::Say(say))
     }
 
     fn sip_declined(&mut self, sip_decline: SipDecline) -> &mut Self {
@@ -205,6 +205,11 @@ impl VerbTrait for Verbs {
 
     fn transcribe(&mut self, transcribe: Transcribe) -> &mut Self {
         self.push(Verb::Transcribe(transcribe))
+    }
+
+    fn push(&mut self, verb: Verb) -> &mut Self {
+        self.data.push(verb);
+        self
     }
 
     fn as_ack(&mut self) -> Ack {
@@ -230,11 +235,6 @@ impl VerbTrait for Verbs {
         WebsocketReply::Command(Command {
             command_type: CommandValue::Redirect(redirect),
         })
-    }
-
-    fn push(&mut self, verb: Verb) -> &mut Self {
-        self.data.push(verb);
-        self
     }
 }
 
@@ -319,15 +319,15 @@ impl Into<WebsocketReply> for Ack {
 
 #[test]
 fn json() {
-    
+
     // Ack response to initial session:new
-    
+
     let ack: WebsocketReply = Verbs::new("1234")
         .say_text("Welcome to Callable")
         .as_ack_reply();
 
     //Example Gather Command
-    
+
     let gather_cmd: WebsocketReply = Verbs::new("1234")
         .gather(
             Gather::new("my_action_url")
@@ -342,7 +342,7 @@ fn json() {
         .into();
 
     //Example Dial Command
-    
+
     let dial_cmd: WebsocketReply = Verbs::new("1234")
         .say_text("Putting you through now...")
         .dial(Dial::new(
