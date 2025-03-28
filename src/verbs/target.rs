@@ -155,6 +155,10 @@ use std::collections::HashMap;
         #[serde(skip_serializing_if = "Option::is_none")]
         pub confirm_hook: Option<String>,
 
+        #[serde(rename = "overrideTo")]
+        #[serde(skip_serializing_if = "Option::is_none")]
+        pub override_to: Option<String>,
+        
         #[serde(skip_serializing_if = "HashMap::is_empty")]
         pub headers: HashMap<String, String>,
     }
@@ -176,6 +180,7 @@ use std::collections::HashMap;
             User {
                 name: sip_uri.to_string(),
                 confirm_hook: None,
+                override_to: None,
                 headers: HashMap::new(),
             }
         }
@@ -184,12 +189,18 @@ use std::collections::HashMap;
             User {
                 name: format!("{}@{}", username, domain),
                 confirm_hook: None,
+                override_to: None,
                 headers: HashMap::new(),
             }
         }
 
         pub fn confirm_hook(&mut self, confirm_hook: &str) -> &mut User {
             self.confirm_hook = Some(confirm_hook.to_string());
+            self
+        }
+        
+        pub fn override_to(&mut self, override_to: &str) -> &mut User {
+            self.override_to = Some(override_to.to_string());
             self
         }
 

@@ -13,7 +13,7 @@ dependencies = [
 
 [[package]]
 name = "cal-jambonz"
-version = "0.1.49"
+version = "0.1.50"
 dependencies = [
  "ip-in-subnet",
  "log",
