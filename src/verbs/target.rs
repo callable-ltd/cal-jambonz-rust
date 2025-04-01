@@ -14,15 +14,28 @@ use std::collections::HashMap;
 
     #[derive(Serialize, Deserialize, Clone)]
     pub struct Phone {
+        
+        /// A telephone number in E.164 format.
         pub number: String,
 
+        /// A webhook for an application to run on the callee’s end after
+        /// the dialed number answers but before the call is connected.
+        /// This will override the confirmHook property set on the parent dial verb,
+        /// if any.
         #[serde(rename = "confirmHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub confirm_hook: Option<String>,
 
+        /// If provided, this should be the name of a Carrier 
+        /// that you created in the jambonz portal or API, 
+        /// which you want to use to complete this call. 
+        /// If not provided, jambonz will selectone of your 
+        /// configured Carriers that has an outbound trunk.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub trunk: Option<String>,
 
+        /// An object containing arbitrary SIP headers
+        /// to apply to the outbound call attempt(s).
         #[serde(skip_serializing_if = "HashMap::is_empty")]
         pub headers: HashMap<String, String>,
     }
@@ -76,18 +89,29 @@ use std::collections::HashMap;
     }
     #[derive(Serialize, Deserialize, Clone)]
     pub struct Sip {
+        
+        /// Sip uri to send call to
+        /// e.g. (sip:+441234567890:5060)
         #[serde(rename = "sipUri")]
         pub sip_uri: String,
 
+        /// A webhook for an application to run on the callee’s end after
+        /// the dialed number answers but before the call is connected.
+        /// This will override the confirmHook property set on the parent dial verb,
+        /// if any.
         #[serde(rename = "confirmHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub confirm_hook: Option<String>,
 
+        /// Authentication credentials
         #[serde(skip_serializing_if = "Option::is_none")]
         pub auth: Option<WSAuth>,
 
+        /// An object containing arbitrary SIP headers
+        /// to apply to the outbound call attempt(s).
         #[serde(skip_serializing_if = "HashMap::is_empty")]
         pub headers: HashMap<String, String>,
+
     }
 
     impl Into<Target> for Sip {
@@ -149,18 +173,30 @@ use std::collections::HashMap;
 
     #[derive(Serialize, Deserialize, Clone)]
     pub struct User {
+
+        /// Registered sip user, including domain
+        /// (e.g. "joeb@sip.jambonz.org")
         pub name: String,
 
+        /// A webhook for an application to run on the callee’s end after
+        /// the dialed number answers but before the call is connected.
+        /// This will override the confirmHook property set on the parent dial verb,
+        /// if any.
         #[serde(rename = "confirmHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub confirm_hook: Option<String>,
 
+        /// An object containing arbitrary SIP headers
+        /// to apply to the outbound call attempt(s).
+        #[serde(skip_serializing_if = "HashMap::is_empty")]
+        pub headers: HashMap<String, String>,
+
+        /// Adds X-Override-To: +441234567890 INVITE from FS
+        /// This is then translated to outbound INVITE URI on SBC:
+        /// (e.g. INVITE sip:+441234567890@1.1.1.1:5060;transport=udp SIP/2.0)
         #[serde(rename = "overrideTo")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub override_to: Option<String>,
-        
-        #[serde(skip_serializing_if = "HashMap::is_empty")]
-        pub headers: HashMap<String, String>,
     }
 
     impl Into<Target> for User {
@@ -198,7 +234,7 @@ use std::collections::HashMap;
             self.confirm_hook = Some(confirm_hook.to_string());
             self
         }
-        
+
         pub fn override_to(&mut self, override_to: &str) -> &mut User {
             self.override_to = Some(override_to.to_string());
             self
@@ -221,20 +257,35 @@ use std::collections::HashMap;
     }
     #[derive(Serialize, Deserialize, Clone)]
     pub struct Teams {
+
+        /// The phone number that has been mapped to the 
+        /// teams user by the Microsoft Teams administrator
         pub number: String,
 
+        /// A webhook for an application to run on the callee’s end after
+        /// the dialed number answers but before the call is connected.
+        /// This will override the confirmHook property set on the parent dial verb,
+        /// if any.
         #[serde(rename = "confirmHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub confirm_hook: Option<String>,
 
+        /// Microsoft Teams customer tenant domain name.
+        /// Will default to the Microsoft Teams tenant
+        /// associated with the account of the calling party.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub tenant: Option<String>,
 
+        /// if true, dial directly into user’s
+        /// voicemail to leave a message
         #[serde(skip_serializing_if = "Option::is_none")]
         pub voicemail: Option<bool>,
 
+        /// An object containing arbitrary SIP headers
+        /// to apply to the outbound call attempt(s).
         #[serde(skip_serializing_if = "HashMap::is_empty")]
         pub headers: HashMap<String, String>,
+
     }
 
     impl Into<Target> for Teams {

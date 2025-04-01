@@ -11,45 +11,96 @@
     #[derive(Serialize, Deserialize, Clone)]
     #[serde(rename_all = "camelCase")]
     pub struct Dial {
+
+        /// Array of up to 10 destinations to simultaneously dial.
+        /// The first person (or entity) to answer the call will
+        /// be connected to the caller, and the rest of the called
+        /// numbers will be hung up.
         pub target: Vec<Target>,
 
+        /// Webhook to invoke when the call ends.
+        /// The webhook will include properties
+        /// describing the outcome of the call attempt
         #[serde(rename = "actionHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub action_hook: Option<String>,
 
+        /// Enable answering machine detection
         #[serde(skip_serializing_if = "Option::is_none")]
         pub amd: Option<Amd>,
 
+        /// If set to true, the inbound call will ring until the number 
+        /// that was dialed answers the call, and at that point a 200 
+        /// OK will be sent on the inbound leg.
+        /// 
+        /// If false, the inbound call will be answered immediately as 
+        /// the outbound call is placed.
+        /// 
+        /// Defaults to false.
         #[serde(rename = "answerOnBridge")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub answer_on_bridge: Option<bool>,
 
+        /// The inbound caller’s phone number, which is displayed 
+        /// to the number that was dialed.
+        /// 
+        /// The caller ID must be a valid E.164 number.
+        /// 
+        /// Defaults to caller ID on inbound call.
         #[serde(rename = "callerId")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub caller_id: Option<String>,
 
+        /// Webhook for an application to run on the callee’s end after 
+        /// the dialed number answers but before the call is connected.
+        /// 
+        /// This allows the caller to provide information to the dialed number, 
+        /// giving them the opportunity to decline the call before they answer.
+        /// 
+        /// Note that if you want to run different applications on specific destinations, 
+        /// you can specify the ‘url’ property on the nested target object.
         #[serde(rename = "confirmHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub confirm_hook: Option<String>,
 
+        /// Url that specifies a .wav or .mp3 audio file of custom audio or ringback 
+        /// to play to the caller while the outbound call is ringing.
         #[serde(rename = "dialMusic")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub dial_music: Option<String>,
 
+        /// An array of strings that represent DTMF sequences which, when detected, 
+        /// will trigger a mid-call notification to the application 
+        /// via the configured dtmfHook.
         #[serde(rename = "dtmfCapture")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub dtmf_capture: Option<Vec<String>>,
 
+        /// A webhook to call when a dtmfCapture entry is matched.
+        /// 
+        /// This is a notification only — no response is expected, 
+        /// and any desired actions must be carried out via 
+        /// the REST updateCall API.
         #[serde(rename = "dtmfHook")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub dtmf_hook: Option<String>,
 
+        /// An object containing arbitrary SIP headers 
+        /// to apply to the outbound call attempt(s).
         #[serde(skip_serializing_if = "HashMap::is_empty")]
         pub headers: HashMap<String, String>,
 
+        /// A nested listen action, which will cause audio from the call
+        /// to be streamed to a remote server over a websocket connection.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub listen: Option<Listen>,
 
+        /// Webhook to invoke when an incoming SIP REFER is received on a dialed call.
+        /// 
+        /// If the application wishes to accept and process the REFER,
+        /// the webhook application should return an HTTP status code 200 with no body, 
+        /// and jambonz will send a SIP 202 Accepted.
+        // Otherwise, any HTTP non-success status will cause jambonz to send a SIP response to the REFER with the same status code.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub refer_hook: Option<String>,
 
@@ -63,13 +114,22 @@
         #[serde(skip_serializing_if = "Option::is_none")]
         pub transcribe: Option<TranscribeDial>,
 
+        /// if true, jambonz will attempt to re-invite itself completely 
+        /// out of the media path for the call.
+        /// 
+        /// Defaults to false.
         #[serde(rename = "exitMediaPath")]
         #[serde(skip_serializing_if = "Option::is_none")]
         pub exit_media_path: Option<bool>,
 
+        /// A nested dub verb to add additional audio 
+        /// tracks into the outbound call.
         #[serde(skip_serializing_if = "Option::is_none")]
         pub dub: Option<DubData>,
 
+        /// If true, jambonz will not release the media 
+        /// from feature server for the bridged call
+        /// Default: false
         #[serde(rename = "anchorMedia")]
         #[serde(skip_serializing_if = "Option::is_none")]
         anchor_media: Option<bool>,
