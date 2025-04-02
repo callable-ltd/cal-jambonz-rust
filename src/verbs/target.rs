@@ -202,7 +202,7 @@ use std::collections::HashMap;
     impl Into<Target> for User {
         fn into(self) -> Target {
             Target::User(self)
-        }
+        }   
     }
 
     impl Into<Vec<Target>> for User {

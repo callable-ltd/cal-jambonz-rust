@@ -18,9 +18,9 @@ pub struct ListenStruct {
 
     pub action_hook: String,
 
-    pub sample_rate: SampleRate,
+    pub sample_rate: Option<SampleRate>,
 
-    pub timeout: u8,
+    pub timeout: Option<u8>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub finish_on_key: Option<String>,
@@ -52,8 +52,8 @@ impl ListenStruct {
         ListenStruct {
             url: url.to_string(),
             action_hook: action_hook.to_string(),
-            sample_rate: SampleRate::SR8000,
-            timeout: 0,
+            sample_rate: Some(SampleRate::SR8000),
+            timeout: None,
             finish_on_key: None,
             max_length: None,
             metadata: None,
@@ -66,7 +66,7 @@ impl ListenStruct {
     }
     
     pub fn timeout(&mut self, timeout: u8) -> &mut ListenStruct {
-        self.timeout = timeout;
+        self.timeout = Some(timeout);
         self
     }
     

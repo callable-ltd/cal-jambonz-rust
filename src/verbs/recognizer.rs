@@ -1,3 +1,4 @@
+use crate::recoginzers::amazon::AWSRecognizer;
 use crate::verbs::recoginzers::deepgram::DeepgramRecognizer;
 use crate::verbs::recoginzers::google::GoogleRecognizer;
 use crate::verbs::recoginzers::ibm::IbmRecognizer;
@@ -11,6 +12,7 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "camelCase")]
 #[serde(tag = "vendor")]
 pub enum Recognizer {
+    Aws(AWSRecognizer),
     Deepgram(DeepgramRecognizer),
     Google(GoogleRecognizer),
     Ibm(IbmRecognizer),
