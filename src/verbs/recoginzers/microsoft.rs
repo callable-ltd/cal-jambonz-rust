@@ -5,8 +5,6 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "camelCase")]
 pub struct MSRecognizer {
 
-    pub transcription_hook: String,
-
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vad: Option<Vad>,
 

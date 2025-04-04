@@ -286,7 +286,7 @@ impl Dial {
 pub struct TranscribeDial {
     #[serde(rename = "transcriptionHook")]
     pub transcription_hook: String,
-
+    #[serde(flatten)]
     pub recognizer: Recognizer,
 }
 

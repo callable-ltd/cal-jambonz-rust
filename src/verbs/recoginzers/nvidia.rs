@@ -6,8 +6,6 @@ use crate::verbs::recoginzers::vad::Vad;
 #[serde(rename_all = "camelCase")]
 pub struct NvidiaRecognizer {
 
-    pub transcription_hook: String,
-
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vad: Option<Vad>,
 
