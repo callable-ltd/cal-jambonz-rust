@@ -1,9 +1,9 @@
+use crate::verbs::vendors::vad::Vad;
 use serde::{Deserialize, Serialize};
-use crate::verbs::recoginzers::vad::Vad;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct AWSRecognizer {
+pub struct MSRecognizer {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vad: Option<Vad>,
@@ -27,22 +27,49 @@ pub struct AWSRecognizer {
     pub separate_recognition_per_channel: Option<bool>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub identify_channels: Option<bool>,
+    pub azure_service_endpoint: Option<String>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub filter_method: Option<AWSFilterMethod>,
+    pub azure_options: Option<AzureOptions>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vocabulary_name: Option<String>,
+    pub hints: Option<Vec<String>>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vocabulary_filter_name: Option<String>,
+    pub initial_speech_timeout_ms: Option<u16>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub profanity_filter: Option<bool>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub profanity_option: Option<MSProfanityOption>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub output_format: Option<MSOutputFormat>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub request_snr: Option<bool>,
+}
+
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub enum MSOutputFormat {
+    Simple,
+    Detailed,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub enum AWSFilterMethod {
-    Remove,
-    Mask,
-    Tag,
+pub enum MSProfanityOption {
+    Masked,
+    Removed,
+    Raw,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct AzureOptions {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub speech_segmentation_silence_timeout_ms: Option<u16>,
 }

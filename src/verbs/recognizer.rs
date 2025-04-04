@@ -1,12 +1,13 @@
-use crate::recoginzers::amazon::AWSRecognizer;
-use crate::verbs::recoginzers::deepgram::DeepgramRecognizer;
-use crate::verbs::recoginzers::google::GoogleRecognizer;
-use crate::verbs::recoginzers::ibm::IbmRecognizer;
-use crate::verbs::recoginzers::microsoft::MSRecognizer;
-use crate::verbs::recoginzers::nuance::NuanceRecognizer;
-use crate::verbs::recoginzers::nvidia::NvidiaRecognizer;
-use crate::verbs::recoginzers::soniox::SonioxRecognizer;
+use crate::vendors::amazon::AWSRecognizer;
+use crate::verbs::vendors::deepgram::DeepgramRecognizer;
+use crate::verbs::vendors::google::GoogleRecognizer;
+use crate::verbs::vendors::ibm::IbmRecognizer;
+use crate::verbs::vendors::microsoft::MSRecognizer;
+use crate::verbs::vendors::nuance::NuanceRecognizer;
+use crate::verbs::vendors::nvidia::NvidiaRecognizer;
+use crate::verbs::vendors::soniox::SonioxRecognizer;
 use serde::{Deserialize, Serialize};
+use crate::vendors::openai::OpenaiRecognizer;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -20,4 +21,5 @@ pub enum Recognizer {
     Nuance(NuanceRecognizer),
     Nvidia(NvidiaRecognizer),
     Soniox(SonioxRecognizer),
+    Openai(OpenaiRecognizer)
 }

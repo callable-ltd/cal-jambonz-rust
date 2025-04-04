@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
-use crate::verbs::recoginzers::vad::Vad;
+use crate::verbs::vendors::vad::Vad;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct DeepgramRecognizer {
+pub struct IbmRecognizer {
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vad: Option<Vad>,
@@ -27,13 +27,21 @@ pub struct DeepgramRecognizer {
     pub separate_recognition_per_channel: Option<bool>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub hints: Option<Vec<String>>,
+    pub ibm_options: Option<IBMOptions>,
 
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub deepgram_options: Option<DeepgramOptions>,
 }
 
-//todo
+
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-pub struct DeepgramOptions {}
+pub struct IBMOptions {
+    pub stt_api_key: String,
+    pub stt_region: String,
+    pub instance_id: String,
+    pub model: String,
+    pub language_customization_id: String,
+    pub acoustic_customization_id: String,
+    pub base_model_version: String,
+    pub watson_metadata: String,
+    pub watson_learning_opt_out: bool,
+}

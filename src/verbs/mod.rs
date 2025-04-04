@@ -30,6 +30,6 @@ pub mod config;
 pub mod dtmf;
 pub mod say;
 pub mod auth;
-pub mod recoginzers;
+pub mod vendors;
 pub mod play_say;
 
