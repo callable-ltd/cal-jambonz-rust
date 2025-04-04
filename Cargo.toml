@@ -3,7 +3,7 @@ name = "cal-jambonz"
 version = "0.1.57"
 edition = "2024"
 description = "Jambonz Verbs"
-license = "Apache-2.0"
+license = "MIT"
 
 [dependencies]
 serde = { version = "1.0.219", features = ["derive"] }
