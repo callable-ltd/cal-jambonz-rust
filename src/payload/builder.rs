@@ -126,7 +126,7 @@ impl VerbTrait for Verbs {
     }
 
     fn hangup_with_reason(&mut self, reason: &str) -> &mut Self {
-        let hangup: Verb = Hangup::hangup_with_reason(reason).into();
+        let hangup: Verb = Hangup::hangup_with_reason(reason.to_string()).into();
         self.push(hangup)
     }
 
@@ -151,7 +151,7 @@ impl VerbTrait for Verbs {
     }
 
     fn play_url(&mut self, url: &str) -> &mut Self {
-        let play = Play::new(url);
+        let play = Play::new(url.to_string());
         self.push(Verb::Play(play))
     }
 
@@ -332,9 +332,9 @@ fn json() {
         .gather(
             Gather::new("my_action_url")
                 .speech_digits()
-                .max_digits(1)
-                .bargein(true)
-                .say(Say::new("Welcome to Callable, press one for Sales"))
+                .max_digits(Some(1))
+                .bargein(Some(true))
+                .say(Some(Say::new("Welcome to Callable, press one for Sales".to_string())))
                 .build(),
         )
         .redirect_url("my_timeout_url")
@@ -348,9 +348,9 @@ fn json() {
         .dial(Dial::new(
             "+441234567890",
             vec![
-                Phone::new("+441234567890").into(),
-                Sip::from_parts("+441234567890", "1.1.1.1.", 5060).into(),
-                User::from_parts("my-user", "callable.io").into(),
+                Phone::new("+441234567890".to_string()).into(),
+                Sip::from_parts("+441234567890".to_string(), "1.1.1.1".to_string(), 5060).into(),
+                User::from_parts("my-user".to_string(), "callable.io".to_string()).into(),
             ],
         ))
         .as_redirect(true)

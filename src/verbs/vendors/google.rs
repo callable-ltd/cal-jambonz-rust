@@ -71,7 +71,7 @@ pub struct GoogleSynthesizer {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub gender: Option<GoogleGender>,
 
-    
+
 }
 
 impl GoogleSynthesizer {
@@ -245,8 +245,6 @@ pub enum GoogleVoice {
     EnglishUkWavenetDMale,
     #[serde(rename = "en-GB-Wavenet-F")]
     EnglishUkWavenetFFemale,
-    #[serde(rename = "en-GB-Wavenet-N")]
-    EnglishUkWavenetNFemale,
     #[serde(rename = "en-GB-Wavenet-N")]
     EnglishUkWavenetOMale,
     #[serde(rename = "en-GB-Neural2-N")]
