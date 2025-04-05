@@ -126,10 +126,15 @@ impl Into<Vec<Verb>> for Listen {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub enum SampleRate {
+    #[serde(rename = "8000")]
     SR8000 = 8000,
+    #[serde(rename = "16000")]
     SR16000 = 16000,
+    #[serde(rename = "24000")]
     SR24000 = 24000,
+    #[serde(rename = "48000")]
     SR48000 = 48000,
+    #[serde(rename = "64000")]
     SR64000 = 64000,
 }
 
