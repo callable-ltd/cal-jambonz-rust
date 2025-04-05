@@ -44,43 +44,43 @@ impl BargeIn {
         }
     }
     
-    pub fn enable(&mut self, enable: bool) -> &mut BargeIn {
-        self.enable = Some(enable);
+    pub fn enable(&mut self, enable: Option<bool>) -> &mut BargeIn {
+        self.enable = enable;
         self
     }
     
-    pub fn sticky(&mut self, sticky: bool) -> &mut BargeIn {
-        self.sticky = Some(sticky);
+    pub fn sticky(&mut self, sticky: Option<bool>) -> &mut BargeIn {
+        self.sticky = sticky;
         self
     }
     
-    pub fn action_hook(&mut self, action_hook: &str) -> &mut BargeIn {
-        self.action_hook = Some(action_hook.to_string());
+    pub fn action_hook(&mut self, action_hook: Option<String>) -> &mut BargeIn {
+        self.action_hook = action_hook;
         self
     }
     
-    pub fn finish_on_key(&mut self, finish_on_key: &str) -> &mut BargeIn {
-        self.finish_on_key = Some(finish_on_key.to_string());
+    pub fn finish_on_key(&mut self, finish_on_key: Option<String>) -> &mut BargeIn {
+        self.finish_on_key = finish_on_key;
         self
     }
     
-    pub fn num_digits(&mut self, num_digits: u8) -> &mut BargeIn {
-        self.num_digits = Some(num_digits);
+    pub fn num_digits(&mut self, num_digits: Option<u8>) -> &mut BargeIn {
+        self.num_digits = num_digits;
         self
     }
     
-    pub fn min_digits(&mut self, min_digits: u8) -> &mut BargeIn {
-        self.min_digits = Some(min_digits);
+    pub fn min_digits(&mut self, min_digits: Option<u8>) -> &mut BargeIn {
+        self.min_digits = min_digits;
         self
     }
     
-    pub fn max_digits(&mut self, max_digits: u8) -> &mut BargeIn {
-        self.max_digits = Some(max_digits);
+    pub fn max_digits(&mut self, max_digits: Option<u8>) -> &mut BargeIn {
+        self.max_digits = max_digits;
         self
     }
     
-    pub fn inter_digit_timeout(&mut self, inter_digit_timeout: u8) -> &mut BargeIn {
-        self.inter_digit_timeout = Some(inter_digit_timeout);
+    pub fn inter_digit_timeout(&mut self, inter_digit_timeout: Option<u8>) -> &mut BargeIn {
+        self.inter_digit_timeout = inter_digit_timeout;
         self
     }
 }

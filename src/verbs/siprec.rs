@@ -12,19 +12,19 @@ pub struct SipRec {
 }
 
 impl SipRec {
-    pub fn new(action: SipRecAction, siprec_server_url: &str) -> SipRec {
+    pub fn new(action: SipRecAction, siprec_server_url: String) -> SipRec {
         SipRec {
             action,
-            siprec_server_url: siprec_server_url.to_string(),
+            siprec_server_url,
             recording_id: None,
         }
     }
-    pub fn siprec_server_url(&mut self, siprec_server_url: &str) -> &mut SipRec {
-        self.recording_id = Some(siprec_server_url.to_string());
+    pub fn siprec_server_url(&mut self, siprec_server_url: Option<String>) -> &mut SipRec {
+        self.recording_id = siprec_server_url;
         self
     }
-    pub fn set_recording_id(&mut self, recording_id: &str) -> &mut SipRec {
-        self.recording_id = Some(recording_id.to_string());
+    pub fn set_recording_id(&mut self, recording_id: Option<String>) -> &mut SipRec {
+        self.recording_id = recording_id;
         self
     }
 }

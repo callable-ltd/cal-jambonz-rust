@@ -6,7 +6,6 @@ use crate::vendors::playht::PlayhtSynthesizer;
 use crate::vendors::rimelabs::RimelabsSynthesizer;
 use crate::vendors::verbio::VerbioSynthesizer;
 use crate::vendors::whisper::WhisperSynthesizer;
-use regex::Error::Syntax;
 use serde::{Deserialize, Serialize};
 
 //todo move this to an enum where we can have a subset on languages, genders and voices

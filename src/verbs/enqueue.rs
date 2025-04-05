@@ -17,27 +17,27 @@ pub struct Enqueue {
 }
 
 impl Enqueue {
-    pub fn new(name: &str) -> Enqueue {
+    pub fn new(name: String) -> Enqueue {
         Enqueue {
-            name: name.to_string(),
+            name,
             priority: None,
             action_hook: None,
             wait_hook: None,
         }
     }
     
-    pub fn priority(&mut self, priority: u16) -> &mut Enqueue{
-        self.priority = Some(priority);
+    pub fn priority(&mut self, priority: Option<u16>) -> &mut Enqueue{
+        self.priority = priority;
         self
     }
     
-    pub fn action_hook(&mut self, hook: String) -> &mut Enqueue {
-        self.action_hook = Some(hook);
+    pub fn action_hook(&mut self, hook: Option<String>) -> &mut Enqueue {
+        self.action_hook = hook;
         self
     }
     
-    pub fn wait_hook(&mut self, hook: String) -> &mut Enqueue {
-        self.wait_hook = Some(hook);
+    pub fn wait_hook(&mut self, hook: Option<String>) -> &mut Enqueue {
+        self.wait_hook = hook;
         self
     }
     

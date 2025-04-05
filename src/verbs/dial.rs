@@ -291,9 +291,9 @@ pub struct TranscribeDial {
 }
 
 impl TranscribeDial {
-    pub fn new(transcription_hook: &str, recognizer: Recognizer) -> TranscribeDial {
+    pub fn new(transcription_hook: String, recognizer: Recognizer) -> TranscribeDial {
         TranscribeDial {
-            transcription_hook: transcription_hook.to_string(),
+            transcription_hook,
             recognizer,
         }
     }

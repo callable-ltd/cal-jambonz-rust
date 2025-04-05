@@ -1,4 +1,3 @@
-use crate::verbs::synthesizer::Synthesizer;
 use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -56,12 +55,12 @@ impl Into<Vec<Verb>> for DialogFlow {
 }
 
 impl DialogFlow {
-    pub fn new(project: &str, lang: &str, credentials: &str, tts: DialogFlowSynthesizer) -> DialogFlow {
+    pub fn new(project: String, lang: String, credentials: String) -> DialogFlow {
         DialogFlow {
-            credentials: credentials.to_string(),
-            lang: lang.to_string(),
-            project: project.to_string(),
-            tts: Some(tts),
+            credentials,
+            lang,
+            project,
+            tts: None,
             action_hook: None,
             baregin: None,
             event_hook: None,
@@ -73,55 +72,57 @@ impl DialogFlow {
             welcome_event_params: None,
         }
     }
-    
-    pub fn action_hook(&mut self, action_hook: &str) -> &mut DialogFlow {
-        self.action_hook = Some(action_hook.to_string());
+
+    pub fn action_hook(&mut self, action_hook: Option<String>) -> &mut DialogFlow {
+        self.action_hook = action_hook;
         self
     }
-    
-    pub fn baregin(&mut self, baregin: bool) -> &mut DialogFlow {
-        self.baregin = Some(baregin);
+
+    pub fn baregin(&mut self, baregin: Option<bool>) -> &mut DialogFlow {
+        self.baregin = baregin;
         self
     }
-    
-    pub fn event_hook(&mut self, event_hook: &str) -> &mut DialogFlow {
-        self.event_hook = Some(event_hook.to_string());
+
+    pub fn event_hook(&mut self, event_hook: Option<String>) -> &mut DialogFlow {
+        self.event_hook = event_hook;
         self
     }
-    
-    pub fn no_input_event(&mut self, no_input_event: &str) -> &mut DialogFlow {
-        self.no_input_event = Some(no_input_event.to_string());
+
+    pub fn no_input_event(&mut self, no_input_event: Option<String>) -> &mut DialogFlow {
+        self.no_input_event = no_input_event;
         self
     }
-    
-    pub fn no_input_timeout(&mut self, no_input_timeout: u8) -> &mut DialogFlow {
-        self.no_input_timeout = Some(no_input_timeout);
+
+    pub fn no_input_timeout(&mut self, no_input_timeout: Option<u8>) -> &mut DialogFlow {
+        self.no_input_timeout = no_input_timeout;
         self
     }
-    
-    pub fn pass_dtmf(&mut self, pass_dtmf: &str) -> &mut DialogFlow {
-        self.pass_dtmf_as_text_input = Some(pass_dtmf.to_string());
+
+    pub fn pass_dtmf(&mut self, pass_dtmf: Option<String>) -> &mut DialogFlow {
+        self.pass_dtmf_as_text_input = pass_dtmf;
         self
     }
-    
-    pub fn welcome_event(&mut self, welcome_event: &str) -> &mut DialogFlow {
-        self.welcome_event = Some(welcome_event.to_string());
+
+    pub fn welcome_event(&mut self, welcome_event: Option<String>) -> &mut DialogFlow {
+        self.welcome_event = welcome_event;
         self
     }
-    
-    pub fn welcome_event_params(&mut self, welcome_event_params: HashMap<String, String>) -> &mut DialogFlow {
-        self.welcome_event_params = Some(welcome_event_params);
+
+    pub fn welcome_event_params(
+        &mut self,
+        welcome_event_params: Option<HashMap<String, String>>,
+    ) -> &mut DialogFlow {
+        self.welcome_event_params = welcome_event_params;
         self
     }
-    
-    
-    pub fn  thinking_music(&mut self, thinking_music: &str) -> &mut DialogFlow {
-        self.thinking_music = Some(thinking_music.to_string());
+
+    pub fn thinking_music(&mut self, thinking_music: Option<String>) -> &mut DialogFlow {
+        self.thinking_music = thinking_music;
         self
     }
-    
-    pub fn tt(&mut self, tts: DialogFlowSynthesizer) -> &mut DialogFlow {
-        self.tts = Some(tts);
+
+    pub fn tt(&mut self, tts: Option<DialogFlowSynthesizer>) -> &mut DialogFlow {
+        self.tts = tts;
         self
     }
 }
@@ -142,27 +143,27 @@ pub struct DialogFlowSynthesizer {
 }
 
 impl DialogFlowSynthesizer {
-    pub fn new(language: &str) -> DialogFlowSynthesizer {
+    pub fn new(language: String) -> DialogFlowSynthesizer {
         DialogFlowSynthesizer {
-            language: language.to_string(),
+            language,
             vendor: None,
             gender: None,
             voice: None,
         }
     }
-    
-    pub fn vendor(&mut self, vendor: &str) -> &mut DialogFlowSynthesizer {
-        self.vendor = Some(vendor.to_string());
+
+    pub fn vendor(&mut self, vendor: Option<String>) -> &mut DialogFlowSynthesizer {
+        self.vendor = vendor;
         self
     }
-    
-    pub fn gender(&mut self, gender: &str) -> &mut DialogFlowSynthesizer {
-        self.gender = Some(gender.to_string());
+
+    pub fn gender(&mut self, gender: Option<String>) -> &mut DialogFlowSynthesizer {
+        self.gender = gender;
         self
     }
-    
-    pub fn voice(&mut self, vendor: &str) -> &mut DialogFlowSynthesizer {
-        self.voice = Some(vendor.to_string());
+
+    pub fn voice(&mut self, vendor: Option<String>) -> &mut DialogFlowSynthesizer {
+        self.voice = vendor;
         self
     }
 }

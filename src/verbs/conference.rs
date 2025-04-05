@@ -40,9 +40,9 @@ impl Into<Vec<Verb>> for Conference {
 }
 
 impl Conference {
-    pub fn new(name: &str) -> Conference {
+    pub fn new(name:String) -> Conference {
         Conference {
-            name: name.to_string(),
+            name,
             beep: None,
             action_hook: None,
             enter_hook: None,
@@ -56,68 +56,66 @@ impl Conference {
         }
     }
 
-    pub fn beep(&mut self, beep: bool) -> &mut Conference {
-        self.beep = Some(beep);
+    pub fn beep(&mut self, beep: Option<bool>) -> &mut Conference {
+        self.beep = beep;
         self
     }
 
-    pub fn action_hook(&mut self, action_hook: &str) -> &mut Conference {
-        self.action_hook = Some(action_hook.to_string());
+    pub fn action_hook(&mut self, action_hook: Option<String>) -> &mut Conference {
+        self.action_hook = action_hook;
         self
     }
 
-    pub fn enter_hook(&mut self, enter_hook: &str) -> &mut Conference {
-        self.enter_hook = Some(enter_hook.to_string());
+    pub fn enter_hook(&mut self, enter_hook:Option<String>) -> &mut Conference {
+        self.enter_hook = enter_hook;
         self
     }
 
-    pub fn join_muted(&mut self, join_muted: bool) -> &mut Conference {
-        self.join_muted = Some(join_muted);
+    pub fn join_muted(&mut self, join_muted: Option<bool>) -> &mut Conference {
+        self.join_muted = join_muted;
         self
     }
 
-    pub fn max_participants(&mut self, max_participants: u8) -> &mut Conference {
-        self.max_participants = Some(max_participants);
+    pub fn max_participants(&mut self, max_participants: Option<u8>) -> &mut Conference {
+        self.max_participants = max_participants;
         self
     }
 
-    pub fn end_conference_on_exit(&mut self, end_conference_on_exit: bool) -> &mut Conference {
-        self.end_conference_on_exit = Some(end_conference_on_exit);
+    pub fn end_conference_on_exit(&mut self, end_conference_on_exit: Option<bool>) -> &mut Conference {
+        self.end_conference_on_exit = end_conference_on_exit;
         self
     }
 
     pub fn start_conference_on_enter(
         &mut self,
-        start_conference_on_enter: bool,
+        start_conference_on_enter: Option<bool>,
     ) -> &mut Conference {
-        self.start_conference_on_enter = Some(start_conference_on_enter);
+        self.start_conference_on_enter = start_conference_on_enter;
         self
     }
 
-    pub fn status_hook(&mut self, status_hook: &str) -> &mut Conference {
-        self.status_hook = Some(status_hook.to_string());
+    pub fn status_hook(&mut self, status_hook:Option<String>) -> &mut Conference {
+        self.status_hook = status_hook;
         self
     }
 
-    pub fn wait_hook(&mut self, wait_hook: &str) -> &mut Conference {
-        self.wait_hook = Some(wait_hook.to_string());
+    pub fn wait_hook(&mut self, wait_hook: Option<String>) -> &mut Conference {
+        self.wait_hook = wait_hook;
         self
     }
 
-    pub fn replace_status_events(&mut self, status_events: Vec<&str>) -> &mut Conference {
-        self.status_events = status_events.iter().map(|s| s.to_string()).collect();
+    pub fn replace_status_events(&mut self, status_events: Vec<String>) -> &mut Conference {
+        self.status_events = status_events;
         self
     }
 
-    pub fn add_status_events(&mut self, status_events: Vec<&str>) -> &mut Conference {
-        for ev in status_events {
-            self.status_events.push(ev.to_string());
-        }
+    pub fn add_status_events(&mut self, status_events: Vec<String>) -> &mut Conference {
+        self.status_events.extend(status_events);
         self
     }
 
-    pub fn add_status_event(&mut self, status_event: &str) -> &mut Conference {
-        self.status_events.push(status_event.to_string());
+    pub fn add_status_event(&mut self, status_event: String) -> &mut Conference {
+        self.status_events.push(status_event);
         self
     }
 }

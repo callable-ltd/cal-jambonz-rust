@@ -1,6 +1,5 @@
 use crate::verbs::vendors::vad::Vad;
 use serde::{Deserialize, Serialize};
-use crate::synthesizer::Synthesizer;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]

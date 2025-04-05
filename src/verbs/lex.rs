@@ -37,20 +37,16 @@ pub struct Lex {
 
 impl Lex {
     pub fn new(
-        bot_id: &str,
-        bot_alias: &str,
-        access_key: &str,
-        secret_access_key: &str,
-        region: &str,
+        bot_id: String,
+        bot_alias: String,
+        access_key: String,
+        secret_access_key: String,
+        region: String,
     ) -> Lex {
         Lex {
-            bot_id: bot_id.to_string(),
-            bot_alias: bot_alias.to_string(),
-            credentials: LexAWSCredentials {
-                access_key: access_key.to_string(),
-                secret_access_key: secret_access_key.to_string(),
-            },
-            region: region.to_string(),
+            bot_id,
+            bot_alias,
+            region,
             locale: LexLocale::EnglishGB,
             event_hook: None,
             intent: None,
@@ -58,11 +54,15 @@ impl Lex {
             no_input_timeout: None,
             tts: None,
             metadata: None,
+            credentials: LexAWSCredentials {
+                access_key,
+                secret_access_key,
+            },
         }
     }
 
-    pub fn bot_alias(&mut self, bot_alias: &str) -> &mut Lex {
-        self.bot_alias = bot_alias.to_string();
+    pub fn bot_alias(&mut self, bot_alias: String) -> &mut Lex {
+        self.bot_alias = bot_alias;
         self
     }
 
@@ -71,8 +71,8 @@ impl Lex {
         self
     }
 
-    pub fn region(&mut self, region: &str) -> &mut Lex {
-        self.region = region.to_string();
+    pub fn region(&mut self, region: String) -> &mut Lex {
+        self.region = region;
         self
     }
 
@@ -81,33 +81,33 @@ impl Lex {
         self
     }
 
-    pub fn event_hook(&mut self, event_hook: &str) -> &mut Lex {
-        self.event_hook = Some(event_hook.to_string());
+    pub fn event_hook(&mut self, event_hook:  Option<String>) -> &mut Lex {
+        self.event_hook = event_hook;
         self
     }
 
-    pub fn intent(&mut self, intent: &str) -> &mut Lex {
-        self.intent = Some(intent.to_string());
+    pub fn intent(&mut self, intent: Option<String>) -> &mut Lex {
+        self.intent = intent;
         self
     }
 
-    pub fn welcome_message(&mut self, welcome_message: &str) -> &mut Lex {
-        self.welcome_message = Some(welcome_message.to_string());
+    pub fn welcome_message(&mut self, welcome_message: Option<String>) -> &mut Lex {
+        self.welcome_message = welcome_message;
         self
     }
 
-    pub fn no_input_timeout(&mut self, no_input_timeout: u8) -> &mut Lex {
-        self.no_input_timeout = Some(no_input_timeout);
+    pub fn no_input_timeout(&mut self, no_input_timeout: Option<u8>) -> &mut Lex {
+        self.no_input_timeout = no_input_timeout;
         self
     }
 
-    pub fn tts(&mut self, tts: Synthesizer) -> &mut Lex {
-        self.tts = Some(tts);
+    pub fn tts(&mut self, tts: Option<Synthesizer>) -> &mut Lex {
+        self.tts = tts;
         self
     }
 
-    pub fn metadata(&mut self, metadata: LexMeta) -> &mut Lex {
-        self.metadata = Some(metadata);
+    pub fn metadata(&mut self, metadata: Option<LexMeta>) -> &mut Lex {
+        self.metadata = metadata;
         self
     }
 }
@@ -177,10 +177,10 @@ pub struct LexAWSCredentials {
 }
 
 impl LexAWSCredentials {
-    pub fn new(access_key: &str, secret_access_key: &str) -> LexAWSCredentials {
+    pub fn new(access_key: String, secret_access_key: String) -> LexAWSCredentials {
         LexAWSCredentials {
-            access_key: access_key.to_string(),
-            secret_access_key: secret_access_key.to_string(),
+            access_key,
+            secret_access_key,
         }
     }
 }

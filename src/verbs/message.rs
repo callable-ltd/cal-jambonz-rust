@@ -18,28 +18,28 @@ pub struct Message {
 }
 
 impl Message {
-    pub fn new(from: &str, to: &str, text: &str) -> Message {
+    pub fn new(from: String, to: String, text: String) -> Message {
         Message {
-            from: from.to_string(),
-            to: to.to_string(),
-            text: text.to_string(),
+            from,
+            to,
+            text,
             carrier: None,
             action_hook: None,
         }
     }
     
-    pub fn with_action_hook(&mut self, action_hook: &str) -> &mut Message {
-        self.action_hook = Some(action_hook.to_string());
+    pub fn with_action_hook(&mut self, action_hook: Option<String>) -> &mut Message {
+        self.action_hook = action_hook;
         self
     }
     
-    pub fn with_carrier(&mut self, carrier: &str) -> &mut Message {
-        self.carrier = Some(carrier.to_string());
+    pub fn with_carrier(&mut self, carrier: Option<String>) -> &mut Message {
+        self.carrier = carrier;
         self
     }
     
-    pub fn with_action(&mut self, action_hook: &str) -> &mut Message {
-        self.action_hook = Some(action_hook.to_string());
+    pub fn with_action(&mut self, action_hook: Option<String>) -> &mut Message {
+        self.action_hook = action_hook;
         self
     }
     

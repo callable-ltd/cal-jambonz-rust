@@ -77,14 +77,14 @@ impl SipDecline {
         }
     }
 
-    pub fn reason(&mut self, reason: &str) -> &mut SipDecline {
-        self.reason = Some(reason.to_string());
-        self.headers.insert("X-Reason".to_string(), reason.to_string());
+    pub fn reason(&mut self, reason: String) -> &mut SipDecline {
+        self.reason = Some(reason.clone());
+        self.headers.insert("X-Reason".to_string(), reason);
         self
     }
 
-    pub fn add_header(&mut self, key: &str, value: &str) -> &mut SipDecline {
-        self.headers.insert(key.to_string(), value.to_string());
+    pub fn add_header(&mut self, key: String, value: String) -> &mut SipDecline {
+        self.headers.insert(key, value);
         self
     }
 

@@ -25,9 +25,9 @@ pub struct Rasa {
 }
 
 impl Rasa {
-    pub fn new(url: &str) -> Rasa {
+    pub fn new(url: String) -> Rasa {
         Rasa {
-            url: url.to_string(),
+            url,
             prompt: None,
             event_hook: None,
             action_hook: None,
@@ -36,28 +36,28 @@ impl Rasa {
         }
     }
 
-    pub fn prompt(&mut self, prompt: &str) -> &mut Rasa {
-        self.prompt = Some(prompt.to_string());
+    pub fn prompt(&mut self, prompt: Option<String>) -> &mut Rasa {
+        self.prompt = prompt;
         self
     }
 
-    pub fn event_hook(&mut self, event_hook: &str) -> &mut Rasa {
-        self.event_hook = Some(event_hook.to_string());
+    pub fn event_hook(&mut self, event_hook: Option<String>) -> &mut Rasa {
+        self.event_hook = event_hook;
         self
     }
 
-    pub fn action_hook(&mut self, action_hook: &str) -> &mut Rasa {
-        self.action_hook = Some(action_hook.to_string());
+    pub fn action_hook(&mut self, action_hook: Option<String>) -> &mut Rasa {
+        self.action_hook = action_hook;
         self
     }
 
-    pub fn tts(&mut self, tts: Synthesizer) -> &mut Rasa {
-        self.tts = Some(tts);
+    pub fn tts(&mut self, tts: Option<Synthesizer>) -> &mut Rasa {
+        self.tts = tts;
         self
     }
 
-    pub fn recognizer(&mut self, recognizer: Recognizer) -> &mut Rasa {
-        self.recognizer = Some(recognizer);
+    pub fn recognizer(&mut self, recognizer: Option<Recognizer>) -> &mut Rasa {
+        self.recognizer = recognizer;
         self
     }
     

@@ -24,9 +24,9 @@ pub struct Amd {
 }
 
 impl Amd {
-    pub fn new(action_hook: &str) -> Amd {
+    pub fn new(action_hook: String) -> Amd {
         Amd {
-            action_hook: action_hook.to_string(),
+            action_hook,
             recognizer: None,
             threshold_word_count: None,
             digit_count: None,
@@ -34,23 +34,23 @@ impl Amd {
         }
     }
 
-    pub fn recognizer(&mut self, recognizer: Recognizer) -> &mut Amd {
-        self.recognizer = Some(recognizer);
+    pub fn recognizer(&mut self, recognizer: Option<Recognizer>) -> &mut Amd {
+        self.recognizer = recognizer;
         self
     }
 
-    pub fn threshold_word_count(&mut self, threshold_word_count: u8) -> &mut Amd {
-        self.threshold_word_count = Some(threshold_word_count);
+    pub fn threshold_word_count(&mut self, threshold_word_count: Option<u8>) -> &mut Amd {
+        self.threshold_word_count = threshold_word_count;
         self
     }
 
-    pub fn digit_count(&mut self, digit_count: u8) -> &mut Amd {
-        self.digit_count = Some(digit_count);
+    pub fn digit_count(&mut self, digit_count: Option<u8>) -> &mut Amd {
+        self.digit_count = digit_count;
         self
     }
 
-    pub fn timers(&mut self, timers: Timers) -> &mut Amd {
-        self.timers = Some(timers);
+    pub fn timers(&mut self, timers: Option<Timers>) -> &mut Amd {
+        self.timers = timers;
         self
     }
 }
@@ -85,26 +85,26 @@ impl Timers {
         }
     }
 
-    pub fn decision_timeout_ms(&mut self, decision_timeout_ms: u16) -> &mut Timers {
-        self.decision_timeout_ms = Some(decision_timeout_ms);
+    pub fn decision_timeout_ms(&mut self, decision_timeout_ms: Option<u16>) -> &mut Timers {
+        self.decision_timeout_ms = decision_timeout_ms;
         self
     }
 
     pub fn greeting_completion_timeout_ms(
         &mut self,
-        greeting_completion_timeout_ms: u16,
+        greeting_completion_timeout_ms: Option<u16>,
     ) -> &mut Timers {
-        self.greeting_completion_timeout_ms = Some(greeting_completion_timeout_ms);
+        self.greeting_completion_timeout_ms = greeting_completion_timeout_ms;
         self
     }
 
-    pub fn no_speech_timeout_ms(&mut self, no_speech_timeout_ms: u16) -> &mut Timers {
-        self.no_speech_timeout_ms = Some(no_speech_timeout_ms);
+    pub fn no_speech_timeout_ms(&mut self, no_speech_timeout_ms: Option<u16>) -> &mut Timers {
+        self.no_speech_timeout_ms = no_speech_timeout_ms;
         self
     }
 
-    pub fn tone_timeout_ms(&mut self, tone_timeout_ms: u16) -> &mut Timers {
-        self.tone_timeout_ms = Some(tone_timeout_ms);
+    pub fn tone_timeout_ms(&mut self, tone_timeout_ms: Option<u16>) -> &mut Timers {
+        self.tone_timeout_ms = tone_timeout_ms;
         self
     }
 }

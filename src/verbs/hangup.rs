@@ -28,19 +28,19 @@ impl Hangup {
         }
     }
 
-    pub fn hangup_with_reason(x_reason: &str) -> Hangup {
+    pub fn hangup_with_reason(x_reason: String) -> Hangup {
         let mut map = HashMap::new();
-        map.insert("X-Reason".to_string(), x_reason.to_string());
+        map.insert("X-Reason".to_string(), x_reason);
         Hangup { headers: map }
     }
 
-    pub fn reason(&mut self, str: &str) -> &mut Hangup {
-        self.headers.insert("X-Reason".to_string(), str.to_string());
+    pub fn reason(&mut self, str: String) -> &mut Hangup {
+        self.headers.insert("X-Reason".to_string(), str);
         self
     }
 
-    pub fn add_header(&mut self, key: &str, value: &str) -> &mut Hangup {
-        self.headers.insert(key.to_string(), value.to_string());
+    pub fn add_header(&mut self, key: &str, value: String) -> &mut Hangup {
+        self.headers.insert(key.to_string(), value);
         self
     }
 

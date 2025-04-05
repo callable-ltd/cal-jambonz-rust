@@ -7,10 +7,10 @@ pub struct WSAuth {
 }
 
 impl WSAuth {
-    pub fn new(username: &str, password: &str) -> WSAuth {
+    pub fn new(username: String, password: String) -> WSAuth {
         WSAuth {
-            username: username.to_string(),
-            password: password.to_string(),
+            username,
+            password,
         }
     }
 }

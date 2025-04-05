@@ -73,71 +73,71 @@ impl Config {
         }
     }
 
-    pub fn amd(&mut self, amd: bool) -> &mut Config {
-        self.amd = Some(amd);
+    pub fn amd(&mut self, amd: Option<bool>) -> &mut Config {
+        self.amd = amd;
         self
     }
 
-    pub fn barge_in(&mut self, barge_in: BargeIn) -> &mut Config {
-        self.barge_in = Some(barge_in);
+    pub fn barge_in(&mut self, barge_in: Option<BargeIn>) -> &mut Config {
+        self.barge_in = barge_in;
         self
     }
 
-    pub fn boost_audio_signal(&mut self, boost_audio_signal: &str) -> &mut Config {
-        self.boost_audio_signal = Some(boost_audio_signal.to_string());
+    pub fn boost_audio_signal(&mut self, boost_audio_signal: Option<String>) -> &mut Config {
+        self.boost_audio_signal = boost_audio_signal;
         self
     }
 
-    pub fn filler_noise(&mut self, filler_noise: FillerNoise) -> &mut Config {
-        self.filler_noise = Some(filler_noise);
+    pub fn filler_noise(&mut self, filler_noise: Option<FillerNoise>) -> &mut Config {
+        self.filler_noise = filler_noise;
         self
     }
 
-    pub fn listen(&mut self, listen: Listen) -> &mut Config {
-        self.listen = Some(listen);
+    pub fn listen(&mut self, listen: Option<Listen>) -> &mut Config {
+        self.listen = listen;
         self
     }
 
-    pub fn notify_events(&mut self, notify_events: bool) -> &mut Config {
-        self.notify_events = Some(notify_events);
+    pub fn notify_events(&mut self, notify_events: Option<bool>) -> &mut Config {
+        self.notify_events = notify_events;
         self
     }
 
-    pub fn on_hold_music(&mut self, on_hold_music: &str) -> &mut Config {
-        self.on_hold_music = Some(on_hold_music.to_string());
+    pub fn on_hold_music(&mut self, on_hold_music: Option<String>) -> &mut Config {
+        self.on_hold_music = on_hold_music;
         self
     }
 
-    pub fn recognizer(&mut self, recognizer: Recognizer) -> &mut Config {
-        self.recognizer = Some(recognizer);
+    pub fn recognizer(&mut self, recognizer: Option<Recognizer>) -> &mut Config {
+        self.recognizer = recognizer;
         self
     }
 
-    pub fn reset(&mut self, reset: Vec<String>) -> &mut Config {
-        self.reset = Some(reset);
+    pub fn reset(&mut self, reset: Option<Vec<String>>) -> &mut Config {
+        self.reset = reset;
         self
     }
 
-    pub fn record(&mut self, record: SipRec) -> &mut Config {
-        self.record = Some(record);
+    pub fn record(&mut self, record: Option<SipRec>) -> &mut Config {
+        self.record = record;
         self
     }
 
-    pub fn transcribe(&mut self, transcribe: TranscribeConfig) -> &mut Config {
-        self.transcribe = Some(transcribe);
+    pub fn transcribe(&mut self, transcribe: Option<TranscribeConfig>) -> &mut Config {
+        self.transcribe = transcribe;
         self
     }
 
-    pub fn synthesizer(&mut self, synthesizer: Synthesizer) -> &mut Config {
-        self.synthesizer = Some(synthesizer);
+    pub fn synthesizer(&mut self, synthesizer: Option<Synthesizer>) -> &mut Config {
+        self.synthesizer = synthesizer;
         self
     }
 
     pub fn sip_request_within_dialog_hook(
         &mut self,
-        sip_request_within_dialog_hook: &str,
+        sip_request_within_dialog_hook: Option<String>,
     ) -> &mut Config {
-        self.sip_request_within_dialog_hook = Some(sip_request_within_dialog_hook.to_string());
+        self.sip_request_within_dialog_hook = sip_request_within_dialog_hook;
         self
     }
 }
@@ -155,53 +155,51 @@ impl Into<Vec<Verb>> for Config {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct TranscribeConfig {
- 
     pub enable: bool,
-  
+
     #[serde(rename = "transcriptionHook")]
     pub transcription_hook: String,
-  
+
     #[serde(skip_serializing_if = "Option::is_none")]
     pub recognizer: Option<Recognizer>,
 }
 
 impl TranscribeConfig {
-    fn new(enable: bool, transcription_hook: &str) -> TranscribeConfig {
+    fn new(enable: bool, transcription_hook: String) -> TranscribeConfig {
         TranscribeConfig {
             enable,
-            transcription_hook: transcription_hook.to_string(),
+            transcription_hook,
             recognizer: None,
         }
     }
 
-    pub fn recognizer(&mut self, recognizer: Recognizer) -> &mut TranscribeConfig {
-        self.recognizer = Some(recognizer);
+    pub fn recognizer(&mut self, recognizer: Option<Recognizer>) -> &mut TranscribeConfig {
+        self.recognizer = recognizer;
         self
     }
 }
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FillerNoise {
-  
     pub enabled: bool,
-  
+
     pub url: String,
-  
+
     #[serde(rename = "startDelaySecs")]
     pub start_delay_secs: Option<u8>,
 }
 
 impl FillerNoise {
-    pub fn new(enabled: bool, url: &str) -> FillerNoise {
+    pub fn new(enabled: bool, url: String) -> FillerNoise {
         FillerNoise {
             enabled,
-            url: url.to_string(),
+            url,
             start_delay_secs: None,
         }
     }
 
-    pub fn start_delay(&mut self, start_delay_secs: u8) -> &mut FillerNoise {
-        self.start_delay_secs = Some(start_delay_secs);
+    pub fn start_delay(&mut self, start_delay_secs: Option<u8>) -> &mut FillerNoise {
+        self.start_delay_secs = start_delay_secs;
         self
     }
 }

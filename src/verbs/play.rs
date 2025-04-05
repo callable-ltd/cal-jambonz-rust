@@ -37,9 +37,9 @@ impl Into<Vec<Verb>> for Play {
 }
 
 impl Play {
-    pub fn new(url: &str) -> Self {
+    pub fn new(url: String) -> Self {
         Play {
-            url: url.to_string(),
+            url,
             action_hook: None,
             play_loop: None,
             early_media: None,
@@ -48,28 +48,28 @@ impl Play {
         }
     }
 
-    pub fn action_hook(&mut self, action_hook: &str) -> &mut Play {
-        self.action_hook = Some(action_hook.to_string());
+    pub fn action_hook(&mut self, action_hook: Option<String>) -> &mut Play {
+        self.action_hook = action_hook;
         self
     }
 
-    pub fn play_loop(&mut self, play_loop: u8) -> &mut Play {
-        self.play_loop = Some(play_loop);
+    pub fn play_loop(&mut self, play_loop: Option<u8>) -> &mut Play {
+        self.play_loop = play_loop;
         self
     }
 
-    pub fn early_media(&mut self, early_media: bool) -> &mut Play {
-        self.early_media = Some(early_media);
+    pub fn early_media(&mut self, early_media: Option<bool>) -> &mut Play {
+        self.early_media = early_media;
         self
     }
 
-    pub fn timeout_secs(&mut self, timeout_secs: u8) -> &mut Play {
-        self.timeout_secs = Some(timeout_secs);
+    pub fn timeout_secs(&mut self, timeout_secs: Option<u8>) -> &mut Play {
+        self.timeout_secs = timeout_secs;
         self
     }
 
-    pub fn seek_offset(&mut self, seek_offset: u16) -> &mut Play {
-        self.seek_offset = Some(seek_offset);
+    pub fn seek_offset(&mut self, seek_offset: Option<u16>) -> &mut Play {
+        self.seek_offset = seek_offset;
         self
     }
     

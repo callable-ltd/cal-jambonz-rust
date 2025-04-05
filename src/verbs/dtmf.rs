@@ -8,15 +8,15 @@ pub struct Dtmf {
 }
 
 impl Dtmf {
-    pub fn new(dtmf: &str) -> Dtmf {
+    pub fn new(dtmf: String) -> Dtmf {
         Dtmf {
             dtmf: dtmf.to_string(),
             duration: None,
         }
     }
 
-    pub fn duration(&mut self, duration: u8) -> &mut Dtmf {
-        self.duration = Some(duration);
+    pub fn duration(&mut self, duration: Option<u8>) -> &mut Dtmf {
+        self.duration = duration;
         self
     }
 }

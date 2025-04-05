@@ -84,19 +84,19 @@ impl Gather {
 
     pub fn action_hook_delay_action(
         &mut self,
-        delay_action: ActionHookDelayAction,
+        delay_action: Option<ActionHookDelayAction>,
     ) -> &mut Gather {
-        self.action_hook_delay_action = Some(delay_action);
+        self.action_hook_delay_action = delay_action;
         self
     }
 
-    pub fn bargein(&mut self, bargein: bool) -> &mut Gather {
-        self.bargein = Some(bargein);
+    pub fn bargein(&mut self, bargein: Option<bool>) -> &mut Gather {
+        self.bargein = bargein;
         self
     }
     
-    pub fn dtmf_bargin(&mut self, dtmf: bool) -> &mut Gather {
-        self.dtmf_bargein = Some(dtmf);
+    pub fn dtmf_bargin(&mut self, dtmf: Option<bool>) -> &mut Gather {
+        self.dtmf_bargein = dtmf;
         self
     }
     
@@ -125,48 +125,48 @@ impl Gather {
         self
     }
     
-    pub fn inter_digit_timeout(&mut self, timeout: u8) -> &mut Gather {
-        self.inter_digit_timeout = Some(timeout);
+    pub fn inter_digit_timeout(&mut self, timeout: Option<u8>) -> &mut Gather {
+        self.inter_digit_timeout = timeout;
         self
     }
     
-    pub fn listen_during_prompt(&mut self, listen: bool) -> &mut Gather {
-        self.listen_during_prompt = Some(listen);
+    pub fn listen_during_prompt(&mut self, listen: Option<bool>) -> &mut Gather {
+        self.listen_during_prompt = listen;
         self
     }
     
-    pub fn min_bargein_word_count(&mut self, count: u8) -> &mut Gather {
-        self.min_bargein_word_count = Some(count);
+    pub fn min_bargein_word_count(&mut self, count: Option<u8>) -> &mut Gather {
+        self.min_bargein_word_count = count;
         self
     }
     
-    pub fn min_digits(&mut self, digits: u8) -> &mut Gather {
-        self.min_digits = Some(digits);
+    pub fn min_digits(&mut self, digits: Option<u8>) -> &mut Gather {
+        self.min_digits = digits;
         self
     }
 
-    pub fn max_digits(&mut self, digits: u8) -> &mut Gather {
-        self.max_digits = Some(digits);
+    pub fn max_digits(&mut self, digits: Option<u8>) -> &mut Gather {
+        self.max_digits = digits;
         self
     }
 
-    pub fn num_digits(&mut self, digits: u8) -> &mut Gather {
-        self.max_digits = Some(digits);
+    pub fn num_digits(&mut self, digits: Option<u8>) -> &mut Gather {
+        self.max_digits = digits;
         self
     }
     
-    pub fn partial_result_hook(&mut self, hook: String) -> &mut Gather {
-        self.partial_result_hook = Some(hook);
+    pub fn partial_result_hook(&mut self, hook: Option<String>) -> &mut Gather {
+        self.partial_result_hook = hook;
         self
     }
     
-    pub fn play(&mut self, play: Play) -> &mut Gather {
-        self.play = Some(play);
+    pub fn play(&mut self, play: Option<Play>) -> &mut Gather {
+        self.play = play;
         self
     }
     
-    pub fn say(&mut self, say: Say) -> &mut Gather {
-        self.say = Some(say);
+    pub fn say(&mut self, say: Option<Say>) -> &mut Gather {
+        self.say = say;
         self
     }
     

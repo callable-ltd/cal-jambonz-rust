@@ -10,9 +10,9 @@ pub struct Transcribe {
 }
 
 impl Transcribe {
-    pub fn new(transcription_hook: &str, recognizer: Recognizer) -> Transcribe {
+    pub fn new(transcription_hook: String, recognizer: Recognizer) -> Transcribe {
         Transcribe {
-            transcription_hook: transcription_hook.to_string(),
+            transcription_hook,
             recognizer,
         }
     }

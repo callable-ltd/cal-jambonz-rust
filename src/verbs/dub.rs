@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::verbs::verb::Verb;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Dub {
@@ -20,7 +20,7 @@ impl Dub {
     pub fn with_action(queue_command: bool, data: Vec<DubData>) -> Dub {
         Dub {
             queue_command,
-            data: data,
+            data,
         }
     }
 
@@ -54,11 +54,11 @@ pub struct DubData {
 }
 
 impl DubData {
-    pub fn new(action: DubTrack, track: &str) -> DubData {
+    pub fn new(action: DubTrack, track: String) -> DubData {
         DubData {
             action,
             verb: "dub".to_string(),
-            track: track.to_string(),
+            track,
             play: None,
             say: None,
             loop_count: None,
@@ -66,23 +66,23 @@ impl DubData {
         }
     }
 
-    pub fn play(&mut self, play: &str) -> &mut DubData {
-        self.play = Some(play.to_string());
+    pub fn play(&mut self, play: Option<String>) -> &mut DubData {
+        self.play = play;
         self
     }
 
-    pub fn say(&mut self, say: &str) -> &mut DubData {
-        self.say = Some(say.to_string());
+    pub fn say(&mut self, say: Option<String>) -> &mut DubData {
+        self.say = say;
         self
     }
 
-    pub fn loop_count(&mut self, loop_count: u8) -> &mut DubData {
-        self.loop_count = Some(loop_count);
+    pub fn loop_count(&mut self, loop_count: Option<u8>) -> &mut DubData {
+        self.loop_count = loop_count;
         self
     }
 
-    pub fn gain(&mut self, gain: &str) -> &mut DubData {
-        self.gain = Some(gain.to_string());
+    pub fn gain(&mut self, gain: Option<String>) -> &mut DubData {
+        self.gain = gain;
         self
     }
 }

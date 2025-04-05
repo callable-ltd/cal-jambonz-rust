@@ -19,27 +19,27 @@ pub struct Say {
 }
 
 impl Say {
-    pub fn new(text: &str) -> Say {
+    pub fn new(text: String) -> Say {
         Say {
-            text: text.to_string(),
+            text,
             say_loop: Some(1),
             synthesizer: None,
             early_media: Some(false),
         }
     }
     
-    pub fn synthesize(&mut self, synthesizer: Synthesizer) -> &mut Say {
-        self.synthesizer = Some(synthesizer);
+    pub fn synthesize(&mut self, synthesizer: Option<Synthesizer>) -> &mut Say {
+        self.synthesizer = synthesizer;
         self
     }
     
-    pub fn early_media(&mut self, early_media: bool) -> &mut Say {
-        self.early_media = Some(early_media);
+    pub fn early_media(&mut self, early_media: Option<bool>) -> &mut Say {
+        self.early_media = early_media;
         self
     }
     
-    pub fn say_loop(&mut self, say_loop: u8) -> &mut Say {
-        self.say_loop = Some(say_loop);
+    pub fn say_loop(&mut self, say_loop: Option<u8>) -> &mut Say {
+        self.say_loop = say_loop;
         self
     }
 }

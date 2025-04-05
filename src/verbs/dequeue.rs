@@ -1,8 +1,7 @@
+use crate::verbs::verb::Verb;
+use serde::{Deserialize, Serialize};
 
-    use serde::{Deserialize, Serialize};
-    use crate::verbs::verb::Verb;
-
-    #[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone)]
     #[serde(rename_all = "camelCase")]
     pub struct Dequeue {
       
@@ -31,27 +30,27 @@
     }
 
     impl Dequeue {
-        pub fn new(name: &str) -> Dequeue {
+        pub fn new(name: String) -> Dequeue {
             Dequeue {
-                name: name.to_string(),
+                name: name,
                 action_hook: None,
                 beep: None,
                 timeout: None,
             }
         }
 
-        pub fn action_hook(&mut self, action: &str) -> &mut Dequeue {
-            self.action_hook = Some(action.to_string());
+        pub fn action_hook(&mut self, action: Option<String>) -> &mut Dequeue {
+            self.action_hook = action;
             self
         }
 
-        pub fn beep(&mut self, beep: bool) -> &mut Dequeue {
-            self.beep = Some(beep);
+        pub fn beep(&mut self, beep: Option<bool>) -> &mut Dequeue {
+            self.beep = beep;
             self
         }
 
-        pub fn timeout(&mut self, timeout: u8) -> &mut Dequeue {
-            self.timeout = Some(timeout);
+        pub fn timeout(&mut self, timeout: Option<u8>) -> &mut Dequeue {
+            self.timeout = timeout;
             self
         }
     }
