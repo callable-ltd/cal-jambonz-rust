@@ -21,11 +21,22 @@ pub enum WebsocketRequest {
     #[serde(rename = "session:redirect")]
     SessionRedirect(SessionRedirect),
     #[serde(rename = "session:reconnect")]
-    SessionReconnect(SessionRedirect),
+    SessionReconnect(SessionReconnect),
     #[serde(rename = "call:status")]
     CallStatus(SessionCallStatus),
     #[serde(rename = "verb:hook")]
     VerbHook(SessionVerbHook),
+  
+    RecordingRequest(SessionRecording)
+}
+
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct SessionRecording {
+    event:String,
+    call_sid: String,
+    ai_summary : bool,
+    ai_transcribe : bool
 }
 
 #[derive(Serialize, Deserialize, Clone)]
