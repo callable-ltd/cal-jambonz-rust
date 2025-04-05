@@ -26,12 +26,13 @@ pub enum WebsocketRequest {
     CallStatus(SessionCallStatus),
     #[serde(rename = "verb:hook")]
     VerbHook(SessionVerbHook),
-  
+
     RecordingRequest(SessionRecording)
 }
 
 
 #[derive(Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct SessionRecording {
     event:String,
     call_sid: String,
