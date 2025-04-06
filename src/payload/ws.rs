@@ -1,9 +1,11 @@
 use crate::payload::rest::{InitialRequest, Request};
+use crate::shared::shared::SIPStatus;
 use crate::verbs::dub::DubData;
 use crate::verbs::play_say::PlaySay;
 use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use serde_json::Value;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Verbs {
@@ -28,17 +30,31 @@ pub enum WebsocketRequest {
     VerbHook(SessionVerbHook),
 
     #[serde(rename = "session:record")]
-    RecordingRequest(SessionRecording)
+    RecordingRequest(SessionRecording),
 }
-
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SessionRecording {
-    event:String,
     call_sid: String,
-    ai_summary : bool,
-    ai_transcribe : bool
+    account_sid: String,
+    application_sid: String,
+    from: String,
+    to: String,
+    caller_id: String,
+    call_id: String,
+    call_status: SessionCallStatusEnum,
+    sip_service: SIPStatus,
+    sip_reason: String,
+    local_sip_address: String,
+    public_ip: String,
+    sbc_callid: String,
+    parent_call_sid: Option<String>,
+    mix_type: String,
+    sample_rate: u16,
+
+    #[serde(flatten)]
+    metadata: HashMap<String, Value>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
