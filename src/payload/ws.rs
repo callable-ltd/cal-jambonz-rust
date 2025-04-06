@@ -44,7 +44,7 @@ pub struct SessionRecording {
     caller_id: String,
     call_id: String,
     call_status: SessionCallStatusEnum,
-    sip_service: SIPStatus,
+    sip_status: SIPStatus,
     sip_reason: String,
     local_sip_address: String,
     public_ip: String,
