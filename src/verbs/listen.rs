@@ -19,8 +19,10 @@ pub struct ListenStruct {
 
     pub action_hook: String,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub sample_rate: Option<SampleRate>,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout: Option<u8>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
