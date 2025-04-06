@@ -2,6 +2,7 @@ use crate::verbs::auth::WSAuth;
 use crate::verbs::transcribe::Transcribe;
 use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -124,7 +125,7 @@ impl Into<Vec<Verb>> for Listen {
     }
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize_repr, Deserialize_repr, Clone)]
 #[repr(u16)]
 pub enum SampleRate {
     SR8000 = 8000,
