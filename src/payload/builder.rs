@@ -14,7 +14,6 @@ use crate::verbs::gather::{Gather, Input};
 use crate::verbs::hangup::Hangup;
 use crate::verbs::leave::Leave;
 use crate::verbs::lex::Lex;
-use crate::verbs::listen::Listen;
 use crate::verbs::message::Message;
 use crate::verbs::pause::Pause;
 use crate::verbs::play::Play;
@@ -29,6 +28,7 @@ use crate::verbs::target::{Phone, Sip, User};
 use crate::verbs::transcribe::Transcribe;
 use crate::verbs::verb::Verb;
 use log::error;
+use crate::listen::Listen;
 
 pub trait VerbTrait {
     fn new(msg_id: &str) -> Self;

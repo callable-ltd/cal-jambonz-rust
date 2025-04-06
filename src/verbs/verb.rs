@@ -1,3 +1,4 @@
+use crate::listen::Listen;
 use crate::verbs::conference::Conference;
 use crate::verbs::config::Config;
 use crate::verbs::dequeue::Dequeue;
@@ -10,7 +11,6 @@ use crate::verbs::gather::Gather;
 use crate::verbs::hangup::Hangup;
 use crate::verbs::leave::Leave;
 use crate::verbs::lex::Lex;
-use crate::verbs::listen::Listen;
 use crate::verbs::message::Message;
 use crate::verbs::pause::Pause;
 use crate::verbs::play::Play;

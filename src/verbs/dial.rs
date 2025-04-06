@@ -1,12 +1,12 @@
 use crate::verbs::amd::Amd;
 use crate::verbs::constants::{DEFAULT_CALL_TIME, DEFAULT_RING_TIME, HANG_UP_CONNECT, RING_TONE};
 use crate::verbs::dub::DubData;
-use crate::verbs::listen::Listen;
 use crate::verbs::recognizer::Recognizer;
 use crate::verbs::target::Target;
 use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use crate::listen::Listen;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]

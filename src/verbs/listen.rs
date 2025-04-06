@@ -7,14 +7,7 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
-#[serde(tag = "verb")]
-pub enum Listen {
-    Listen(ListenStruct),
-}
-
-#[derive(Serialize, Deserialize, Clone)]
-#[serde(rename_all = "camelCase")]
-pub struct ListenStruct {
+pub struct Listen {
     pub url: String,
 
     pub action_hook: String,
@@ -50,9 +43,9 @@ pub struct ListenStruct {
     pub ws_auth: Option<WSAuth>,
 }
 
-impl ListenStruct {
-    pub fn new(url: String, action_hook: String) -> ListenStruct {
-        ListenStruct {
+impl Listen {
+    pub fn new(url: String, action_hook: String) -> Listen {
+        Listen {
             url: url.to_string(),
             action_hook: action_hook.to_string(),
             sample_rate: Some(SampleRate::SR8000),
@@ -68,47 +61,47 @@ impl ListenStruct {
         }
     }
     
-    pub fn timeout(&mut self, timeout: Option<u8>) -> &mut ListenStruct {
+    pub fn timeout(&mut self, timeout: Option<u8>) -> &mut Listen {
         self.timeout = timeout;
         self
     }
     
-    pub fn finish_on_key(&mut self, key: Option<String>) -> &mut ListenStruct {
+    pub fn finish_on_key(&mut self, key: Option<String>) -> &mut Listen {
         self.finish_on_key = key;
         self
     }
     
-    pub fn max_length(&mut self, length: Option<u16>) -> &mut ListenStruct {
+    pub fn max_length(&mut self, length: Option<u16>) -> &mut Listen {
         self.max_length = length;
         self
     }
     
-    pub fn metadata(&mut self, metadata: Option<HashMap<String, String>>) -> &mut ListenStruct {
+    pub fn metadata(&mut self, metadata: Option<HashMap<String, String>>) -> &mut Listen {
         self.metadata = metadata;
         self
     }
     
-    pub fn mix_type(&mut self, mix_type: Option<MixType>) -> &mut ListenStruct {
+    pub fn mix_type(&mut self, mix_type: Option<MixType>) -> &mut Listen {
         self.mix_type = mix_type;
         self
     }
     
-    pub fn pass_dtmf(&mut self, pass_dtmf: Option<bool>) -> &mut ListenStruct {
+    pub fn pass_dtmf(&mut self, pass_dtmf: Option<bool>) -> &mut Listen {
         self.pass_dtmf = pass_dtmf;
         self
     }
     
-    pub fn play_beep(&mut self, play_beep: Option<bool>) -> &mut ListenStruct {
+    pub fn play_beep(&mut self, play_beep: Option<bool>) -> &mut Listen {
         self.play_beep = play_beep;
         self
     }
     
-    pub fn transcribe(&mut self, transcribe: Option<Transcribe>) -> &mut ListenStruct {
+    pub fn transcribe(&mut self, transcribe: Option<Transcribe>) -> &mut Listen {
         self.transcribe = transcribe;
         self
     }
     
-    pub fn ws_auth(&mut self, ws_auth: Option<WSAuth>) -> &mut ListenStruct {
+    pub fn ws_auth(&mut self, ws_auth: Option<WSAuth>) -> &mut Listen {
         self.ws_auth = ws_auth;
         self
     }
