@@ -27,6 +27,7 @@ pub enum WebsocketRequest {
     #[serde(rename = "verb:hook")]
     VerbHook(SessionVerbHook),
 
+    #[serde(rename = "session:record")]
     RecordingRequest(SessionRecording)
 }
 
