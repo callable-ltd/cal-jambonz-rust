@@ -36,25 +36,25 @@ pub enum WebsocketRequest {
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SessionRecording {
-    call_sid: String,
-    account_sid: String,
-    application_sid: String,
-    from: String,
-    to: String,
-    caller_id: String,
-    call_id: String,
-    call_status: SessionCallStatusEnum,
-    sip_status: SIPStatus,
-    sip_reason: String,
-    local_sip_address: String,
-    public_ip: String,
-    sbc_callid: String,
-    parent_call_sid: Option<String>,
-    mix_type: String,
-    sample_rate: u16,
+   pub call_sid: String,
+    pub account_sid: String,
+    pub application_sid: String,
+    pub from: String,
+    pub to: String,
+    pub caller_id: String,
+    pub call_id: String,
+    pub call_status: SessionCallStatusEnum,
+    pub sip_status: SIPStatus,
+    pub sip_reason: String,
+    pub local_sip_address: String,
+    pub public_ip: String,
+    pub sbc_callid: String,
+    pub parent_call_sid: Option<String>,
+    pub mix_type: String,
+    pub sample_rate: u16,
 
     #[serde(flatten)]
-    metadata: HashMap<String, Value>,
+    pub metadata: HashMap<String, Value>,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
