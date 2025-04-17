@@ -27,7 +27,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cal-jambonz-rust = "0.1.70"
+cal-jambonz-rust = "0.1.0"
 ```
 
 ## Quick Start 🏃‍♂️
@@ -95,4 +95,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments 🙏
 
-- [Jambonz](https://jambonz.org/) & Dave Horton, for providing an kick ass open-source communications platform
+- [Jambonz](https://jambonz.org/) and Dave Horton, for providing a kick ass open-source communications platform
+
+## TODO List 📝
+
+Future enhancements planned for this library:
+
+- 🔄 Implement Jambonz REST API client for account management
+- ⚡ Add support for real-time call control
+- 📚 Create comprehensive documentation with more examples
