@@ -1,25 +1,27 @@
-# cal-jambonz-rust
+# cal-jambonz-rust 🚀
 
 A Rust library for building applications that interact with the [Jambonz](https://jambonz.org/) communications platform.
 
-## Overview
+> 📱 **Heads up!** For implementing a complete Jambonz webhook server with Actix Web integration, check out our awesome companion project [jambonz-actix-web](https://github.com/callable-ltd/cal-jambonz-actix-web-rust) - it's perfect for handling those webhooks like a pro!
+
+## Overview 🌟
 
 This library provides a Rust implementation for creating and managing Jambonz applications. Jambonz is an open-source CPaaS (Communications Platform as a Service) that allows developers to build voice and messaging applications using a simple API. This library allows you to create Jambonz applications using type-safe Rust code, abstracting away the complexities of the underlying JSON webhook API.
 
-## Features
+## Features ✨
 
-- Type-safe implementation of Jambonz verbs and actions
-- Simplified request/response handling for Jambonz webhooks
-- Comprehensive support for Jambonz's feature set, including:
-    - Call control (answer, hangup)
-    - Media operations (play, pause, record)
-    - Speech recognition and text-to-speech
-    - Conference management
-    - Call transfer and SIP integration
-    - Gather DTMF input
+- 🛡️ Type-safe implementation of Jambonz verbs and actions
+- 🔄 Simplified request/response handling for Jambonz webhooks
+- 🎯 Comprehensive support for Jambonz's feature set, including:
+    - 📞 Call control (answer, hangup)
+    - 🎵 Media operations (play, pause, record)
+    - 🗣️ Speech recognition and text-to-speech
+    - 👥 Conference management
+    - 🔀 Call transfer and SIP integration
+    - 🔢 Gather DTMF input
     - And more...
 
-## Installation
+## Installation 📦
 
 Add this to your `Cargo.toml`:
 
@@ -28,7 +30,7 @@ Add this to your `Cargo.toml`:
 cal-jambonz-rust = "0.1.0"
 ```
 
-## Quick Start
+## Quick Start 🏃‍♂️
 
 Here's a simple example of using the library to create a basic IVR (Interactive Voice Response) application:
 
@@ -65,33 +67,32 @@ fn handle_call_webhook(request_json: &str) {
 }
 ```
 
-## Supported Jambonz Verbs
+## Supported Jambonz Verbs 🎭
 
 This library supports all standard Jambonz verbs including:
 
-- `Say` - Synthesize speech
-- `Play` - Play an audio file
-- `Gather` - Collect DTMF digits
-- `Record` - Record the call
-- `Dial` - Make an outbound call
-- `Conference` - Create or join a conference
-- `Hangup` - End the call
-- `Sip:decline` - Decline an incoming call
-- `Leave` - Leave a conference
-- `Transfer` - Transfer the call
-- `Pause` - Pause execution
-- `Tag` - Add metadata to call events
-- `Config` - Configure call parameters
-- `Enqueue` - Place call in a queue
-- `Dequeue` - Remove call from a queue
+- 🗣️ `Say` - Synthesize speech
+- 🎵 `Play` - Play an audio file
+- 🔢 `Gather` - Collect DTMF digits
+- 🎙️ `Record` - Record the call
+- 📞 `Dial` - Make an outbound call
+- 👥 `Conference` - Create or join a conference
+- 👋 `Hangup` - End the call
+- 🚫 `Sip:decline` - Decline an incoming call
+- 🚶 `Leave` - Leave a conference
+- 🔄 `Transfer` - Transfer the call
+- ⏸️ `Pause` - Pause execution
+- 🏷️ `Tag` - Add metadata to call events
+- ⚙️ `Config` - Configure call parameters
+- 🔄 `Enqueue` - Place call in a queue
+- 🔄 `Dequeue` - Remove call from a queue
 
 For detailed documentation on each verb and its options, please refer to the code documentation.
 
-## License
+## License 📄
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgments
+## Acknowledgments 🙏
 
-- [Jambonz](https://jambonz.org/) for providing an open-source communications platform
-- The Rust community for inspiration and support
+- [Jambonz](https://jambonz.org/) & Dave Horton, for providing an kick ass open-source communications platform
