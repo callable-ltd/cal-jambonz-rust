@@ -21,6 +21,12 @@ This library provides a Rust implementation for creating and managing Jambonz ap
     - 🔢 Gather DTMF input
     - And more...
 
+## Requirements ✅
+
+* Rust 1.70+
+* Actix Web ecosystem
+* Features from: `actix-web`, `actix-ws`, `uuid`, `serde`, `futures`, etc.
+
 ## Installation 📦
 
 Add this to your `Cargo.toml`:
@@ -93,9 +99,13 @@ For detailed documentation on each verb and its options, please refer to the cod
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## Contributing 🧱
+
+PRs and issues are welcome. Whether it's bug fixes, new features, or documentation improvements — let's build together.
+
 ## Acknowledgments 🙏
 
-- [Jambonz](https://jambonz.org/) and Dave Horton, for providing a kick ass open-source communications platform
+- [Jambonz](https://jambonz.org/) & Dave Horton, for providing a kick-ass open-source communications platform
 
 ## TODO List 📝
 
