@@ -4,15 +4,27 @@ use crate::verbs::dub::DubData;
 use crate::verbs::play_say::PlaySay;
 use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use serde_json::Value;
+use std::collections::HashMap;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Verbs {
     #[serde(skip)]
     pub msg_id: String,
-
     pub data: Vec<Verb>,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub enum JambonzRequest {
+    Hook(WebsocketRequest),
+    Recording(RecordingRequest),
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub enum RecordingRequest {
+    SessionNew(SessionRecording),
+    Binary(Vec<u8>),
+    Close,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -28,15 +40,13 @@ pub enum WebsocketRequest {
     CallStatus(SessionCallStatus),
     #[serde(rename = "verb:hook")]
     VerbHook(SessionVerbHook),
-
-    #[serde(rename = "session:record")]
-    RecordingRequest(SessionRecording),
+    Close,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SessionRecording {
-   pub call_sid: String,
+    pub call_sid: String,
     pub account_sid: String,
     pub application_sid: String,
     pub from: String,
