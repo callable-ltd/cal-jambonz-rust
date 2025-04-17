@@ -27,7 +27,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-cal-jambonz-rust = "0.1.0"
+cal-jambonz-rust = "0.1.70"
 ```
 
 ## Quick Start 🏃‍♂️
