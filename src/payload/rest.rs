@@ -235,19 +235,19 @@ pub struct SipPayload {
 }
 
 impl SipPayload {
-    fn get_contact_ip(&self) -> String {
+    pub  fn get_contact_ip(&self) -> String {
         self.headers.get_contact_ip()
     }
 
-    fn has_user(&self) -> bool {
+    pub  fn has_user(&self) -> bool {
         self.headers.x_authenticated_user.is_some()
     }
 
-    fn has_teams(&self) -> bool {
+    pub fn has_teams(&self) -> bool {
         self.headers.x_ms_teams_tenant_fqdn.is_some()
     }
 
-    fn has_proxy(&self, proxies: Vec<&str>) -> bool {
+    pub fn has_proxy(&self, proxies: Vec<&str>) -> bool {
         let mut is_match = false;
         for x in proxies {
             let res = iface_in_subnet(self.headers.x_forwarded_for.as_str(), &x).unwrap();
