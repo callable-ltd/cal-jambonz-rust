@@ -1,3 +1,4 @@
+use std::fmt::{Debug, Formatter};
 use crate::vendors::amazon::AWSRecognizer;
 use crate::verbs::vendors::deepgram::DeepgramRecognizer;
 use crate::verbs::vendors::google::GoogleRecognizer;
@@ -22,4 +23,21 @@ pub enum Recognizer {
     Nvidia(NvidiaRecognizer),
     Soniox(SonioxRecognizer),
     Openai(OpenaiRecognizer)
+}
+
+// Recognizer Debug Implementation
+impl Debug for Recognizer {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        match self {
+            Recognizer::Aws(_) => write!(f, "Recognizer::Aws"),
+            Recognizer::Deepgram(_) => write!(f, "Recognizer::Deepgram"),
+            Recognizer::Google(_) => write!(f, "Recognizer::Google"),
+            Recognizer::Ibm(_) => write!(f, "Recognizer::Ibm"),
+            Recognizer::Microsoft(_) => write!(f, "Recognizer::Microsoft"),
+            Recognizer::Nuance(_) => write!(f, "Recognizer::Nuance"),
+            Recognizer::Nvidia(_) => write!(f, "Recognizer::Nvidia"),
+            Recognizer::Soniox(_) => write!(f, "Recognizer::Soniox"),
+            Recognizer::Openai(_) => write!(f, "Recognizer::Openai"),
+        }
+    }
 }

@@ -4,6 +4,7 @@ use crate::verbs::verb::Verb;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::collections::HashMap;
+use std::fmt::{Debug, Formatter};
 
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -130,10 +131,36 @@ pub enum SampleRate {
     SR64000 = 64000,
 }
 
+// SampleRate Debug Implementation
+impl Debug for SampleRate {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        match self {
+            SampleRate::SR8000 => write!(f, "8000Hz"),
+            SampleRate::SR16000 => write!(f, "16000Hz"),
+            SampleRate::SR24000 => write!(f, "24000Hz"),
+            SampleRate::SR48000 => write!(f, "48000Hz"),
+            &SampleRate::SR64000 => write!(f, "64000Hz"),
+
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub enum MixType {
     Mono,
     Stereo,
     Mixed,
+}
+
+
+// MixType Debug Implementation
+impl Debug for MixType {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        match self {
+            MixType::Mono => write!(f, "Mono"),
+            MixType::Stereo => write!(f, "Stereo"),
+            MixType::Mixed => write!(f, "Mixed"),
+        }
+    }
 }
