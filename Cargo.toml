@@ -1,6 +1,6 @@
 [package]
 name = "cal-jambonz"
-version = "0.1.75"
+version = "0.1.76"
 edition = "2024"
 description = "Jambonz Verbs"
 license = "MIT"

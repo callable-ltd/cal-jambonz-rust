@@ -25,7 +25,7 @@ pub struct Synthesizer {
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-#[serde(rename_all = "camelCase")]
+#[serde(untagged)]
 pub enum SynthesizerOptions {
     Google(GoogleSynthesizer),
     Aws(AwsSynthesizer),
