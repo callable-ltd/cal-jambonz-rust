@@ -16,9 +16,11 @@ use serde::{Deserialize, Serialize};
 pub struct Synthesizer {
     pub vendor: SynthesizerVendor,
 
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 
     #[serde(flatten)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub synthesizer_options: Option<SynthesizerOptions>,
 }
 
