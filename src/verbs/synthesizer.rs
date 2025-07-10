@@ -147,3 +147,46 @@ pub enum SynthesizerVendor {
     Verbio,
     Whisper,
 }
+
+impl SynthesizerVendor {
+    /// Determines the synthesizer vendor from a TTS voice string
+    pub fn from_voice_string(voice: &str) -> Self {
+        // Google voices - contain these specific markers
+        if voice.contains("-Standard-") ||
+            voice.contains("-Wavenet-") ||
+            voice.contains("-Neural-") ||
+            voice.contains("-Studio-") ||
+            voice.contains("-Polyglot-") ||
+            voice.contains("-News-") ||
+            voice.contains("-Casual-") {
+            return SynthesizerVendor::Google;
+        }
+
+        // AWS/Microsoft voices - various patterns
+        if voice.starts_with("Microsoft:") ||
+            voice.starts_with("Azure:") ||
+            voice.starts_with("Polly:") ||
+            voice.starts_with("aws:") ||
+            voice.ends_with("Neural") ||
+            voice.ends_with("Multilingual") {
+            return SynthesizerVendor::Aws;
+        }
+
+        // Check for voice patterns like "en-US-JennyNeural" (AWS/Microsoft style)
+        // These have a name starting with uppercase after the last dash
+        if let Some(last_dash_pos) = voice.rfind('-') {
+            let suffix = &voice[last_dash_pos + 1..];
+            if suffix.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) {
+                return SynthesizerVendor::Aws;
+            }
+        }
+
+        // Simple locale patterns like "en-US", "en-GB" default to Google
+        if voice.len() == 5 && voice.chars().nth(2) == Some('-') {
+            return SynthesizerVendor::Google;
+        }
+
+        // Default fallback
+        SynthesizerVendor::Default
+    }
+}
